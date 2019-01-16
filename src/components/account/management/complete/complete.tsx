@@ -42,7 +42,12 @@ export class Complete {
         .catch((error) => {
           console.log('Error', error);
           if (user.emailVerified) {
-            return this.history.push('/dashboard');
+            this.alertMsg = {
+              type: 'success',
+              message: <span>Account successfully created! Please wait whilst we take you to your dashboard.</span>,
+            };
+            this.alert.show();
+            return setTimeout(() => this.history.push('/dashboard'), 4000);
           }
 
           this.alertMsg = getAlertMessage(error.code, this.email);
@@ -64,8 +69,19 @@ export class Complete {
             </p>
           </blaze-card-body>
           <blaze-card-footer>
-            <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type} dismissible>
-              {this.alertMsg.message}
+            <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
+              <div>{this.alertMsg.message}</div>
+              <div>
+                {this.alertMsg.action && (
+                  <stencil-route-link
+                    url={this.alertMsg.action.url}
+                    anchorClass="c-link"
+                    anchorRole="link"
+                    anchorTitle={this.alertMsg.action.text}>
+                    {this.alertMsg.action.text}
+                  </stencil-route-link>
+                )}
+              </div>
             </blaze-alert>
           </blaze-card-footer>
         </blaze-card>

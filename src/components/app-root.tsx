@@ -1,5 +1,6 @@
-import { Component, State } from '@stencil/core';
+import { Component, State, Prop } from '@stencil/core';
 import '@stencil/router';
+import { RouterHistory } from '@stencil/router';
 import '@blaze/atoms';
 import firebase from '@/firebase/firebase';
 
@@ -7,6 +8,9 @@ import firebase from '@/firebase/firebase';
   tag: 'app-root',
 })
 export class AppRoot {
+  @Prop()
+  history: RouterHistory;
+
   @State()
   user: any;
 
@@ -26,6 +30,7 @@ export class AppRoot {
             <stencil-route url="/verify" component="account-verify" />
             <stencil-route url="/complete" component="account-complete" />
             <stencil-route url="/500" component="app-broken" />
+            <stencil-route url="/logout" component="account-logout" />
             <stencil-route component="page-not-found" />
           </stencil-route-switch>
         </stencil-router>

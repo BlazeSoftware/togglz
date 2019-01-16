@@ -70,8 +70,19 @@ export class Login {
               <h2 class="c-heading">Log In</h2>
             </blaze-card-header>
             <blaze-card-body>
-              <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type} dismissible>
-                {this.alertMsg.message}
+              <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
+                <div>{this.alertMsg.message}</div>
+                <div>
+                  {this.alertMsg.action && (
+                    <stencil-route-link
+                      url={this.alertMsg.action.url}
+                      anchorClass="c-link"
+                      anchorRole="link"
+                      anchorTitle={this.alertMsg.action.text}>
+                      {this.alertMsg.action.text}
+                    </stencil-route-link>
+                  )}
+                </div>
               </blaze-alert>
               <label class="c-label o-form-element">
                 Email address:

@@ -1,0 +1,22 @@
+@import 'node_modules/@blaze/css/src/scss/mixins/_settings';
+
+.c-alert {
+  .c-link {
+    color: map-get($colors, white) !important;
+    text-decoration: underline !important;
+  }
+}
+
+.c-alert--warning {
+  .c-link {
+    color: map-get($colors, black) !important;
+    text-decoration: underline !important;
+  }
+}
+
+.c-input-group--label {
+  .o-field,
+  .c-button {
+    margin: $label-field-margin;
+  }
+}

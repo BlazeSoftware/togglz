@@ -1,0 +1,49 @@
+@import 'node_modules/@blaze/css/src/scss/mixins/_settings';
+@import 'node_modules/@blaze/css/src/scss/mixins/_tools.mediaqueries';
+@import 'node_modules/@blaze/css/src/scss/mixins/_utilities.visibility';
+@import 'node_modules/@blaze/css/src/scss/blaze';
+@import './debt';
+
+body {
+  overflow-x: hidden;
+  background-color: map-get($colors, white);
+  color: map-get($colors, brand);
+}
+
+.u-text {
+  color: map-get($colors, brand);
+}
+
+.c-alert {
+  .c-link {
+    color: #fff !important;
+    text-decoration: underline !important;
+  }
+}
+
+.c-alert--warning {
+  .c-link {
+    color: #000 !important;
+    text-decoration: underline !important;
+  }
+}
+
+home-page {
+  .o-home-page {
+    margin-top: -2em;
+    width: 80%;
+
+    .c-heading {
+      margin: 1em 0 0.5em;
+      padding: 0;
+    }
+  }
+
+  .c-toggle__track {
+    margin: 0 auto;
+  }
+
+  .c-tagline {
+    font-weight: normal;
+  }
+}

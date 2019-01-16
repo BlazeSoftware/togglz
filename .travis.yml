@@ -1,0 +1,23 @@
+language: node_js
+install:
+  - npm ci
+branches:
+  only:
+  - master
+cache:
+  directories:
+  - node_modules
+  - "$HOME/.npm"
+jobs:
+  include:
+  - stage: Test
+    script:
+    - commitlint-travis
+  - stage: Deploy Site
+    script:
+    - npm run build
+    deploy:
+      skip_cleanup: true
+      provider: firebase
+      token:
+        secure: imbVP8cilnzbloGNew+jtxH3nxtXV2VFXlki+zmCznEtX4g5v9bdLiiia8M0rRVxKJ4PpGPVo1aeT9rm4ylmcKja0QgsZSJP2vG5bcngqxAgUV3MeOoAZ7ipe8Sz9+9kHzdFqVL8yv6hjSefQJDawzQoxWwq1VBKCy/taS6gQ2eZLLT2y9dgmbdeFzRH9cjUJhSM6uX24BIbmq+zAEDsHfrB8Dfe6ROtiaMRMVJz/Jn5cbyDQpo/dmeTW/rzkDHHEEqA+zbTXXYubde0q44Pj3JI+oH5i2qB8UUiLHoOJn/KEg3AwLWiKb5FOI5qd70U/CImEPs4IpoocAdeLK1k6n3Q8b9blglSXDVTiT4fpjjXzMbkwJMV3NOhObp7sI/pzgCJyHs6Ms6sgGlb1xRSfgQoMFQxmcqzZvHYtQi26tmzEDy/aYcmJrNxbWqih3bfWlr+RL+qjyThuJh5XP3wpC7pCRu2ZJlVqXK2/bAZcEasuD9P6oA5/ezfzBgkjMx/2qCAeua1pGm3KMP9b3POsvDLsjxmnXl2/PkFl198qhieVskRXOcLesTpjLBAIClHSMttdl0onU1b0NUq2dUQegS5hhbQppI5tdcm68yqO78jnuSLWMOpqP7GqGr91EP71+271kAZ+WR/G7cLtg1Fli7lAbE0VsRgE6eHnsDX88E=

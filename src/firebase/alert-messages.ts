@@ -1,5 +1,3 @@
-import '@stencil/router';
-
 export interface AlertMessage {
   type?: string;
   message?: any;

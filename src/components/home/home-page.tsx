@@ -1,6 +1,5 @@
 import '@blaze/atoms';
 import { Component } from '@stencil/core';
-import '@stencil/router';
 
 @Component({
   tag: 'home-page',

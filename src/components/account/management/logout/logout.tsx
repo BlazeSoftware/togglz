@@ -1,20 +1,19 @@
-import { Component, Prop } from '@stencil/core';
-import { RouterHistory } from '@stencil/router';
+import { Component, State } from '@stencil/core';
 import firebase from '@/firebase/firebase';
 
 @Component({
   tag: 'account-logout',
 })
 export class Logout {
-  @Prop()
-  history: RouterHistory;
+  @State()
+  loggedOut: boolean;
 
   componentDidLoad() {
     firebase
       .auth()
       .signOut()
       .then(() => {
-        setTimeout(() => this.history.push('/'), 1000);
+        this.loggedOut = true;
       });
   }
 
@@ -22,8 +21,24 @@ export class Logout {
     return (
       <div class="u-letter-box-super u-pillar-box-small u-centered">
         <div style={{ 'font-size': '4em' }}>👋</div>
-        <h2 class="u-heading">Logging out....</h2>
-        <div class="u-text--quiet">See you soon!</div>
+        {!this.loggedOut ? (
+          <h2 class="u-heading">Logging out....</h2>
+        ) : (
+          <div>
+            <h2 class="u-heading">Logged out.</h2>
+            <p class="c-paragraph u-text--quiet">See you soon!</p>
+            <p class="c-paragraph">
+              <stencil-route-link url={'/'} anchorClass="c-link">
+                Go back to the home page
+              </stencil-route-link>
+            </p>
+            <p class="c-paragraph">
+              <stencil-route-link url={'/login'} anchorClass="c-link">
+                Log in again
+              </stencil-route-link>
+            </p>
+          </div>
+        )}
       </div>
     );
   }

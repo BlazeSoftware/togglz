@@ -12,11 +12,11 @@ export class Verify {
   history: RouterHistory;
 
   @State()
-  emailResent: boolean = false;
+  complete: boolean;
 
   resend() {
     // todo: resend verification email
-    this.emailResent = true;
+    this.complete = true;
     this.alert.show();
   }
 
@@ -34,7 +34,7 @@ export class Verify {
         return user
           .sendEmailVerification()
           .then(() => {
-            this.emailResent = true;
+            this.complete = true;
             this.alert.show();
           })
           .catch(() => this.history.push('/500'));
@@ -66,7 +66,7 @@ export class Verify {
           <blaze-card-footer>
             <button
               class="c-button c-button--brand c-button--block"
-              disabled={this.emailResent}
+              disabled={this.complete}
               onClick={() => this.resend()}>
               Re-send verification email
               <span class="c-button__icon-right" aria-hidden>

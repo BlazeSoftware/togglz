@@ -20,7 +20,7 @@ const messages = (email: string) => ({
     type: 'info',
     message: 'This email already has an account. Would you like to ',
     action: {
-      url: `/forgot?email=${email}`,
+      url: `/reset?email=${email}`,
       text: 'reset your password?',
     },
   },
@@ -36,7 +36,7 @@ const messages = (email: string) => ({
     type: 'info',
     message: "The password you've used is incorrect. Would you like to ",
     action: {
-      url: `/forgot?email=${email}`,
+      url: `/reset?email=${email}`,
       text: 'reset your password?',
     },
   },
@@ -57,15 +57,15 @@ const messages = (email: string) => ({
     message: 'The verify link we emailed you has expired.',
     action: {
       url: `/verify?email=${email}`,
-      text: 'Re-send verification email',
+      text: 'Re-send verification email.',
     },
   },
   'auth/invalid-action-code': {
     type: 'warning',
-    message: 'This verification code is invalid, you may have already used it.',
+    message: 'This code is invalid, you may have already used it.',
     action: {
       url: `/verify?resend=true&email=${email}`,
-      text: 'Re-send verification email',
+      text: 'Re-send email.',
     },
   },
   'auth/missing-action-code': {
@@ -74,5 +74,5 @@ const messages = (email: string) => ({
   },
 });
 
-export const getAlertMessage = (errCode: string, email: string): AlertMessage =>
+export const getAlertMessage = (errCode: string, email?: string): AlertMessage =>
   messages(email)[errCode] || messages(email).default;

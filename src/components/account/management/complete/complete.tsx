@@ -18,6 +18,15 @@ export class Complete {
   @State()
   alertMsg: AlertMessage = {};
 
+  emailVerified() {
+    this.alertMsg = {
+      type: 'success',
+      message: <span>Account successfully created! Please wait whilst we take you to your dashboard.</span>,
+    };
+    this.alert.show();
+    setTimeout(() => this.history.push('/dashboard'), 5000);
+  }
+
   componentDidLoad() {
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
@@ -34,20 +43,11 @@ export class Complete {
       firebase
         .auth()
         .applyActionCode(this.history.location.query.oobCode)
-        .then(() =>
-          user.reload().then(() => {
-            this.history.push('/dashboard');
-          })
-        )
+        .then(() => user.reload().then(() => this.emailVerified()))
         .catch((error) => {
-          console.log('Error', error);
+          console.error(error);
           if (user.emailVerified) {
-            this.alertMsg = {
-              type: 'success',
-              message: <span>Account successfully created! Please wait whilst we take you to your dashboard.</span>,
-            };
-            this.alert.show();
-            return setTimeout(() => this.history.push('/dashboard'), 4000);
+            return this.emailVerified();
           }
 
           this.alertMsg = getAlertMessage(error.code, this.email);

@@ -8,18 +8,14 @@ export class Logout {
   @State()
   loggedOut: boolean;
 
-  componentDidLoad() {
-    firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        this.loggedOut = true;
-      });
+  async componentDidLoad() {
+    await firebase.auth().signOut();
+    this.loggedOut = true;
   }
 
   render() {
     return (
-      <div class="u-letter-box-super u-pillar-box-small u-centered">
+      <div class="o-container o-container--small u-window-box-xlarge u-centered">
         <div style={{ 'font-size': '4em' }}>👋</div>
         {!this.loggedOut ? (
           <h2 class="u-heading">Logging out....</h2>

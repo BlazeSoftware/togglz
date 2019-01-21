@@ -25,8 +25,13 @@ export class Reset {
     this.email = e.target.value;
   }
 
+  firebaseUnsubscribe: any;
+  componentDidUnload() {
+    this.firebaseUnsubscribe();
+  }
+
   componentDidLoad() {
-    firebase.auth().onAuthStateChanged((user) => {
+    this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user && !user.emailVerified) {
         return this.history.push(`/verify?resend=true&email=${user.email}`);
       }
@@ -35,33 +40,30 @@ export class Reset {
     });
   }
 
-  send(e) {
+  async send(e) {
     e.preventDefault();
-    firebase
-      .auth()
-      .sendPasswordResetEmail(this.email)
-      .then(() => {
-        this.complete = true;
-        this.alert.show();
-      })
-      .catch((error) => {
-        console.error(error);
-        this.complete = true;
-        this.alertMsg = getAlertMessage(error.code);
-        this.alert.show();
-      });
+    try {
+      await firebase.auth().sendPasswordResetEmail(this.email);
+      this.complete = true;
+      this.alert.show();
+    } catch (error) {
+      console.error(error);
+      this.complete = true;
+      this.alertMsg = getAlertMessage(error.code);
+      this.alert.show();
+    }
   }
 
   render() {
     return (
-      <div class="o-container o-container--xsmall u-letter-box-super">
+      <div class="o-container o-container--xsmall u-window-box-medium">
         <blaze-card>
           <form onSubmit={(e) => this.send(e)}>
             <blaze-card-header>
               <h2 class="c-heading">Reset password</h2>
             </blaze-card-header>
             <blaze-card-body>
-              <blaze-alert ref={(alert) => (this.alert = alert)} type="info">
+              <blaze-alert ref={(alert) => (this.alert = alert)} type="success">
                 Password reset email sent.
               </blaze-alert>
               <label class="c-label o-form-element">

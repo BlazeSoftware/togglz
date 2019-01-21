@@ -38,43 +38,39 @@ export class Password {
     setTimeout(() => this.history.push('/dashboard'), 5000);
   }
 
-  updatePassword(e) {
+  async updatePassword(e) {
     e.preventDefault();
-    firebase
-      .auth()
-      .confirmPasswordReset(this.history.location.query.oobCode, this.password)
-      .then(() => {
-        this.passwordChanged();
-      })
-      .catch((error) => {
-        console.error(error);
-        this.alertMsg = getAlertMessage(error.code, this.password);
-        this.alert.show();
-      });
+    try {
+      await firebase.auth().confirmPasswordReset(this.history.location.query.oobCode, this.password);
+      this.passwordChanged();
+    } catch (error) {
+      console.error(error);
+      this.alertMsg = getAlertMessage(error.code, this.password);
+      this.alert.show();
+    }
   }
 
-  componentDidLoad() {
+  async componentDidLoad() {
     if (!this.history.location.query.oobCode) {
       this.complete = true;
       this.alertMsg = getAlertMessage('auth/missing-action-code');
       return this.alert.show();
     }
 
-    firebase
-      .auth()
-      .checkActionCode(this.history.location.query.oobCode)
-      .catch((error) => {
-        console.error(error);
-        this.complete = true;
-        this.alertMsg = getAlertMessage(error.code);
-        this.alertMsg.action.url = '/reset';
-        this.alert.show();
-      });
+    try {
+      await firebase.auth().checkActionCode(this.history.location.query.oobCode);
+    } catch (error) {
+      console.error(error);
+      this.complete = true;
+      this.alertMsg = getAlertMessage(error.code);
+      this.alertMsg.action.url = '/reset';
+      this.alert.show();
+    }
   }
 
   render() {
     return (
-      <div class="o-container o-container--xsmall u-letter-box-super">
+      <div class="o-container o-container--xsmall u-window-box-medium">
         <blaze-card>
           <form onSubmit={(e) => this.updatePassword(e)}>
             <blaze-card-header>

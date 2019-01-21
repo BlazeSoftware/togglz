@@ -6,9 +6,9 @@ import { Component } from '@stencil/core';
 export class Broken {
   render() {
     return (
-      <div class="u-letter-box-super u-pillar-box-small u-centered">
+      <div class="o-container o-container--small u-window-box-xlarge u-centered">
         <div style={{ 'font-size': '4em' }}>💣</div>
-        <h2 class="u-heading">Oops, sorry about this but something went wrong</h2>
+        <h2 class="u-heading">Sorry, something went wrong and we're not sure what.</h2>
         <a class="c-link" href="/">
           Go back to the home page
         </a>

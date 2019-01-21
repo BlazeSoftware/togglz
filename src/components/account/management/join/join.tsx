@@ -32,28 +32,32 @@ export class Join {
     this.password = e.target.value;
   }
 
-  createAccount(e) {
+  async createAccount(e) {
     e.preventDefault();
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(this.email, this.password)
-      .then(({ user }) => {
-        user
-          .sendEmailVerification()
-          .then(() => this.history.push(`/verify?email=${user.email}`))
-          .catch(() => this.history.push('/500'));
-      })
-      .catch((error) => {
-        console.log(error);
-        this.alertMsg = getAlertMessage(error.code, this.email);
-        this.alert.show();
-      });
+    try {
+      const { user } = await firebase.auth().createUserWithEmailAndPassword(this.email, this.password);
+      try {
+        await user.sendEmailVerification();
+        this.history.push(`/verify?email=${user.email}`);
+      } catch (e) {
+        this.history.push('/500');
+      }
+    } catch (error) {
+      console.log(error);
+      this.alertMsg = getAlertMessage(error.code, this.email);
+      this.alert.show();
+    }
+  }
+
+  firebaseUnsubscribe: any;
+  componentDidUnload() {
+    this.firebaseUnsubscribe();
   }
 
   componentDidLoad() {
     this.email = this.history.location.query.email;
 
-    firebase.auth().onAuthStateChanged((user) => {
+    this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         if (user.emailVerified) {
           return this.history.push('/dashboard');
@@ -65,7 +69,7 @@ export class Join {
 
   render() {
     return (
-      <div class="o-container o-container--xsmall u-letter-box-super">
+      <div class="o-container o-container--xsmall u-window-box-medium">
         <blaze-card>
           <form onSubmit={(e) => this.createAccount(e)}>
             <blaze-card-header>

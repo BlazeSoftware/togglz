@@ -47,3 +47,16 @@ home-page {
     font-weight: normal;
   }
 }
+
+account-dashboard {
+  .c-dashboard-controls {
+    text-align: right;
+    .c-link {
+      margin-left: 2em;
+    }
+  }
+
+  .o-modal--small .o-modal {
+    max-width: 300px;
+  }
+}

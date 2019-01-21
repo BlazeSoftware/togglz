@@ -1,8 +1,7 @@
-import { Component, State, Prop } from '@stencil/core';
+import { Component, Prop } from '@stencil/core';
 import '@stencil/router';
 import { RouterHistory } from '@stencil/router';
 import '@blaze/atoms';
-import firebase from '@/firebase/firebase';
 
 @Component({
   tag: 'app-root',
@@ -10,13 +9,6 @@ import firebase from '@/firebase/firebase';
 export class AppRoot {
   @Prop()
   history: RouterHistory;
-
-  @State()
-  user: any;
-
-  componentWillLoad() {
-    firebase.auth().onAuthStateChanged((user: any) => (this.user = user));
-  }
 
   render() {
     return (
@@ -32,6 +24,7 @@ export class AppRoot {
             <stencil-route url="/complete" component="account-complete" />
             <stencil-route url="/reset" component="account-reset-password" />
             <stencil-route url="/password" component="account-password" />
+            <stencil-route url="/feature/add" component="feature-add" />
             <stencil-route url="/500" component="app-broken" />
             <stencil-route url="/logout" component="account-logout" />
             <stencil-route component="page-not-found" />

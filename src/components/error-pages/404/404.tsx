@@ -6,7 +6,7 @@ import { Component } from '@stencil/core';
 export class PageNotFound {
   render() {
     return (
-      <div class="u-letter-box-super u-pillar-box-small u-centered">
+      <div class="o-container o-container--small u-window-box-xlarge u-centered">
         <div style={{ 'font-size': '4em' }}>🤷</div>
         <h2 class="u-heading">Oops, that page doesn't exist!</h2>
         <a class="c-link" href="/">

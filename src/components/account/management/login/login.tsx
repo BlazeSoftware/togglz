@@ -32,26 +32,28 @@ export class Login {
     this.password = e.target.value;
   }
 
-  login(e) {
+  async login(e) {
     e.preventDefault();
-    firebase
-      .auth()
-      .signInWithEmailAndPassword(this.email, this.password)
-      .then(({ user }) => {
-        if (user.emailVerified) {
-          return this.history.push('/dashboard');
-        }
-        return this.history.push(`/verify?email=${user.email}`);
-      })
-      .catch((error) => {
-        console.log(error);
-        this.alertMsg = getAlertMessage(error.code, this.email);
-        this.alert.show();
-      });
+    try {
+      const { user } = await firebase.auth().signInWithEmailAndPassword(this.email, this.password);
+      if (user.emailVerified) {
+        return this.history.push('/dashboard');
+      }
+      return this.history.push(`/verify?email=${user.email}`);
+    } catch (error) {
+      console.log(error);
+      this.alertMsg = getAlertMessage(error.code, this.email);
+      this.alert.show();
+    }
+  }
+
+  firebaseUnsubscribe: any;
+  componentDidUnload() {
+    this.firebaseUnsubscribe();
   }
 
   componentDidLoad() {
-    firebase.auth().onAuthStateChanged((user) => {
+    this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         if (user.emailVerified) {
           return this.history.push('/dashboard');
@@ -63,7 +65,7 @@ export class Login {
 
   render() {
     return (
-      <div class="o-container o-container--xsmall u-letter-box-super">
+      <div class="o-container o-container--xsmall u-window-box-medium">
         <blaze-card>
           <form onSubmit={(e) => this.login(e)}>
             <blaze-card-header>

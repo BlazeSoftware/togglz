@@ -18,10 +18,10 @@ const messages = (email: string) => ({
   },
   'auth/email-already-in-use': {
     type: 'info',
-    message: 'This email already has an account. Would you like to ',
+    message: 'This email already has an account.',
     action: {
       url: `/reset?email=${email}`,
-      text: 'reset your password?',
+      text: ' Would you like to reset your password?',
     },
   },
   'auth/user-not-found': {
@@ -34,10 +34,10 @@ const messages = (email: string) => ({
   },
   'auth/wrong-password': {
     type: 'info',
-    message: "The password you've used is incorrect. Would you like to ",
+    message: "The password you've used is incorrect.",
     action: {
       url: `/reset?email=${email}`,
-      text: 'reset your password?',
+      text: 'Would you like to reset your password?',
     },
   },
   'auth/weak-password': {
@@ -71,6 +71,10 @@ const messages = (email: string) => ({
   'auth/missing-action-code': {
     type: 'error',
     message: 'No verification code supplied.',
+  },
+  'storage/document-exists': {
+    type: 'error',
+    message: 'Feature keys must be unique, please use a different value for your key.',
   },
 });
 

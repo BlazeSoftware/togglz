@@ -20,3 +20,7 @@
     margin: $label-field-margin;
   }
 }
+
+.c-table__row--heading .c-table__cell {
+  color: map-get($colors, brand);
+}

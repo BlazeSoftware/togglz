@@ -20,8 +20,13 @@ export class Verify {
     this.alert.show();
   }
 
+  firebaseUnsubscribe: any;
+  componentDidUnload() {
+    this.firebaseUnsubscribe();
+  }
+
   componentDidLoad() {
-    firebase.auth().onAuthStateChanged((user) => {
+    this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) {
         return this.history.push('/login');
       }
@@ -31,13 +36,13 @@ export class Verify {
       }
 
       if (!user.emailVerified && this.history.location.query.resend === 'true') {
-        return user
-          .sendEmailVerification()
-          .then(() => {
-            this.complete = true;
-            this.alert.show();
-          })
-          .catch(() => this.history.push('/500'));
+        try {
+          await user.sendEmailVerification();
+          this.complete = true;
+          this.alert.show();
+        } catch (e) {
+          this.history.push('/500');
+        }
       }
     });
   }
@@ -45,13 +50,13 @@ export class Verify {
   render() {
     const email = this.history.location.query.email;
     return (
-      <div class="o-container o-container--xsmall u-letter-box-super">
+      <div class="o-container o-container--xsmall u-window-box-medium">
         <blaze-card>
           <blaze-card-header>
             <h2 class="c-heading">Verify email address</h2>
           </blaze-card-header>
           <blaze-card-body>
-            <blaze-alert ref={(alert) => (this.alert = alert)} type="info">
+            <blaze-alert ref={(alert) => (this.alert = alert)} type="success">
               Verification email re-sent.
             </blaze-alert>
             <p class="u-paragraph">

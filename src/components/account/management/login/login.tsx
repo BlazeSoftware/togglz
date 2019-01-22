@@ -66,6 +66,7 @@ export class Login {
   render() {
     return (
       <div class="o-container o-container--xsmall u-window-box-medium">
+        <stencil-route-title pageTitle="Login" />
         <blaze-card>
           <form onSubmit={(e) => this.login(e)}>
             <blaze-card-header>
@@ -125,10 +126,10 @@ export class Login {
             </blaze-card-body>
             <blaze-card-footer>
               <blaze-button type="brand" full>
-                Log In
-                <span class="c-button__icon-right" aria-hidden>
+                <span class="c-button__icon-left" aria-hidden>
                   <i class="fas fa-sign-in-alt" />
                 </span>
+                Log In
               </blaze-button>
             </blaze-card-footer>
           </form>

@@ -16,6 +16,8 @@ export class Logout {
   render() {
     return (
       <div class="o-container o-container--small u-window-box-xlarge u-centered">
+        <stencil-route-title pageTitle="Logged out" />
+
         <div style={{ 'font-size': '4em' }}>👋</div>
         {!this.loggedOut ? (
           <h2 class="u-heading">Logging out....</h2>

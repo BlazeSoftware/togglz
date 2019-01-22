@@ -1,12 +1,12 @@
 import { Component, State, Prop, Method } from '@stencil/core';
 import slug from 'slug';
-import firebase, { store } from '@/firebase/firebase';
+import { store } from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 
 @Component({
-  tag: 'feature-add',
+  tag: 'feature-edit',
 })
-export class FeatureAdd {
+export class FeatureEdit {
   alert: any;
   panel: any;
 
@@ -25,8 +25,14 @@ export class FeatureAdd {
   @State()
   loading: boolean;
 
+  @State()
+  featureSnapshot: any;
+
   @Method()
-  show() {
+  show(featureSnapshot) {
+    this.featureSnapshot = featureSnapshot;
+    this.name = this.featureSnapshot.data().name;
+    this.key = this.featureSnapshot.data().key;
     this.panel.show();
   }
 
@@ -55,28 +61,26 @@ export class FeatureAdd {
     });
   }
 
-  async create(e) {
+  async edit(e) {
     e.preventDefault();
     this.loading = true;
     try {
-      const existingFeature = await store
+      const existingFeatures = await store
         .collection('features')
         .where('owner', '==', this.user.uid)
         .where('key', '==', this.key)
         .get();
 
-      if (!existingFeature.empty) throw { code: 'storage/document-exists' };
+      if (
+        !existingFeatures.empty &&
+        !(existingFeatures.docs.length === 1 && existingFeatures.docs[0].ref.id == this.featureSnapshot.ref.id)
+      )
+        throw { code: 'storage/document-exists' };
 
-      await store
-        .collection('features')
-        .doc()
-        .set({
-          name: this.name,
-          key: this.key,
-          active: false,
-          owner: this.user.uid,
-          created: firebase.firestore.FieldValue.serverTimestamp(),
-        });
+      await this.featureSnapshot.ref.update({
+        name: this.name,
+        key: this.key,
+      });
       this.reset();
     } catch (error) {
       console.log(error);
@@ -93,9 +97,9 @@ export class FeatureAdd {
           ×
         </button>
         <blaze-card>
-          <form onSubmit={(e) => this.create(e)}>
+          <form onSubmit={(e) => this.edit(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">New feature</h2>
+              <h2 class="c-heading">Edit feature</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -148,9 +152,9 @@ export class FeatureAdd {
             <blaze-card-footer>
               <button class="c-button c-button--success c-button--block" disabled={this.loading}>
                 <span class="c-button__icon-left" aria-hidden>
-                  <i class="fas fa-star-of-life" />
+                  <i class="fas fa-save" />
                 </span>
-                Create new feature
+                Save changes
               </button>
             </blaze-card-footer>
           </form>

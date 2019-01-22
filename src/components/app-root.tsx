@@ -19,12 +19,12 @@ export class AppRoot {
             <stencil-route url="/login" component="account-login" />
             <stencil-route url="/join" component="account-join" />
             <stencil-route url="/dashboard" component="account-dashboard" />
+            <stencil-route url="/account" component="account-management" />
             <stencil-route url="/action" component="account-oob-action" />
             <stencil-route url="/verify" component="account-verify" />
             <stencil-route url="/complete" component="account-complete" />
-            <stencil-route url="/reset" component="account-reset-password" />
-            <stencil-route url="/password" component="account-password" />
-            <stencil-route url="/feature/add" component="feature-add" />
+            <stencil-route url="/reset-password" component="account-reset-password" />
+            <stencil-route url="/update-password" component="account-update-password" />
             <stencil-route url="/500" component="app-broken" />
             <stencil-route url="/logout" component="account-logout" />
             <stencil-route component="page-not-found" />

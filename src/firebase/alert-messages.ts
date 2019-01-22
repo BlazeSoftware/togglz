@@ -20,7 +20,7 @@ const messages = (email: string) => ({
     type: 'info',
     message: 'This email already has an account.',
     action: {
-      url: `/reset?email=${email}`,
+      url: `/reset-password?email=${email}`,
       text: ' Would you like to reset your password?',
     },
   },
@@ -36,13 +36,17 @@ const messages = (email: string) => ({
     type: 'info',
     message: "The password you've used is incorrect.",
     action: {
-      url: `/reset?email=${email}`,
+      url: `/reset-password?email=${email}`,
       text: 'Would you like to reset your password?',
     },
   },
   'auth/weak-password': {
     type: 'error',
     message: 'Your password is not strong enough. It must be at least 6 characters long.',
+  },
+  'auth/password-changed': {
+    type: 'success',
+    message: 'Password updated.',
   },
   'auth/too-many-requests': {
     type: 'warning',

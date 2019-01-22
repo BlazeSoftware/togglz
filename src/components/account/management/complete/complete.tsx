@@ -51,10 +51,7 @@ export class Complete {
 
       this.user = user;
 
-      if (!this.history.location.query.oobCode) {
-        this.alertMsg = getAlertMessage('auth/missing-action-code', this.user.email);
-        return this.alert.show();
-      }
+      if (!this.history.location.query.oobCode) throw { code: 'auth/missing-action-code' };
 
       try {
         if (this.user.emailVerified) {
@@ -78,6 +75,7 @@ export class Complete {
   render() {
     return (
       <div class="o-container o-container--xsmall u-window-box-medium">
+        <stencil-route-title pageTitle="Account setup..." />
         <blaze-card>
           <blaze-card-header>
             <h2 class="c-heading">Account setup...</h2>

@@ -4,9 +4,9 @@ import firebase from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 
 @Component({
-  tag: 'account-password',
+  tag: 'account-update-password',
 })
-export class Password {
+export class UpdatePassword {
   alert: any;
 
   @Prop()
@@ -51,11 +51,7 @@ export class Password {
   }
 
   async componentDidLoad() {
-    if (!this.history.location.query.oobCode) {
-      this.complete = true;
-      this.alertMsg = getAlertMessage('auth/missing-action-code');
-      return this.alert.show();
-    }
+    if (!this.history.location.query.oobCode) throw { code: 'auth/missing-action-code' };
 
     try {
       await firebase.auth().checkActionCode(this.history.location.query.oobCode);
@@ -63,7 +59,7 @@ export class Password {
       console.error(error);
       this.complete = true;
       this.alertMsg = getAlertMessage(error.code);
-      this.alertMsg.action.url = '/reset';
+      this.alertMsg.action.url = '/reset-password';
       this.alert.show();
     }
   }
@@ -71,6 +67,7 @@ export class Password {
   render() {
     return (
       <div class="o-container o-container--xsmall u-window-box-medium">
+        <stencil-route-title pageTitle="Change password" />
         <blaze-card>
           <form onSubmit={(e) => this.updatePassword(e)}>
             <blaze-card-header>

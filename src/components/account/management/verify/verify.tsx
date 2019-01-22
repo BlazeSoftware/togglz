@@ -51,6 +51,7 @@ export class Verify {
     const email = this.history.location.query.email;
     return (
       <div class="o-container o-container--xsmall u-window-box-medium">
+        <stencil-route-title pageTitle="Verify email" />
         <blaze-card>
           <blaze-card-header>
             <h2 class="c-heading">Verify email address</h2>
@@ -73,10 +74,10 @@ export class Verify {
               class="c-button c-button--brand c-button--block"
               disabled={this.complete}
               onClick={() => this.resend()}>
-              Re-send verification email
-              <span class="c-button__icon-right" aria-hidden>
+              <span class="c-button__icon-leftt" aria-hidden>
                 <i class="fas fa-paper-plane" />
               </span>
+              Re-send verification email
             </button>
           </blaze-card-footer>
         </blaze-card>

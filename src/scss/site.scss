@@ -4,6 +4,12 @@
 @import 'node_modules/@blaze/css/src/scss/blaze';
 @import './debt';
 
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   overflow-x: hidden;
   background-color: map-get($colors, white);
@@ -28,6 +34,42 @@ body {
   }
 }
 
+nav-page {
+  .o-layout {
+    &__sidebar {
+      position: fixed;
+      width: 200px;
+    }
+
+    &__main {
+      width: calc(100% - 200px);
+      margin-left: 200px;
+    }
+  }
+
+  .c-nav {
+    background-color: map-get($colors, grey-background);
+    color: map-get($colors, brand);
+
+    .c-nav__content {
+      background-color: map-get($colors, brand);
+      color: map-get($colors, grey-background);
+    }
+
+    .c-nav__item {
+      cursor: default;
+
+      .o-icon {
+        margin-right: 1em;
+      }
+    }
+  }
+
+  h2.c-heading {
+    padding: 0;
+  }
+}
+
 home-page {
   .o-home-page {
     margin-top: -2em;
@@ -49,14 +91,36 @@ home-page {
 }
 
 account-dashboard {
-  .c-dashboard-controls {
-    text-align: right;
-    .c-link {
-      margin-left: 2em;
-    }
+  .c-table {
+    border-radius: 4px;
+    border: 1px solid $card-item-border-color;
+    overflow: hidden;
+  }
+
+  .c-toggle span {
+    width: 80px;
   }
 
   .o-modal--small .o-modal {
     max-width: 300px;
+  }
+
+  .o-actions {
+    .c-button {
+      margin: 0 0.5em;
+      color: map-get($colors, grey-light-2);
+
+      &--delete:hover {
+        color: map-get($colors, red-light-2);
+      }
+
+      &--edit:hover {
+        color: map-get($colors, orange-light-2);
+      }
+
+      &--info:hover {
+        color: map-get($colors, blue-light-2);
+      }
+    }
   }
 }

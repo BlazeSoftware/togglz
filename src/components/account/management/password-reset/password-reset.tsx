@@ -6,7 +6,7 @@ import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 @Component({
   tag: 'account-reset-password',
 })
-export class Reset {
+export class ResetPassword {
   alert: any;
 
   @Prop()
@@ -31,13 +31,7 @@ export class Reset {
   }
 
   componentDidLoad() {
-    this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      if (user && !user.emailVerified) {
-        return this.history.push(`/verify?resend=true&email=${user.email}`);
-      }
-
-      this.email = this.history.location.query.email;
-    });
+    this.email = this.history.location.query.email;
   }
 
   async send(e) {
@@ -57,6 +51,7 @@ export class Reset {
   render() {
     return (
       <div class="o-container o-container--xsmall u-window-box-medium">
+        <stencil-route-title pageTitle="Reset password" />
         <blaze-card>
           <form onSubmit={(e) => this.send(e)}>
             <blaze-card-header>
@@ -86,10 +81,10 @@ export class Reset {
                 class="c-button c-button--brand c-button--block"
                 disabled={this.complete}
                 onClick={(e) => this.send(e)}>
-                Send password reset email
-                <span class="c-button__icon-right" aria-hidden>
+                <span class="c-button__icon-left" aria-hidden>
                   <i class="fas fa-paper-plane" />
                 </span>
+                Send password reset email
               </button>
             </blaze-card-footer>
           </form>

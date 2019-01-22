@@ -5,7 +5,7 @@ import { Component, Prop, State } from '@stencil/core';
 })
 export class FeatureToggle {
   @Prop()
-  feature: any;
+  featureSnapshot: any;
 
   @State()
   _active: boolean;
@@ -14,14 +14,14 @@ export class FeatureToggle {
   status: string;
 
   componentWillLoad() {
-    this._active = this.feature.data().active;
+    this._active = this.featureSnapshot.data().active;
   }
 
   async toggleFeature(active) {
     this.status = 'loading';
 
     try {
-      await this.feature.ref.update({
+      await this.featureSnapshot.ref.update({
         active,
       });
 

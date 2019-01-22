@@ -70,6 +70,7 @@ export class Join {
   render() {
     return (
       <div class="o-container o-container--xsmall u-window-box-medium">
+        <stencil-route-title pageTitle="Join" />
         <blaze-card>
           <form onSubmit={(e) => this.createAccount(e)}>
             <blaze-card-header>
@@ -130,6 +131,9 @@ export class Join {
             </blaze-card-body>
             <blaze-card-footer>
               <blaze-button type="brand" full>
+                <span class="c-button__icon-left" aria-hidden>
+                  <i class="fas fa-user-plus" />
+                </span>
                 Create new account
               </blaze-button>
             </blaze-card-footer>

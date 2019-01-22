@@ -17,7 +17,7 @@ export class Action {
 
     switch (this.history.location.query.mode) {
       case 'resetPassword':
-        return this.history.push(`/password?oobCode=${code}`);
+        return this.history.push(`/update-password?oobCode=${code}`);
       case 'verifyEmail':
         return this.history.push(`/complete?oobCode=${code}`);
       default:

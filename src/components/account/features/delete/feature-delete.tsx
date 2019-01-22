@@ -5,7 +5,7 @@ import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
   tag: 'feature-delete',
 })
 export class FeatureDelete {
-  modal: any;
+  panel: any;
   alert: any;
 
   @Prop()
@@ -21,14 +21,14 @@ export class FeatureDelete {
   featureSnapshot: any;
 
   @Method()
-  show(feature) {
-    this.featureSnapshot = feature;
-    this.modal.show();
+  show(featureSnapshot) {
+    this.featureSnapshot = featureSnapshot;
+    this.panel.show();
   }
 
   @Method()
   close() {
-    this.modal.close();
+    this.panel.close();
   }
 
   async delete(e) {
@@ -36,7 +36,7 @@ export class FeatureDelete {
     this.loading = true;
     try {
       await this.featureSnapshot.ref.delete();
-      this.modal.close();
+      this.panel.close();
       this.loading = false;
     } catch (error) {
       console.log(error);
@@ -48,7 +48,7 @@ export class FeatureDelete {
 
   render() {
     return (
-      <blaze-modal class="o-modal--small" dismissible ref={(modal) => (this.modal = modal)}>
+      <blaze-drawer position="right" dismissible ref={(panel) => (this.panel = panel)}>
         <blaze-card>
           <blaze-card-header>
             <h2 class="c-heading u-xlarge">Delete feature</h2>
@@ -58,8 +58,21 @@ export class FeatureDelete {
             <p class="c-paragraph">
               {this.featureSnapshot && (
                 <div>
-                  <span class="u-text--loud">{this.featureSnapshot.data().name}</span> :{' '}
-                  <span class="u-text--mono">{this.featureSnapshot.data().key}</span>
+                  <p class="c-paragraph">
+                    <div class="u-text--quiet">Name: </div>
+                    <span class="u-text--loud">{this.featureSnapshot.data().name}</span>
+                  </p>
+                  <p class="c-paragraph">
+                    <div class="u-text--quiet">Key: </div>
+                    <span class="u-text--loud">{this.featureSnapshot.data().key}</span>
+                  </p>
+                  {this.featureSnapshot.data().active && (
+                    <p class="c-paragraph u-text--highlight">This feature is still active.</p>
+                  )}
+                  <p class="c-paragraph u-text--quiet u-small">
+                    By deleting this feature it will no longer be accessible via the API and condition statements within
+                    your site or app may stop behaving correctly.
+                  </p>
                 </div>
               )}
             </p>
@@ -72,13 +85,13 @@ export class FeatureDelete {
                 onClick={(e) => this.delete(e)}>
                 Delete
               </button>
-              <button class="c-button c-button--block" disabled={this.loading} onClick={() => this.modal.close()}>
+              <button class="c-button c-button--block" disabled={this.loading} onClick={() => this.panel.close()}>
                 Cancel
               </button>
             </div>
           </blaze-card-footer>
         </blaze-card>
-      </blaze-modal>
+      </blaze-drawer>
     );
   }
 }

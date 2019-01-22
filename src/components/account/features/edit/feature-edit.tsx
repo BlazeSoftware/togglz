@@ -146,6 +146,15 @@ export class FeatureEdit {
                   <div role="tooltip" class="c-hint">
                     Feature keys must be unique
                   </div>
+                  {this.featureSnapshot.data().active && (
+                    <div>
+                      <p class="c-paragraph u-text--highlight">This feature is still active.</p>
+                      <p class="c-paragraph u-text--quiet u-small">
+                        Editing the key on an active feature might cause condition statements within your site or app to
+                        stop behaving correctly.
+                      </p>
+                    </div>
+                  )}
                 </div>
               </label>
             </blaze-card-body>

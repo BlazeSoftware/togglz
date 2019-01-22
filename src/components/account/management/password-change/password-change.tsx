@@ -154,7 +154,7 @@ export class ChangePassword {
             <blaze-card-footer>
               <button class="c-button c-button--success c-button--block" disabled={this.loading}>
                 <span class="c-button__icon-left" aria-hidden>
-                  <i class="far fa-save" />
+                  <i class="fas fa-save" />
                 </span>
                 Update password
               </button>

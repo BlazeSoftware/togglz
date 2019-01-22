@@ -54,28 +54,26 @@ export class FeatureDelete {
             <h2 class="c-heading u-xlarge">Delete feature</h2>
           </blaze-card-header>
           <blaze-card-body>
-            <p class="c-paragraph">Are you sure you want to delete this feature?</p>
-            <p class="c-paragraph">
-              {this.featureSnapshot && (
-                <div>
-                  <p class="c-paragraph">
-                    <div class="u-text--quiet">Name: </div>
-                    <span class="u-text--loud">{this.featureSnapshot.data().name}</span>
-                  </p>
-                  <p class="c-paragraph">
-                    <div class="u-text--quiet">Key: </div>
-                    <span class="u-text--loud">{this.featureSnapshot.data().key}</span>
-                  </p>
-                  {this.featureSnapshot.data().active && (
-                    <p class="c-paragraph u-text--highlight">This feature is still active.</p>
-                  )}
-                  <p class="c-paragraph u-text--quiet u-small">
-                    By deleting this feature it will no longer be accessible via the API and condition statements within
-                    your site or app may stop behaving correctly.
-                  </p>
-                </div>
-              )}
-            </p>
+            {this.featureSnapshot && (
+              <div>
+                {this.featureSnapshot.data().active && (
+                  <p class="c-paragraph u-text--highlight">This feature is still active.</p>
+                )}
+                <p class="c-paragraph u-text--quiet u-small">
+                  By deleting this feature it will no longer be accessible via the API and condition statements within
+                  your site or app may stop behaving correctly.
+                </p>
+                <p class="c-paragraph u-text--loud">Are you sure you want to delete this feature?</p>
+                <p class="c-paragraph">
+                  <div class="u-text--quiet">Name: </div>
+                  <span class="u-text--loud">{this.featureSnapshot.data().name}</span>
+                </p>
+                <p class="c-paragraph">
+                  <div class="u-text--quiet">Key: </div>
+                  <span class="u-text--loud">{this.featureSnapshot.data().key}</span>
+                </p>
+              </div>
+            )}
           </blaze-card-body>
           <blaze-card-footer>
             <div class="c-input-group">

@@ -116,36 +116,8 @@ export class FeatureEdit {
                   )}
                 </div>
               </blaze-alert>
-              <label class="c-label o-form-element">
-                Name:
-                <div class="o-field o-field--icon-left">
-                  <i class="fas fa-tag c-icon" />
-                  <input
-                    type="text"
-                    value={this.name}
-                    class="c-field c-field--label"
-                    required
-                    disabled={this.loading}
-                    onInput={(e) => this.handleNameChange(e)}
-                  />
-                </div>
-              </label>
-
-              <label class="c-label o-form-element">
-                Key:
-                <div class="o-field o-field--icon-left">
-                  <i class="fas fa-key c-icon" />
-                  <input
-                    type="text"
-                    value={this.key}
-                    class="c-field c-field--label u-text--mono"
-                    required
-                    disabled={this.loading}
-                    onChange={(e) => this.handleKeyChange(e)}
-                  />
-                  <div role="tooltip" class="c-hint">
-                    Feature keys must be unique
-                  </div>
+              {this.featureSnapshot && (
+                <div>
                   {this.featureSnapshot.data().active && (
                     <div>
                       <p class="c-paragraph u-text--highlight">This feature is still active.</p>
@@ -155,16 +127,54 @@ export class FeatureEdit {
                       </p>
                     </div>
                   )}
+                  <label class="c-label o-form-element">
+                    Name:
+                    <div class="o-field o-field--icon-left">
+                      <i class="fas fa-tag c-icon" />
+                      <input
+                        type="text"
+                        value={this.name}
+                        class="c-field c-field--label"
+                        required
+                        disabled={this.loading}
+                        onInput={(e) => this.handleNameChange(e)}
+                      />
+                    </div>
+                  </label>
+
+                  <label class="c-label o-form-element">
+                    Key:
+                    <div class="o-field o-field--icon-left">
+                      <i class="fas fa-key c-icon" />
+                      <input
+                        type="text"
+                        value={this.key}
+                        class="c-field c-field--label u-text--mono"
+                        required
+                        disabled={this.loading}
+                        onChange={(e) => this.handleKeyChange(e)}
+                      />
+                      <div role="tooltip" class="c-hint">
+                        Feature keys must be unique
+                      </div>
+                    </div>
+                  </label>
                 </div>
-              </label>
+              )}
             </blaze-card-body>
             <blaze-card-footer>
-              <button class="c-button c-button--success c-button--block" disabled={this.loading}>
-                <span class="c-button__icon-left" aria-hidden>
-                  <i class="fas fa-save" />
-                </span>
-                Save changes
-              </button>
+              <div class="c-input-group">
+                <button class="c-button c-button--success c-button--block" disabled={this.loading}>
+                  Save
+                </button>
+                <button
+                  type="button"
+                  class="c-button c-button--block"
+                  disabled={this.loading}
+                  onClick={() => this.panel.close()}>
+                  Cancel
+                </button>
+              </div>
             </blaze-card-footer>
           </form>
         </blaze-card>

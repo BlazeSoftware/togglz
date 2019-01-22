@@ -114,6 +114,7 @@ export class ChangePassword {
                       value={this.currentPassword}
                       class="c-field"
                       required
+                      disabled={this.loading}
                       minLength={6}
                       onInput={(e) => this.handleCurrentPasswordChange(e)}
                     />
@@ -136,6 +137,7 @@ export class ChangePassword {
                       value={this.newPassword}
                       class="c-field"
                       required
+                      disabled={this.loading}
                       minLength={6}
                       onInput={(e) => this.handleNewPasswordChange(e)}
                     />

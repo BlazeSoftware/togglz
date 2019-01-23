@@ -1,13 +1,17 @@
 import { Component, State, Prop, Method } from '@stencil/core';
-import firebase from '@/firebase/firebase';
+import { RouterHistory } from '@stencil/router';
+import firebase, { store } from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 
 @Component({
-  tag: 'account-change-password',
+  tag: 'account-delete',
 })
-export class ChangePassword {
+export class DeleteAccount {
   alert: any;
   panel: any;
+
+  @Prop()
+  history: RouterHistory;
 
   @Prop()
   user: any = {};
@@ -19,13 +23,7 @@ export class ChangePassword {
   currentPassword: string;
 
   @State()
-  newPassword: string;
-
-  @State()
   currentPasswordVisible: boolean = false;
-
-  @State()
-  passwordVisible: boolean = false;
 
   @State()
   loading: boolean;
@@ -40,36 +38,32 @@ export class ChangePassword {
     this.panel.close();
   }
 
-  @Method()
-  reset() {
-    this.panel.close();
-    this.alert.close();
-    this.loading = false;
-    this.currentPassword = '';
-    this.newPassword = '';
-  }
-
   handleCurrentPasswordChange(e) {
     this.currentPassword = e.target.value;
   }
 
-  handleNewPasswordChange(e) {
-    this.newPassword = e.target.value;
-  }
-
-  async changePassword(e) {
+  async deleteAccount(e) {
     e.preventDefault();
 
     this.loading = true;
     try {
       const credentials = firebase.auth.EmailAuthProvider.credential(this.user.email, this.currentPassword);
       await this.user.reauthenticateAndRetrieveDataWithCredential(credentials);
-      await this.user.updatePassword(this.newPassword);
-      this.alertMsg = getAlertMessage('auth/password-changed');
-      this.alert.show();
-      setTimeout(() => {
-        this.reset();
-      }, 2000);
+
+      const featuresSnapshot = await store
+        .collection('features')
+        .where('owner', '==', this.user.uid)
+        .get();
+
+      const batch = store.batch();
+      featuresSnapshot.forEach((f) => {
+        batch.delete(f.ref);
+      });
+      await batch.commit();
+
+      await this.user.delete();
+      await firebase.auth().signOut();
+      this.history.push('/');
     } catch (error) {
       console.log(error);
       this.alertMsg = getAlertMessage(error.code, this.user.email);
@@ -85,9 +79,9 @@ export class ChangePassword {
           ×
         </button>
         <blaze-card>
-          <form onSubmit={(e) => this.changePassword(e)}>
+          <form onSubmit={(e) => this.deleteAccount(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">Change password</h2>
+              <h2 class="c-heading">Delete account</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -104,8 +98,13 @@ export class ChangePassword {
                   )}
                 </div>
               </blaze-alert>
+              <p class="c-paragraph u-text--highlight">Deleting your account is a permanent action.</p>
+              <p class="c-paragraph u-text--quiet u-small">
+                If you delete your account all information we hold about you will be destroyed, all your feature toggles
+                will be deleted and we will not be able to provide you with any support.
+              </p>
               <label class="o-form-element c-label">
-                Current:
+                Re-enter your password to confirm:
                 <div class="c-input-group c-input-group--label">
                   <div class="o-field o-field--icon-left">
                     <i class="fas fa-lock c-icon" />
@@ -127,37 +126,14 @@ export class ChangePassword {
                   </button>
                 </div>
               </label>
-              <label class="o-form-element c-label">
-                New:
-                <div class="c-input-group c-input-group--label">
-                  <div class="o-field o-field--icon-left">
-                    <i class="fas fa-lock c-icon" />
-                    <input
-                      type={this.passwordVisible ? 'text' : 'password'}
-                      value={this.newPassword}
-                      class="c-field"
-                      required
-                      disabled={this.loading}
-                      minLength={6}
-                      onInput={(e) => this.handleNewPasswordChange(e)}
-                    />
-                  </div>
-                  <button
-                    type="button"
-                    class="c-button c-button--ghost-brand"
-                    onClick={() => (this.passwordVisible = !this.passwordVisible)}>
-                    {this.passwordVisible ? 'Hide' : 'Show'}
-                  </button>
-                </div>
-              </label>
             </blaze-card-body>
             <blaze-card-footer>
               <div class="c-input-group">
                 <button
-                  class="c-button c-button--block c-button--success"
+                  class="c-button c-button--block c-button--error"
                   disabled={this.loading}
-                  onClick={(e) => this.changePassword(e)}>
-                  Update password
+                  onClick={(e) => this.deleteAccount(e)}>
+                  Delete
                 </button>
                 <button
                   type="button"

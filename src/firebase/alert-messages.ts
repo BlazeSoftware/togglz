@@ -76,6 +76,10 @@ const messages = (email: string) => ({
     type: 'error',
     message: 'No verification code supplied.',
   },
+  'auth/argument-error': {
+    type: 'error',
+    message: 'Please fill out all required fields.',
+  },
   'storage/document-exists': {
     type: 'error',
     message: 'Feature keys must be unique, please use a different value for your key.',

@@ -7,6 +7,7 @@ import firebase from '@/firebase/firebase';
 })
 export class Account {
   changePasswordPopup: any;
+  deleteAccountPopup: any;
 
   @Prop()
   history: RouterHistory;
@@ -38,9 +39,17 @@ export class Account {
         </button>
         <h3 class="c-heading">Environments</h3>
         Do these go here? or should there be a settings page also?
+        <button type="button" class="c-button c-button--error" onClick={() => this.deleteAccountPopup.show()}>
+          Delete account
+        </button>
         <account-change-password
           user={this.user}
           ref={(changePassword) => (this.changePasswordPopup = changePassword)}
+        />
+        <account-delete
+          user={this.user}
+          history={this.history}
+          ref={(deleteAccount) => (this.deleteAccountPopup = deleteAccount)}
         />
       </nav-page>
     );

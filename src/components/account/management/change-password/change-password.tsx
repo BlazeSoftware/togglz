@@ -13,6 +13,9 @@ export class ChangePassword {
   user: any = {};
 
   @State()
+  loading: boolean;
+
+  @State()
   alertMsg: AlertMessage = {};
 
   @State()
@@ -26,9 +29,6 @@ export class ChangePassword {
 
   @State()
   passwordVisible: boolean = false;
-
-  @State()
-  loading: boolean;
 
   @Method()
   show() {
@@ -65,11 +65,7 @@ export class ChangePassword {
       const credentials = firebase.auth.EmailAuthProvider.credential(this.user.email, this.currentPassword);
       await this.user.reauthenticateAndRetrieveDataWithCredential(credentials);
       await this.user.updatePassword(this.newPassword);
-      this.alertMsg = getAlertMessage('auth/password-changed');
-      this.alert.show();
-      setTimeout(() => {
-        this.reset();
-      }, 2000);
+      this.reset();
     } catch (error) {
       console.log(error);
       this.alertMsg = getAlertMessage(error.code, this.user.email);
@@ -122,6 +118,7 @@ export class ChangePassword {
                   <button
                     type="button"
                     class="c-button c-button--ghost-brand"
+                    disabled={this.loading}
                     onClick={() => (this.currentPasswordVisible = !this.currentPasswordVisible)}>
                     {this.currentPasswordVisible ? 'Hide' : 'Show'}
                   </button>
@@ -145,6 +142,7 @@ export class ChangePassword {
                   <button
                     type="button"
                     class="c-button c-button--ghost-brand"
+                    disabled={this.loading}
                     onClick={() => (this.passwordVisible = !this.passwordVisible)}>
                     {this.passwordVisible ? 'Hide' : 'Show'}
                   </button>
@@ -152,21 +150,12 @@ export class ChangePassword {
               </label>
             </blaze-card-body>
             <blaze-card-footer>
-              <div class="c-input-group">
-                <button
-                  class="c-button c-button--block c-button--success"
-                  disabled={this.loading}
-                  onClick={(e) => this.changePassword(e)}>
-                  Update password
-                </button>
-                <button
-                  type="button"
-                  class="c-button c-button--block"
-                  disabled={this.loading}
-                  onClick={() => this.panel.close()}>
-                  Cancel
-                </button>
-              </div>
+              <button class="c-button c-button--block c-button--success" disabled={this.loading}>
+                <span class="c-button__icon-left" aria-hidden>
+                  <i class="fas fa-save" />
+                </span>
+                Save password
+              </button>
             </blaze-card-footer>
           </form>
         </blaze-card>

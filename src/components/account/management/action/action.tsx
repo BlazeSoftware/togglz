@@ -20,6 +20,8 @@ export class Action {
         return this.history.push(`/update-password?oobCode=${code}`);
       case 'verifyEmail':
         return this.history.push(`/complete?oobCode=${code}`);
+      case 'recoverEmail':
+        return this.history.push(`/recover-email?oobCode=${code}`);
       default:
         return this.history.push('/');
     }

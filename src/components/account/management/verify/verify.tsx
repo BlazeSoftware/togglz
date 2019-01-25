@@ -12,10 +12,13 @@ export class Verify {
   history: RouterHistory;
 
   @State()
+  user: any = {};
+
+  @State()
   complete: boolean;
 
-  resend() {
-    // todo: resend verification email
+  async resend() {
+    await this.user.sendEmailVerification();
     this.complete = true;
     this.alert.show();
   }
@@ -31,14 +34,15 @@ export class Verify {
         return this.history.push('/login');
       }
 
-      if (user.emailVerified) {
+      this.user = user;
+
+      if (this.user.emailVerified) {
         return this.history.push('/dashboard');
       }
 
-      if (!user.emailVerified && this.history.location.query.resend === 'true') {
+      if (!this.user.emailVerified && this.history.location.query.send === 'true') {
         try {
-          await user.sendEmailVerification();
-          this.complete = true;
+          await this.user.sendEmailVerification();
           this.alert.show();
         } catch (e) {
           this.history.push('/500');
@@ -58,12 +62,12 @@ export class Verify {
           </blaze-card-header>
           <blaze-card-body>
             <blaze-alert ref={(alert) => (this.alert = alert)} type="success">
-              Verification email re-sent.
+              Verification email sent.
             </blaze-alert>
             <p class="u-paragraph">
               We've sent an email to {email ? <span class="u-text--loud">{email}</span> : <span>your inbox</span>}.
             </p>
-            <p class="u-paragraph">Click on the link in the email and we'll get your account setup.</p>
+            <p class="u-paragraph">Click on the link in the email and we'll get your account updated.</p>
             <p class="u-paragraph u-small">
               If you don't receive an email make sure you've checked your junk folder and hit the button below. Get in
               touch if you're having problems.

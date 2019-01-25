@@ -48,6 +48,10 @@ const messages = (email: string) => ({
     type: 'success',
     message: 'Password updated.',
   },
+  'auth/verified': {
+    type: 'success',
+    message: 'Account successfully updated! Please wait whilst we take you to your dashboard.',
+  },
   'auth/too-many-requests': {
     type: 'warning',
     message: 'We have detected too many attempts to login from this device. Please try again later.',
@@ -68,7 +72,7 @@ const messages = (email: string) => ({
     type: 'warning',
     message: 'This code is invalid, you may have already used it.',
     action: {
-      url: `/verify?resend=true&email=${email}`,
+      url: `/verify?send=true&email=${email}`,
       text: 'Re-send email.',
     },
   },

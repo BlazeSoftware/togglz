@@ -1,20 +1,23 @@
-import { Component, State, Prop, Method } from '@stencil/core';
+import { Component, Event, EventEmitter, State, Prop, Method } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
-import firebase, { store } from '@/firebase/firebase';
+import firebase from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 
 @Component({
-  tag: 'account-delete',
+  tag: 'account-change-email',
 })
-export class DeleteAccount {
+export class ChangeEmail {
   alert: any;
   panel: any;
 
   @Prop()
-  history: RouterHistory;
+  user: any = {};
 
   @Prop()
-  user: any = {};
+  history: RouterHistory;
+
+  @Event({ eventName: 'profileChange' })
+  onProfileChange: EventEmitter;
 
   @State()
   loading: boolean;
@@ -23,13 +26,17 @@ export class DeleteAccount {
   alertMsg: AlertMessage = {};
 
   @State()
-  currentPassword: string;
+  password: string;
 
   @State()
-  currentPasswordVisible: boolean = false;
+  passwordVisible: boolean = false;
+
+  @State()
+  email: string;
 
   @Method()
   show() {
+    this.email = this.user.email;
     this.panel.show();
   }
 
@@ -38,32 +45,32 @@ export class DeleteAccount {
     this.panel.close();
   }
 
-  handleCurrentPasswordChange(e) {
-    this.currentPassword = e.target.value;
+  @Method()
+  reset() {
+    this.panel.close();
+    this.alert.close();
+    this.loading = false;
+    this.password = '';
+    this.email = '';
   }
 
-  async deleteAccount(e) {
+  handlepasswordChange(e) {
+    this.password = e.target.value;
+  }
+
+  handleEmailChange(e) {
+    this.email = e.target.value;
+  }
+
+  async changeEmail(e) {
     e.preventDefault();
 
     this.loading = true;
     try {
-      const credentials = firebase.auth.EmailAuthProvider.credential(this.user.email, this.currentPassword);
+      const credentials = firebase.auth.EmailAuthProvider.credential(this.user.email, this.password);
       await this.user.reauthenticateAndRetrieveDataWithCredential(credentials);
-
-      const featuresSnapshot = await store
-        .collection('features')
-        .where('owner', '==', this.user.uid)
-        .get();
-
-      const batch = store.batch();
-      featuresSnapshot.forEach((f) => {
-        batch.delete(f.ref);
-      });
-      await batch.commit();
-
-      await this.user.delete();
-      await firebase.auth().signOut();
-      this.history.push('/');
+      await this.user.updateEmail(this.email);
+      this.history.push(`/verify?send=true&email=${this.email}`);
     } catch (error) {
       console.log(error);
       this.alertMsg = getAlertMessage(error.code, this.user.email);
@@ -79,9 +86,9 @@ export class DeleteAccount {
           ×
         </button>
         <blaze-card>
-          <form onSubmit={(e) => this.deleteAccount(e)}>
+          <form onSubmit={(e) => this.changeEmail(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">Delete account</h2>
+              <h2 class="c-heading">Change email</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -98,42 +105,51 @@ export class DeleteAccount {
                   )}
                 </div>
               </blaze-alert>
-              <p class="c-paragraph u-text--highlight">Deleting your account is a permanent action.</p>
-              <p class="c-paragraph u-text--quiet u-small">
-                If you delete your account all information we hold about you will be destroyed, all your feature toggles
-                will be deleted and we will not be able to provide you with any support.
-              </p>
               <label class="o-form-element c-label">
-                Re-enter your password to confirm:
+                Password:
                 <div class="c-input-group c-input-group--label">
                   <div class="o-field o-field--icon-left">
                     <i class="fas fa-lock c-icon" />
                     <input
-                      type={this.currentPasswordVisible ? 'text' : 'password'}
-                      value={this.currentPassword}
+                      type={this.passwordVisible ? 'text' : 'password'}
+                      value={this.password}
                       class="c-field"
                       required
                       disabled={this.loading}
                       minLength={6}
-                      onInput={(e) => this.handleCurrentPasswordChange(e)}
+                      onInput={(e) => this.handlepasswordChange(e)}
                     />
                   </div>
                   <button
                     type="button"
                     class="c-button c-button--ghost-brand"
                     disabled={this.loading}
-                    onClick={() => (this.currentPasswordVisible = !this.currentPasswordVisible)}>
-                    {this.currentPasswordVisible ? 'Hide' : 'Show'}
+                    onClick={() => (this.passwordVisible = !this.passwordVisible)}>
+                    {this.passwordVisible ? 'Hide' : 'Show'}
                   </button>
+                </div>
+              </label>
+              <label class="c-label o-form-element">
+                Email address:
+                <div class="o-field o-field--icon-left">
+                  <i class="fas fa-at c-icon" />
+                  <input
+                    type="email"
+                    value={this.email}
+                    class="c-field c-field--label"
+                    disabled={this.loading}
+                    required
+                    onInput={(e) => this.handleEmailChange(e)}
+                  />
                 </div>
               </label>
             </blaze-card-body>
             <blaze-card-footer>
-              <button
-                class="c-button c-button--block c-button--error"
-                disabled={this.loading}
-                onClick={(e) => this.deleteAccount(e)}>
-                Delete account
+              <button class="c-button c-button--block c-button--success" disabled={this.loading}>
+                <span class="c-button__icon-left" aria-hidden>
+                  <i class="fas fa-save" />
+                </span>
+                Save email
               </button>
             </blaze-card-footer>
           </form>

@@ -2,6 +2,14 @@
 
 $grey-background-dark: lighten($color-grey, 35);
 
+.u-text--normal {
+  font-weight: normal;
+}
+
+.u-text--italic {
+  font-style: italic;
+}
+
 .c-toggle input:not(:checked) + .c-toggle__track {
   background-color: $grey-background-dark;
 }

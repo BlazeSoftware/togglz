@@ -1,6 +1,6 @@
 import { Component, Prop, State } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
-import firebase, { store } from '@/firebase/firebase';
+import firebase from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 
 @Component({
@@ -18,22 +18,8 @@ export class Complete {
   @State()
   alertMsg: AlertMessage = {};
 
-  async emailVerified() {
-    await store
-      .collection('features')
-      .doc()
-      .set({
-        name: 'My first feature',
-        key: 'my_feature',
-        active: false,
-        owner: this.user.uid,
-        created: firebase.firestore.FieldValue.serverTimestamp(),
-      });
-
-    this.alertMsg = {
-      type: 'success',
-      message: <span>Account successfully created! Please wait whilst we take you to your dashboard.</span>,
-    };
+  emailVerified() {
+    this.alertMsg = getAlertMessage('auth/verified');
     this.alert.show();
     setTimeout(() => this.history.push('/dashboard'), 5000);
   }
@@ -55,7 +41,7 @@ export class Complete {
 
       try {
         if (this.user.emailVerified) {
-          return this.history.push('/dashboard');
+          return this.emailVerified();
         }
         await firebase.auth().applyActionCode(this.history.location.query.oobCode);
         await this.user.reload();

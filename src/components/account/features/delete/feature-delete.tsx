@@ -12,10 +12,10 @@ export class FeatureDelete {
   user: any = {};
 
   @State()
-  alertMsg: AlertMessage = {};
+  loading: boolean;
 
   @State()
-  loading: boolean;
+  alertMsg: AlertMessage = {};
 
   @State()
   featureSnapshot: any;
@@ -49,6 +49,9 @@ export class FeatureDelete {
   render() {
     return (
       <blaze-drawer position="right" dismissible ref={(panel) => (this.panel = panel)}>
+        <button type="button" class="c-button c-button--close" onClick={() => this.panel.close()}>
+          ×
+        </button>
         <blaze-card>
           <blaze-card-header>
             <h2 class="c-heading u-xlarge">Delete feature</h2>
@@ -76,17 +79,15 @@ export class FeatureDelete {
             )}
           </blaze-card-body>
           <blaze-card-footer>
-            <div class="c-input-group">
-              <button
-                class="c-button c-button--block c-button--error"
-                disabled={this.loading}
-                onClick={(e) => this.delete(e)}>
-                Delete
-              </button>
-              <button class="c-button c-button--block" disabled={this.loading} onClick={() => this.panel.close()}>
-                Cancel
-              </button>
-            </div>
+            <button
+              class="c-button c-button--block c-button--error"
+              disabled={this.loading}
+              onClick={(e) => this.delete(e)}>
+              <span class="c-button__icon-left" aria-hidden>
+                <i class="fas fa-trash-alt" />
+              </span>
+              Delete
+            </button>
           </blaze-card-footer>
         </blaze-card>
       </blaze-drawer>

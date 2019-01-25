@@ -13,7 +13,7 @@ export class UpdatePassword {
   history: RouterHistory;
 
   @State()
-  complete: boolean;
+  loading: boolean;
 
   @State()
   password: string;
@@ -29,7 +29,6 @@ export class UpdatePassword {
   }
 
   passwordChanged() {
-    this.complete = true;
     this.alertMsg = {
       type: 'success',
       message: <span>Password successfully updated! Please wait whilst we take you to your dashboard.</span>,
@@ -40,11 +39,13 @@ export class UpdatePassword {
 
   async updatePassword(e) {
     e.preventDefault();
+    this.loading = true;
     try {
       await firebase.auth().confirmPasswordReset(this.history.location.query.oobCode, this.password);
       this.passwordChanged();
     } catch (error) {
       console.error(error);
+      this.loading = false;
       this.alertMsg = getAlertMessage(error.code, this.password);
       this.alert.show();
     }
@@ -57,7 +58,7 @@ export class UpdatePassword {
       await firebase.auth().checkActionCode(this.history.location.query.oobCode);
     } catch (error) {
       console.error(error);
-      this.complete = true;
+      this.loading = true;
       this.alertMsg = getAlertMessage(error.code);
       this.alertMsg.action.url = '/reset-password';
       this.alert.show();
@@ -97,7 +98,7 @@ export class UpdatePassword {
                       type={this.passwordVisible ? 'text' : 'password'}
                       value={this.password}
                       class="c-field"
-                      disabled={this.complete}
+                      disabled={this.loading}
                       required
                       minLength={6}
                       onInput={(e) => this.handlePasswordChange(e)}
@@ -106,7 +107,7 @@ export class UpdatePassword {
                   <button
                     type="button"
                     class="c-button c-button--ghost-brand"
-                    disabled={this.complete}
+                    disabled={this.loading}
                     onClick={() => (this.passwordVisible = !this.passwordVisible)}>
                     {this.passwordVisible ? 'Hide' : 'Show'}
                   </button>
@@ -114,10 +115,10 @@ export class UpdatePassword {
               </label>
             </blaze-card-body>
             <blaze-card-footer>
-              <button
-                class="c-button c-button--brand c-button--block"
-                onClick={(e) => this.updatePassword(e)}
-                disabled={this.complete}>
+              <button class="c-button c-button--block c-button--success" disabled={this.loading}>
+                <span class="c-button__icon-left" aria-hidden>
+                  <i class="fas fa-save" />
+                </span>
                 Save password
               </button>
             </blaze-card-footer>

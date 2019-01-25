@@ -1,17 +1,18 @@
-import { Component, State, Prop, Method } from '@stencil/core';
-import slug from 'slug';
-import firebase, { store } from '@/firebase/firebase';
+import { Component, Event, EventEmitter, State, Prop, Method } from '@stencil/core';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 
 @Component({
-  tag: 'feature-add',
+  tag: 'account-change-name',
 })
-export class FeatureAdd {
+export class ChangeName {
   alert: any;
   panel: any;
 
   @Prop()
   user: any = {};
+
+  @Event({ eventName: 'profileChange' })
+  onProfileChange: EventEmitter;
 
   @State()
   loading: boolean;
@@ -20,13 +21,11 @@ export class FeatureAdd {
   alertMsg: AlertMessage = {};
 
   @State()
-  name: string;
-
-  @State()
-  key: string;
+  displayName: string;
 
   @Method()
   show() {
+    this.displayName = this.user.displayName;
     this.panel.show();
   }
 
@@ -40,47 +39,24 @@ export class FeatureAdd {
     this.panel.close();
     this.alert.close();
     this.loading = false;
-    this.name = '';
-    this.key = '';
+    this.displayName = '';
   }
 
   handleNameChange(e) {
-    this.name = e.target.value;
+    this.displayName = e.target.value;
   }
 
-  handleKeyChange(e) {
-    this.key = slug(e.target.value, {
-      lower: true,
-      replacement: '_',
-    });
-  }
-
-  async create(e) {
+  async changeName(e) {
     e.preventDefault();
+
     this.loading = true;
     try {
-      const existingFeature = await store
-        .collection('features')
-        .where('owner', '==', this.user.uid)
-        .where('key', '==', this.key)
-        .get();
-
-      if (!existingFeature.empty) throw { code: 'storage/document-exists' };
-
-      await store
-        .collection('features')
-        .doc()
-        .set({
-          name: this.name,
-          key: this.key,
-          active: false,
-          owner: this.user.uid,
-          created: firebase.firestore.FieldValue.serverTimestamp(),
-        });
+      await this.user.updateProfile({ displayName: this.displayName });
+      this.onProfileChange.emit(this.user);
       this.reset();
     } catch (error) {
       console.log(error);
-      this.alertMsg = getAlertMessage(error.code);
+      this.alertMsg = getAlertMessage(error.code, this.user.email);
       this.alert.show();
       this.loading = false;
     }
@@ -93,9 +69,9 @@ export class FeatureAdd {
           ×
         </button>
         <blaze-card>
-          <form onSubmit={(e) => this.create(e)}>
+          <form onSubmit={(e) => this.changeName(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">New feature</h2>
+              <h2 class="c-heading">Change name</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -118,7 +94,7 @@ export class FeatureAdd {
                   <i class="fas fa-tag c-icon" />
                   <input
                     type="text"
-                    value={this.name}
+                    value={this.displayName}
                     class="c-field c-field--label"
                     required
                     disabled={this.loading}
@@ -126,31 +102,13 @@ export class FeatureAdd {
                   />
                 </div>
               </label>
-
-              <label class="c-label o-form-element">
-                Key:
-                <div class="o-field o-field--icon-left">
-                  <i class="fas fa-key c-icon" />
-                  <input
-                    type="text"
-                    value={this.key}
-                    class="c-field c-field--label u-text--mono"
-                    required
-                    disabled={this.loading}
-                    onChange={(e) => this.handleKeyChange(e)}
-                  />
-                  <div role="tooltip" class="c-hint">
-                    Feature keys must be unique
-                  </div>
-                </div>
-              </label>
             </blaze-card-body>
             <blaze-card-footer>
-              <button class="c-button c-button--success c-button--block" disabled={this.loading}>
+              <button class="c-button c-button--block c-button--success" disabled={this.loading}>
                 <span class="c-button__icon-left" aria-hidden>
-                  <i class="fas fa-star-of-life" />
+                  <i class="fas fa-save" />
                 </span>
-                Create new feature
+                Save name
               </button>
             </blaze-card-footer>
           </form>

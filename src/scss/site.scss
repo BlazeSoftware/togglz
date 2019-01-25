@@ -124,3 +124,14 @@ account-dashboard {
     }
   }
 }
+
+account-management {
+  .c-card {
+    margin-top: 1.25em;
+  }
+
+  .c-edit-info.c-button--nude {
+    margin: 0 0.75em;
+    color: $link-color;
+  }
+}

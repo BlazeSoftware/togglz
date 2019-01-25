@@ -28,10 +28,7 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'www',
-      serviceWorker: {
-        clientsClaim: true,
-        skipWaiting: true,
-      },
+      serviceWorker: null,
     },
   ],
   copy: [{ src: 'robots.txt' }],

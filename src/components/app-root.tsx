@@ -25,6 +25,7 @@ export class AppRoot {
             <stencil-route url="/complete" component="account-complete" />
             <stencil-route url="/reset-password" component="account-reset-password" />
             <stencil-route url="/update-password" component="account-update-password" />
+            <stencil-route url="/recover-email" component="account-recover-email" />
             <stencil-route url="/500" component="app-broken" />
             <stencil-route url="/logout" component="account-logout" />
             <stencil-route component="page-not-found" />

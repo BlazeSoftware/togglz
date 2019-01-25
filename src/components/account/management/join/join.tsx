@@ -13,6 +13,9 @@ export class Join {
   history: RouterHistory;
 
   @State()
+  loading: boolean;
+
+  @State()
   alertMsg: AlertMessage = {};
 
   @State()
@@ -34,6 +37,7 @@ export class Join {
 
   async createAccount(e) {
     e.preventDefault();
+    this.loading = true;
     try {
       const { user } = await firebase.auth().createUserWithEmailAndPassword(this.email, this.password);
       try {
@@ -44,6 +48,7 @@ export class Join {
       }
     } catch (error) {
       console.log(error);
+      this.loading = false;
       this.alertMsg = getAlertMessage(error.code, this.email);
       this.alert.show();
     }
@@ -99,6 +104,7 @@ export class Join {
                     type="email"
                     value={this.email}
                     class="c-field c-field--label"
+                    disabled={this.loading}
                     required
                     onInput={(e) => this.handleEmailChange(e)}
                   />
@@ -115,6 +121,7 @@ export class Join {
                       value={this.password}
                       class="c-field"
                       autofocus
+                      disabled={this.loading}
                       required
                       minLength={6}
                       onInput={(e) => this.handlePasswordChange(e)}
@@ -123,6 +130,7 @@ export class Join {
                   <button
                     type="button"
                     class="c-button c-button--ghost-brand"
+                    disabled={this.loading}
                     onClick={() => (this.passwordVisible = !this.passwordVisible)}>
                     {this.passwordVisible ? 'Hide' : 'Show'}
                   </button>
@@ -130,12 +138,12 @@ export class Join {
               </label>
             </blaze-card-body>
             <blaze-card-footer>
-              <blaze-button type="brand" full>
+              <button class="c-button c-button--block c-button--brand" disabled={this.loading}>
                 <span class="c-button__icon-left" aria-hidden>
                   <i class="fas fa-user-plus" />
                 </span>
                 Create new account
-              </blaze-button>
+              </button>
             </blaze-card-footer>
           </form>
         </blaze-card>

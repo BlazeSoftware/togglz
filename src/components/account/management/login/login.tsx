@@ -13,6 +13,9 @@ export class Login {
   history: RouterHistory;
 
   @State()
+  loading: boolean;
+
+  @State()
   alertMsg: AlertMessage = {};
 
   @State()
@@ -34,6 +37,7 @@ export class Login {
 
   async login(e) {
     e.preventDefault();
+    this.loading = true;
     try {
       const { user } = await firebase.auth().signInWithEmailAndPassword(this.email, this.password);
       if (user.emailVerified) {
@@ -41,6 +45,7 @@ export class Login {
       }
       return this.history.push(`/verify?email=${user.email}`);
     } catch (error) {
+      this.loading = false;
       console.log(error);
       this.alertMsg = getAlertMessage(error.code, this.email);
       this.alert.show();
@@ -95,6 +100,7 @@ export class Login {
                     type="email"
                     value={this.email}
                     class="c-field c-field--label"
+                    disabled={this.loading}
                     required
                     onInput={(e) => this.handleEmailChange(e)}
                   />
@@ -110,6 +116,7 @@ export class Login {
                       type={this.passwordVisible ? 'text' : 'password'}
                       value={this.password}
                       class="c-field"
+                      disabled={this.loading}
                       required
                       minLength={6}
                       onInput={(e) => this.handlePasswordChange(e)}
@@ -118,6 +125,7 @@ export class Login {
                   <button
                     type="button"
                     class="c-button c-button--ghost-brand"
+                    disabled={this.loading}
                     onClick={() => (this.passwordVisible = !this.passwordVisible)}>
                     {this.passwordVisible ? 'Hide' : 'Show'}
                   </button>
@@ -125,12 +133,12 @@ export class Login {
               </label>
             </blaze-card-body>
             <blaze-card-footer>
-              <blaze-button type="brand" full>
+              <button class="c-button c-button--block c-button--brand" disabled={this.loading}>
                 <span class="c-button__icon-left" aria-hidden>
                   <i class="fas fa-sign-in-alt" />
                 </span>
                 Log In
-              </blaze-button>
+              </button>
             </blaze-card-footer>
           </form>
         </blaze-card>

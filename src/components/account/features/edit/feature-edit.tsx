@@ -14,6 +14,9 @@ export class FeatureEdit {
   user: any = {};
 
   @State()
+  loading: boolean;
+
+  @State()
   alertMsg: AlertMessage = {};
 
   @State()
@@ -21,9 +24,6 @@ export class FeatureEdit {
 
   @State()
   key: string;
-
-  @State()
-  loading: boolean;
 
   @State()
   featureSnapshot: any;
@@ -163,18 +163,12 @@ export class FeatureEdit {
               )}
             </blaze-card-body>
             <blaze-card-footer>
-              <div class="c-input-group">
-                <button class="c-button c-button--success c-button--block" disabled={this.loading}>
-                  Save
-                </button>
-                <button
-                  type="button"
-                  class="c-button c-button--block"
-                  disabled={this.loading}
-                  onClick={() => this.panel.close()}>
-                  Cancel
-                </button>
-              </div>
+              <button class="c-button c-button--block c-button--success" disabled={this.loading}>
+                <span class="c-button__icon-left" aria-hidden>
+                  <i class="fas fa-save" />
+                </span>
+                Save feature
+              </button>
             </blaze-card-footer>
           </form>
         </blaze-card>

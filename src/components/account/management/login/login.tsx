@@ -40,8 +40,11 @@ export class Login {
     this.loading = true;
     try {
       const { user } = await firebase.auth().signInWithEmailAndPassword(this.email, this.password);
+      console.log(this.history.location.query.url);
       if (user.emailVerified) {
-        return this.history.push('/dashboard');
+        debugger;
+        const url = this.history.location.query.url || '/dashboard';
+        return this.history.push(url);
       }
       return this.history.push(`/verify?email=${user.email}`);
     } catch (error) {
@@ -53,18 +56,16 @@ export class Login {
   }
 
   firebaseUnsubscribe: any;
-  componentDidUnload() {
-    this.firebaseUnsubscribe();
-  }
-
   componentDidLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         if (user.emailVerified) {
-          return this.history.push('/dashboard');
+          const url = this.history.location.query.url || '/dashboard';
+          return this.history.push(url);
         }
         return this.history.push(`/verify?email=${user.email}`);
       }
+      this.firebaseUnsubscribe();
     });
   }
 

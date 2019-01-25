@@ -1,6 +1,6 @@
 import { Component, Prop, State, Listen } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
-import firebase from '@/firebase/firebase';
+import firebase, { store } from '@/firebase/firebase';
 
 @Component({
   tag: 'account-management',
@@ -9,6 +9,7 @@ export class Account {
   changeNamePopup: any;
   changeEmailPopup: any;
   changePasswordPopup: any;
+  generateKeyPopup: any;
   deleteAccountPopup: any;
 
   @Prop()
@@ -22,6 +23,9 @@ export class Account {
 
   @State()
   email: string;
+
+  @State()
+  settings: any = {};
 
   @State()
   loading: boolean = true;
@@ -40,16 +44,24 @@ export class Account {
   componentDidLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       this.user = user;
-      console.log(user);
       this.displayName = user.displayName;
       this.email = user.email;
       this.loading = false;
+
+      const settingsRef = store.collection('settings').doc(this.user.uid);
+
+      settingsRef.onSnapshot((settingsSnapshot) => {
+        this.settings = settingsSnapshot.data();
+      });
+
+      const settingsSnapshot = await settingsRef.get();
+      this.settings = settingsSnapshot.data();
     });
   }
 
   renderInfoRow(label: string, value: string, popup?: any) {
     return (
-      <div class="o-grid o-grid--no-gutter o-grid--center">
+      <div class="o-grid o-grid--center">
         <label class="o-grid__cell o-grid__cell--width-20 u-text--quiet">{label}:</label>
         <span class="o-grid__cell u-text--loud">
           {!this.loading && (
@@ -91,14 +103,7 @@ export class Account {
             <h3 class="c-heading">Development settings</h3>
           </blaze-card-header>
           <blaze-card-body>
-            <div class="o-grid o-grid--no-gutter o-grid--center">
-              <label class="o-grid__cell o-grid__cell--width-20 u-text--quiet">Web API key:</label>
-              <span class="o-grid__cell">
-                <code class="u-code">8324ujr329ru08au38423d3wesad</code>
-              </span>
-            </div>
-
-            <div class="o-grid o-grid--no-gutter o-grid--top">
+            <div class="o-grid o-grid--top">
               <label class="o-grid__cell o-grid__cell--width-20 u-text--quiet">Authorised domains:</label>
               <span class="o-grid__cell u-text--loud">
                 <ul class="c-list c-list--unstyled">
@@ -107,15 +112,16 @@ export class Account {
                 </ul>
               </span>
             </div>
-          </blaze-card-body>
-          <blaze-card-footer>
-            <button type="button" class="c-button c-button--brand">
-              <span class="c-button__icon-left" aria-hidden>
-                <i class="fas fa-key" />
+            <div class="o-grid o-grid--top">
+              <label class="o-grid__cell o-grid__cell--width-20 u-text--quiet">Web API key:</label>
+              <span class="o-grid__cell">
+                <code class="u-code">{this.settings.webAPIKey}</code>
+                <button class="c-edit-info c-button c-button--nude" onClick={() => this.generateKeyPopup.show()}>
+                  <i class="fas fa-sync-alt" />
+                </button>
               </span>
-              Generate new key
-            </button>
-          </blaze-card-footer>
+            </div>
+          </blaze-card-body>
         </blaze-card>
 
         <blaze-card>
@@ -123,7 +129,7 @@ export class Account {
             <h3 class="c-heading">Danger Zone</h3>
           </blaze-card-header>
           <blaze-card-body>
-            <div class="o-grid o-grid--no-gutter o-grid--center">
+            <div class="o-grid o-grid--center">
               <span class="o-grid__cell o-grid__cell--width-20">
                 <button
                   type="button"
@@ -132,7 +138,9 @@ export class Account {
                   Delete account
                 </button>
               </span>
-              <label class="o-grid__cell u-text--quiet">Once you delete an account, there is no recovery.</label>
+              <label class="o-grid__cell u-text--quiet">
+                Once you delete an account, that's it, there is no recovery.
+              </label>
             </div>
           </blaze-card-body>
         </blaze-card>
@@ -144,6 +152,7 @@ export class Account {
           ref={(popup) => (this.changeEmailPopup = popup)}
         />
         <account-change-password user={this.user} ref={(popup) => (this.changePasswordPopup = popup)} />
+        <account-generate-key user={this.user} ref={(popup) => (this.generateKeyPopup = popup)} />
         <account-delete user={this.user} history={this.history} ref={(popup) => (this.deleteAccountPopup = popup)} />
       </nav-page>
     );

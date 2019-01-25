@@ -24,7 +24,7 @@ export class RecoverEmail {
       message: <span>Email recovered! Please wait whilst we take you to your account.</span>,
     };
     this.alert.show();
-    setTimeout(() => this.history.push('/account'), 5000);
+    setTimeout(() => this.history.push('/login?url=/account'), 5000);
   }
 
   async componentDidLoad() {

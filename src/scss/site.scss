@@ -20,6 +20,18 @@ body {
   color: map-get($colors, brand);
 }
 
+.u-text,
+.c-heading {
+  font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+}
+
+.o-page-loading {
+  position: relative;
+  width: calc(100% - 4em);
+  height: 10em;
+}
+
 .c-alert {
   .c-link {
     color: #fff !important;
@@ -32,6 +44,11 @@ body {
     color: #000 !important;
     text-decoration: underline !important;
   }
+}
+
+aside.o-drawer.o-drawer--left,
+aside.o-drawer.o-drawer--right {
+  width: 320px;
 }
 
 nav-page {
@@ -57,10 +74,26 @@ nav-page {
     }
 
     .c-nav__item {
+      position: relative;
       cursor: default;
 
       .o-icon {
         margin-right: 1em;
+      }
+
+      &--active {
+        box-shadow: 0 -1px 0 map-get($colors, black) inset;
+      }
+
+      &--active:after {
+        content: '';
+        position: absolute;
+        top: calc(50% - 12px);
+        right: -20px;
+        padding: 12px;
+        transform: rotate(45deg);
+        box-shadow: 1px 0px 0px map-get($colors, black) inset;
+        background-color: map-get($colors, white);
       }
     }
   }
@@ -125,17 +158,31 @@ account-dashboard {
   }
 }
 
-account-management {
+account-management,
+account-plan {
   .c-card {
     margin-top: 1.25em;
   }
-
   .c-edit-info.c-button--nude {
     margin: 0 0.75em;
     color: $link-color;
   }
 
+  .c-edit-info--error.c-button--nude {
+    color: $color-error;
+  }
+
   .o-grid {
-    padding-bottom: 1em;
+    padding-bottom: 0.5em;
+  }
+}
+
+pricing-overview {
+  .c-list .o-feature {
+    padding: 0.7em 0;
+
+    .o-icon {
+      margin-right: 1em;
+    }
   }
 }

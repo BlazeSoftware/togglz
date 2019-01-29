@@ -56,7 +56,7 @@ export class Dashboard {
         <tr class="c-table__row" key={featureSnapshot.ref.id}>
           <td class="c-table__cell">{feature.name}</td>
           <td class="c-table__cell">
-            <code class="u-text--mono u-text--loud">{feature.key}</code>
+            <code class="u-code">{feature.key}</code>
           </td>
           <td class="c-table__cell c-table__cell--center u-center-block">
             <div class="u-center-block__content u-center-block__content--vertical">
@@ -65,21 +65,21 @@ export class Dashboard {
           </td>
           <td class="c-table__cell c-table__cell--center o-actions">
             <button type="button" class="c-button c-button--nude c-button--info" aria-label="Details">
-              <i class="fas fa-info-circle" />
+              <i class="fa-fw fas fa-info-circle" />
             </button>
             <button
               type="button"
               class="c-button c-button--nude c-button--edit"
               aria-label="Edit feature"
               onClick={() => this.editFeaturePopup.show(featureSnapshot)}>
-              <i class="fas fa-edit" />
+              <i class="fa-fw fas fa-edit" />
             </button>
             <button
               type="button"
               class="c-button c-button--nude c-button--delete"
               aria-label="Delete feature"
               onClick={() => this.deleteFeaturePopup.show(featureSnapshot)}>
-              <i class="fas fa-trash-alt" />
+              <i class="fa-fw far fa-trash-alt" />
             </button>
           </td>
         </tr>
@@ -97,15 +97,19 @@ export class Dashboard {
             <div class="u-right u-letter-box-small">
               <button class="c-button c-button--success u-small" onClick={() => this.addFeaturePopup.show()}>
                 <span class="c-button__icon-left" aria-hidden>
-                  <i class="fas fa-star-of-life" />
+                  <i class="fa-fw fas fa-star-of-life" />
                 </span>
                 New feature
               </button>
             </div>
           )}
-          {this.loading && <div class="u-centered u-super u-letter-box-super">⏳</div>}
+          {this.loading && (
+            <div class="u-centered u-super o-page-loading">
+              <loading-status status="loading" />
+            </div>
+          )}
           {!this.loading && this.features.length > 0 && (
-            <table class="c-table c-table--striped">
+            <table class="c-table">
               <thead class="c-table__head">
                 <tr class="c-table__row c-table__row--heading">
                   <th class="c-table__cell">Feature</th>
@@ -123,7 +127,7 @@ export class Dashboard {
               <h3 class="u-heading">You don't have any feature toggles</h3>
               <button class="c-button c-button--ghost-success" onClick={() => this.addFeaturePopup.show()}>
                 <span class="c-button__icon-left" aria-hidden>
-                  <i class="fas fa-star-of-life" />
+                  <i class="fa-fw fas fa-star-of-life" />
                 </span>
                 Add feature
               </button>

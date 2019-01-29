@@ -46,3 +46,7 @@ $grey-background-dark: lighten($color-grey, 35);
 .c-table__cell--center {
   justify-content: center;
 }
+
+.c-nav {
+  overflow-x: hidden;
+}

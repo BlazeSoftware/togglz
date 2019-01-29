@@ -130,7 +130,7 @@ export class FeatureEdit {
                   <label class="c-label o-form-element">
                     Name:
                     <div class="o-field o-field--icon-left">
-                      <i class="fas fa-tag c-icon" />
+                      <i class="fa-fw fas fa-tag c-icon" />
                       <input
                         type="text"
                         value={this.name}
@@ -145,7 +145,7 @@ export class FeatureEdit {
                   <label class="c-label o-form-element">
                     Key:
                     <div class="o-field o-field--icon-left">
-                      <i class="fas fa-key c-icon" />
+                      <i class="fa-fw fas fa-key c-icon" />
                       <input
                         type="text"
                         value={this.key}
@@ -165,7 +165,7 @@ export class FeatureEdit {
             <blaze-card-footer>
               <button class="c-button c-button--block c-button--success" disabled={this.loading}>
                 <span class="c-button__icon-left" aria-hidden>
-                  <i class="fas fa-save" />
+                  <i class="fa-fw fas fa-save" />
                 </span>
                 Save feature
               </button>

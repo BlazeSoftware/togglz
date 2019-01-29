@@ -1,6 +1,6 @@
 import { Component, Prop, State } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
-import firebase from '@/firebase/firebase';
+import firebase, { store } from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 
 @Component({
@@ -45,6 +45,12 @@ export class Complete {
         }
         await firebase.auth().applyActionCode(this.history.location.query.oobCode);
         await this.user.reload();
+        await store
+          .collection('plan')
+          .doc(this.user.uid)
+          .set({
+            current: 'starter',
+          });
         this.emailVerified();
       } catch (error) {
         console.error(error);

@@ -115,7 +115,7 @@ export class FeatureAdd {
               <label class="c-label o-form-element">
                 Name:
                 <div class="o-field o-field--icon-left">
-                  <i class="fas fa-tag c-icon" />
+                  <i class="fa-fw fas fa-tag c-icon" />
                   <input
                     type="text"
                     value={this.name}
@@ -130,7 +130,7 @@ export class FeatureAdd {
               <label class="c-label o-form-element">
                 Key:
                 <div class="o-field o-field--icon-left">
-                  <i class="fas fa-key c-icon" />
+                  <i class="fa-fw fas fa-key c-icon" />
                   <input
                     type="text"
                     value={this.key}
@@ -148,7 +148,7 @@ export class FeatureAdd {
             <blaze-card-footer>
               <button class="c-button c-button--success c-button--block" disabled={this.loading}>
                 <span class="c-button__icon-left" aria-hidden>
-                  <i class="fas fa-star-of-life" />
+                  <i class="fa-fw fas fa-star-of-life" />
                 </span>
                 Create new feature
               </button>

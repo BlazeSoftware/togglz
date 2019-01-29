@@ -93,7 +93,7 @@ export class UpdatePassword {
                 Password:
                 <div class="c-input-group c-input-group--label">
                   <div class="o-field o-field--icon-left">
-                    <i class="fas fa-lock c-icon" />
+                    <i class="fa-fw fas fa-lock c-icon" />
                     <input
                       type={this.passwordVisible ? 'text' : 'password'}
                       value={this.password}
@@ -117,7 +117,7 @@ export class UpdatePassword {
             <blaze-card-footer>
               <button class="c-button c-button--block c-button--success" disabled={this.loading}>
                 <span class="c-button__icon-left" aria-hidden>
-                  <i class="fas fa-save" />
+                  <i class="fa-fw fas fa-save" />
                 </span>
                 Save password
               </button>

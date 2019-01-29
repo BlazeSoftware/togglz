@@ -84,9 +84,9 @@ export class FeatureDelete {
               disabled={this.loading}
               onClick={(e) => this.delete(e)}>
               <span class="c-button__icon-left" aria-hidden>
-                <i class="fas fa-trash-alt" />
+                <i class="fa-fw far fa-trash-alt" />
               </span>
-              Delete
+              Delete feature
             </button>
           </blaze-card-footer>
         </blaze-card>

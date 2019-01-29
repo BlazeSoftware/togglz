@@ -64,7 +64,7 @@ export class ResetPassword {
               <label class="c-label o-form-element">
                 Email address:
                 <div class="o-field o-field--icon-left">
-                  <i class="fas fa-at c-icon" />
+                  <i class="fa-fw fas fa-at c-icon" />
                   <input
                     type="email"
                     value={this.email}
@@ -82,7 +82,7 @@ export class ResetPassword {
                 disabled={this.complete}
                 onClick={(e) => this.send(e)}>
                 <span class="c-button__icon-left" aria-hidden>
-                  <i class="fas fa-paper-plane" />
+                  <i class="fa-fw fas fa-paper-plane" />
                 </span>
                 Send password reset email
               </button>

@@ -107,7 +107,7 @@ export class DeleteAccount {
                 Re-enter your password to confirm:
                 <div class="c-input-group c-input-group--label">
                   <div class="o-field o-field--icon-left">
-                    <i class="fas fa-lock c-icon" />
+                    <i class="fa-fw fas fa-lock c-icon" />
                     <input
                       type={this.currentPasswordVisible ? 'text' : 'password'}
                       value={this.currentPassword}

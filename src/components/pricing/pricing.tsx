@@ -1,4 +1,4 @@
-import { Component, Prop } from '@stencil/core';
+import { Component, Prop, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'pricing-overview',
@@ -6,6 +6,15 @@ import { Component, Prop } from '@stencil/core';
 export class Pricing {
   @Prop()
   plan: string;
+
+  @Event()
+  upgrade: EventEmitter;
+
+  @Event()
+  downgrade: EventEmitter;
+
+  @Event()
+  join: EventEmitter;
 
   render() {
     return (
@@ -47,8 +56,16 @@ export class Pricing {
               </div>
               <footer class="c-card__footer c-card__footer--block">
                 <div class="c-input-group">
-                  {!this.plan && <button class="c-button c-button--block c-button--success">Join</button>}
-                  {this.plan === 'pro' && <button class="c-button c-button--block">Downgrade</button>}
+                  {!this.plan && (
+                    <button class="c-button c-button--block c-button--success" onClick={() => this.join.emit()}>
+                      Join
+                    </button>
+                  )}
+                  {this.plan === 'pro' && (
+                    <button class="c-button c-button--block" onClick={() => this.downgrade.emit()}>
+                      Downgrade
+                    </button>
+                  )}
                 </div>
               </footer>
             </div>
@@ -94,8 +111,11 @@ export class Pricing {
               <footer class="c-card__footer c-card__footer--block">
                 <div class="c-input-group">
                   {this.plan === 'starter' && (
-                    <button disabled class="c-button c-button--block c-button--info">
-                      Upgrade, coming soon
+                    <button
+                      disabled
+                      class="c-button c-button--block c-button--info"
+                      onClick={() => this.upgrade.emit()}>
+                      Upgrade
                     </button>
                   )}
                 </div>

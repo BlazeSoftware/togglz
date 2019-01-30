@@ -42,7 +42,7 @@ export class GenerateKey {
       await store
         .collection('settings')
         .doc(this.user.uid)
-        .set({
+        .update({
           webAPIKey: new Array(20)
             .fill(undefined)
             .map(() => 'abcdefghijklmnopqrstuvwxyz0123456789'.charAt(Math.floor(Math.random() * 36)))

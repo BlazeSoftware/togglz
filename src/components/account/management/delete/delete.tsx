@@ -61,6 +61,15 @@ export class DeleteAccount {
       });
       await batch.commit();
 
+      await store
+        .collection('settings')
+        .doc(this.user.uid)
+        .delete();
+      await store
+        .collection('plans')
+        .doc(this.user.uid)
+        .delete();
+
       await this.user.delete();
       await firebase.auth().signOut();
       this.history.push('/');

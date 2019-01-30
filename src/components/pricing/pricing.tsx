@@ -93,7 +93,11 @@ export class Pricing {
               </div>
               <footer class="c-card__footer c-card__footer--block">
                 <div class="c-input-group">
-                  {this.plan === 'starter' && <button class="c-button c-button--block c-button--info">Upgrade</button>}
+                  {this.plan === 'starter' && (
+                    <button disabled class="c-button c-button--block c-button--info">
+                      Upgrade, coming soon
+                    </button>
+                  )}
                 </div>
               </footer>
             </div>

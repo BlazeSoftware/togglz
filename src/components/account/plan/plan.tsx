@@ -27,7 +27,7 @@ export class Plan {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       this.user = user;
 
-      const planRef = store.collection('plan').doc(this.user.uid);
+      const planRef = store.collection('plans').doc(this.user.uid);
 
       planRef.onSnapshot((planSnapshot) => {
         this.plan = planSnapshot.data();
@@ -35,6 +35,8 @@ export class Plan {
 
       const planSnapshot = await planRef.get();
       this.plan = planSnapshot.data();
+
+      if (!this.plan) await planRef.set({ current: 'starter' });
 
       this.loading = false;
     });

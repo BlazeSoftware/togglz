@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
 admin.initializeApp({
-  credential: admin.credential.cert(require('./service-account.json')),
+  credential: admin.credential.applicationDefault(),
   databaseURL: 'https://blaze-togglz.firebaseio.com',
 });
 

@@ -20,6 +20,7 @@ app.post('/upgrade', (req, res) => {
 
   admin
     .firestore()
+    .settings({ timestampsInSnapshots: true })
     .collection('plans')
     .doc(userId)
     .update({

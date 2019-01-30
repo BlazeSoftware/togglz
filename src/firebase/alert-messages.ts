@@ -88,6 +88,14 @@ const messages = (email: string) => ({
     type: 'error',
     message: 'Feature keys must be unique, please use a different value for your key.',
   },
+  'plans/upgrading': {
+    type: 'info',
+    message: 'We are updating your plan...',
+  },
+  'plans/upgraded': {
+    type: 'success',
+    message: 'Plan upgraded to Pro.',
+  },
 });
 
 export const getAlertMessage = (errCode: string, email?: string): AlertMessage =>

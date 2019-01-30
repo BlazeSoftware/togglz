@@ -111,10 +111,7 @@ export class Pricing {
               <footer class="c-card__footer c-card__footer--block">
                 <div class="c-input-group">
                   {this.plan === 'starter' && (
-                    <button
-                      disabled
-                      class="c-button c-button--block c-button--info"
-                      onClick={() => this.upgrade.emit()}>
+                    <button class="c-button c-button--block c-button--info" onClick={() => this.upgrade.emit()}>
                       Upgrade
                     </button>
                   )}

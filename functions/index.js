@@ -11,6 +11,9 @@ const app = require('express')();
 const stripe = require('stripe')(functions.config().stripe_test.key);
 const endpointSecret = functions.config().stripe_test.signature;
 
+const store = admin.firestore();
+store.settings({ timestampsInSnapshots: true });
+
 app.use(require('cors')({ origin: true }));
 app.use(require('body-parser').raw({ type: '*/*' }));
 
@@ -18,9 +21,7 @@ app.post('/upgrade', (req, res) => {
   const event = stripe.webhooks.constructEvent(req.rawBody, req.header('stripe-signature'), endpointSecret);
   const userId = event.data.object.client_reference_id;
 
-  admin
-    .firestore()
-    .settings({ timestampsInSnapshots: true })
+  store
     .collection('plans')
     .doc(userId)
     .update({

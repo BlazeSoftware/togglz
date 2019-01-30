@@ -1,7 +1,7 @@
 import { Component, Prop, State } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 import firebase, { store } from '@/firebase/firebase';
-import { AlertMessage } from '@/firebase/alert-messages';
+import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 
 declare const Stripe: any;
 
@@ -62,12 +62,21 @@ export class Plan {
 
       planRef.onSnapshot((planSnapshot) => {
         this.plan = planSnapshot.data();
+        if (this.plan && this.plan.current === 'pro' && this.history.location.query.upgraded) {
+          this.alertMsg = getAlertMessage('plans/upgraded');
+          this.alert.show();
+        }
       });
 
       const planSnapshot = await planRef.get();
       this.plan = planSnapshot.data();
 
       if (!this.plan) await planRef.set({ current: 'starter' });
+
+      if (this.plan && this.plan.current !== 'pro' && this.history.location.query.upgraded) {
+        this.alertMsg = getAlertMessage('plans/upgrading');
+        this.alert.show();
+      }
 
       this.loading = false;
     });

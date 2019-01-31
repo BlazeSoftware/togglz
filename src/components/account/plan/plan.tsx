@@ -35,7 +35,7 @@ export class Plan {
 
     const result = await this.stripe.redirectToCheckout({
       items: [{ plan: 'plan_ERAHeqIAYD8I1q', quantity: 1 }],
-      successUrl: 'https://www.togglz.com/plan',
+      successUrl: 'https://www.togglz.com/plan?upgraded=true',
       cancelUrl: 'https://www.togglz.com/plan',
       clientReferenceId: this.user.uid,
     });

@@ -26,6 +26,7 @@ app.post('/upgrade', (req, res) => {
     .doc(userId)
     .update({
       current: 'pro',
+      checkout: event,
     })
     .then(() => res.send({ received: true }));
 });

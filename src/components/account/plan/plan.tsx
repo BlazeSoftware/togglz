@@ -9,6 +9,7 @@ declare const Stripe: any;
   tag: 'account-plan',
 })
 export class Plan {
+  downgradePopup: any;
   alert: any;
 
   @Prop()
@@ -49,6 +50,22 @@ export class Plan {
     }
   }
 
+  downgrade() {
+    this.alertMsg = getAlertMessage('plans/updating');
+    this.alert.show();
+
+    fetch(`https://us-central1-blaze-togglz.cloudfunctions.net/plans/subscriptions/${this.user.uid}`, {
+      method: 'DELETE',
+      mode: 'cors',
+    }).catch((e) => {
+      this.alertMsg = {
+        type: 'error',
+        message: e,
+      };
+      this.alert.show();
+    });
+  }
+
   firebaseUnsubscribe: any;
   componentDidUnload() {
     this.firebaseUnsubscribe();
@@ -66,6 +83,8 @@ export class Plan {
           this.alertMsg = getAlertMessage('plans/upgraded');
           this.alert.show();
         }
+        this.alert.close();
+        this.downgradePopup.close();
       });
 
       const planSnapshot = await planRef.get();
@@ -74,7 +93,7 @@ export class Plan {
       if (!this.plan) await planRef.set({ current: 'starter' });
 
       if (this.plan && this.plan.current !== 'pro' && this.history.location.query.upgraded) {
-        this.alertMsg = getAlertMessage('plans/upgrading');
+        this.alertMsg = getAlertMessage('plans/updating');
         this.alert.show();
       }
 
@@ -107,8 +126,15 @@ export class Plan {
               <loading-status status="loading" />
             </div>
           )}
-          {!this.loading && <pricing-overview onUpgrade={() => this.upgrade()} plan={this.plan.current} />}
+          {!this.loading && (
+            <pricing-overview
+              onUpgrade={() => this.upgrade()}
+              onDowngrade={() => this.downgradePopup.show()}
+              plan={this.plan.current}
+            />
+          )}
         </div>
+        <account-downgrade-plan user={this.user} ref={(panel) => (this.downgradePopup = panel)} />
       </nav-page>
     );
   }

@@ -50,6 +50,11 @@ export class DeleteAccount {
       const credentials = firebase.auth.EmailAuthProvider.credential(this.user.email, this.currentPassword);
       await this.user.reauthenticateAndRetrieveDataWithCredential(credentials);
 
+      await fetch(`https://us-central1-blaze-togglz.cloudfunctions.net/plans/subscriptions/${this.user.uid}`, {
+        method: 'DELETE',
+        mode: 'cors',
+      });
+
       const featuresSnapshot = await store
         .collection('features')
         .where('owner', '==', this.user.uid)

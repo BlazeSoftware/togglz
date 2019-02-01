@@ -35,23 +35,25 @@ export class DowngradePlan {
     this.loading = false;
   }
 
-  downgrade(e) {
+  async downgrade(e) {
     this.loading = true;
 
     e.preventDefault();
     this.alertMsg = getAlertMessage('plans/updating');
     this.alert.show();
 
-    fetch(`https://us-central1-blaze-togglz.cloudfunctions.net/plans/subscriptions/${this.user.uid}`, {
-      method: 'DELETE',
-      mode: 'cors',
-    }).catch((e) => {
+    try {
+      await fetch(`https://us-central1-blaze-togglz.cloudfunctions.net/plans/subscriptions/${this.user.uid}`, {
+        method: 'DELETE',
+        mode: 'cors',
+      });
+    } catch (e) {
       this.alertMsg = {
         type: 'error',
         message: e,
       };
       this.alert.show();
-    });
+    }
   }
 
   render() {
@@ -82,7 +84,7 @@ export class DowngradePlan {
               </blaze-alert>
               <p class="c-paragraph u-text--loud">Are you sure you want to downgrade?</p>
               <p class="c-paragraph">
-                You will lose access to your teams and feature toggles that are outside the free limit of 30.
+                You will lose access to your teams and feature toggles that are outside the free limit of 10.
               </p>
               <p class="c-paragraph u-text--quiet u-small">
                 It is recommended you update your site or app appropriately before downgrading.

@@ -43,10 +43,10 @@ export class Pricing {
                   </li>
                   <li class="o-feature c-list__item">
                     <i class="o-icon u-text--quiet far fa-check-circle" />
-                    30 feature toggles
+                    10 feature toggles
                   </li>
                   <li class="o-feature c-list__item">
-                    <i class="o-icon u-text--quiet far fa-check-circle" />3 authorised domains
+                    <i class="o-icon u-text--quiet far fa-check-circle" />2 authorised domains
                   </li>
                   <li class="o-feature c-list__item">
                     <i class="o-icon u-text--quiet far fa-check-circle" />

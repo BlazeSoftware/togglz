@@ -21,6 +21,9 @@ export class Account {
   user: any = {};
 
   @State()
+  plan: any = {};
+
+  @State()
   displayName: string;
 
   @State()
@@ -49,6 +52,12 @@ export class Account {
       this.displayName = user.displayName;
       this.email = user.email;
       this.loading = false;
+
+      const plansSnapshot = await store
+        .collection('plans')
+        .doc(this.user.uid)
+        .get();
+      this.plan = plansSnapshot.data();
 
       const settingsRef = store.collection('settings').doc(this.user.uid);
 
@@ -101,11 +110,15 @@ export class Account {
       <li class="c-list__item">
         localhost
         <button
-          class="c-edit-info c-button c-button--nude c-tooltip c-tooltip--right"
+          class="c-edit-info c-button c-button--nude c-tooltip c-tooltip--top"
           aria-label="Add new domain"
-          onClick={() => this.addDomainPopup.show()}>
+          onClick={() => this.addDomainPopup.show()}
+          disabled={domains.length >= 2 && this.plan.current === 'starter'}>
           <i class="fa-fw fas fa-plus" />
         </button>
+        {domains.length >= 2 && this.plan.current === 'starter' && (
+          <span class="u-small u-text--quiet">Upgrade to Pro</span>
+        )}
       </li>
     );
     return rows;

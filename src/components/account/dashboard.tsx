@@ -18,6 +18,9 @@ export class Dashboard {
   user: any = {};
 
   @State()
+  plan: any = {};
+
+  @State()
   features: Array<any> = [];
 
   @State()
@@ -28,9 +31,15 @@ export class Dashboard {
     this.firebaseUnsubscribe();
   }
 
-  componentDidLoad() {
+  async componentDidLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       this.user = user;
+
+      const plansSnapshot = await store
+        .collection('plans')
+        .doc(this.user.uid)
+        .get();
+      this.plan = plansSnapshot.data();
 
       const featuresQuery = store
         .collection('features')
@@ -93,16 +102,20 @@ export class Dashboard {
         <stencil-route-title pageTitle="Dashboard" />
         <h2 class="c-heading">Dashboard</h2>
         <div>
-          {this.features.length > 0 && (
-            <div class="u-right u-letter-box-small">
-              <button class="c-button c-button--success u-small" onClick={() => this.addFeaturePopup.show()}>
-                <span class="c-button__icon-left" aria-hidden>
-                  <i class="fa-fw fas fa-star-of-life" />
-                </span>
-                New feature
-              </button>
-            </div>
-          )}
+          <div class="u-right u-letter-box-small">
+            <button
+              class="c-button c-button--success u-small"
+              onClick={() => this.addFeaturePopup.show()}
+              disabled={this.features.length >= 10 && this.plan.current === 'starter'}>
+              <span class="c-button__icon-left" aria-hidden>
+                <i class="fa-fw fas fa-star-of-life" />
+              </span>
+              New feature
+            </button>
+            {this.features.length >= 10 && this.plan.current === 'starter' && (
+              <div class="u-small u-text--quiet">Upgrade to Pro</div>
+            )}
+          </div>
           {this.loading && (
             <div class="u-centered u-super o-page-loading">
               <loading-status status="loading" />

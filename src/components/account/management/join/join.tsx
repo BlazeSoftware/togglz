@@ -120,7 +120,6 @@ export class Join {
                       type={this.passwordVisible ? 'text' : 'password'}
                       value={this.password}
                       class="c-field"
-                      autofocus
                       disabled={this.loading}
                       required
                       minLength={6}

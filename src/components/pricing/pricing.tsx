@@ -38,19 +38,15 @@ export class Pricing {
                 <div class="u-small">Includes:</div>
                 <ul class="c-list c-list--unstyled">
                   <li class="o-feature c-list__item">
-                    <i class="o-icon u-text--quiet far fa-check-circle" />
-                    Personal account
-                  </li>
-                  <li class="o-feature c-list__item">
-                    <i class="o-icon u-text--quiet far fa-check-circle" />
+                    <i class="o-icon u-text--quiet fa-fw far fa-check-circle" />
                     10 feature toggles
                   </li>
                   <li class="o-feature c-list__item">
-                    <i class="o-icon u-text--quiet far fa-check-circle" />2 authorised domains
+                    <i class="o-icon u-text--quiet fa-fw far fa-check-circle" />2 environments
                   </li>
                   <li class="o-feature c-list__item">
-                    <i class="o-icon u-text--quiet far fa-check-circle" />
-                    Web API access
+                    <i class="o-icon u-text--quiet fa-fw far fa-check-circle" />
+                    100 API requests per month
                   </li>
                 </ul>
               </div>
@@ -76,7 +72,7 @@ export class Pricing {
               <header class="c-card__header">
                 <h2 class="c-heading">
                   Pro
-                  <div class="c-heading__sub">For growing teams</div>
+                  <div class="c-heading__sub">More traffic, more environments</div>
                 </h2>
                 <div class="u-super">$99/mo</div>
                 {this.plan === 'pro' ? (
@@ -91,20 +87,16 @@ export class Pricing {
                 </div>
                 <ul class="c-list c-list--unstyled">
                   <li class="o-feature c-list__item">
-                    <i class="o-icon u-text--quiet far fa-check-circle" />
-                    Unlimited teams
-                  </li>
-                  <li class="o-feature c-list__item">
-                    <i class="o-icon u-text--quiet far fa-check-circle" />
+                    <i class="o-icon u-text--quiet fa-fw far fa-check-circle" />
                     Unlimited feature toggles
                   </li>
                   <li class="o-feature c-list__item">
-                    <i class="o-icon u-text--quiet far fa-check-circle" />
-                    Unlimited authorised domains
+                    <i class="o-icon u-text--quiet fa-fw far fa-check-circle" />
+                    Unlimited environments
                   </li>
                   <li class="o-feature c-list__item">
-                    <i class="o-icon u-text--quiet far fa-check-circle" />
-                    Reporting
+                    <i class="o-icon u-text--quiet fa-fw far fa-check-circle" />
+                    Unlimited API requests
                   </li>
                 </ul>
               </div>

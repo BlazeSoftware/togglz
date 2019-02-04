@@ -81,10 +81,6 @@ nav-page {
         margin-right: 1em;
       }
 
-      &--active {
-        box-shadow: 0 -1px 0 map-get($colors, black) inset;
-      }
-
       &--active:after {
         content: '';
         position: absolute;
@@ -92,7 +88,6 @@ nav-page {
         right: -20px;
         padding: 12px;
         transform: rotate(45deg);
-        box-shadow: 1px 0px 0px map-get($colors, black) inset;
         background-color: map-get($colors, white);
       }
     }

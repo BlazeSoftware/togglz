@@ -1,6 +1,6 @@
 import { Component, State, Prop, Method } from '@stencil/core';
 import slug from 'slug';
-import firebase, { store } from '@/firebase/firebase';
+import services from '@/firebase/services';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 
 @Component({
@@ -59,24 +59,7 @@ export class FeatureAdd {
     e.preventDefault();
     this.loading = true;
     try {
-      const existingFeature = await store
-        .collection('features')
-        .where('owner', '==', this.user.uid)
-        .where('key', '==', this.key)
-        .get();
-
-      if (!existingFeature.empty) throw { code: 'storage/document-exists' };
-
-      await store
-        .collection('features')
-        .doc()
-        .set({
-          name: this.name,
-          key: this.key,
-          active: false,
-          owner: this.user.uid,
-          created: firebase.firestore.FieldValue.serverTimestamp(),
-        });
+      services.addFeature(this.user.uid, this.name, this.key);
       this.reset();
     } catch (error) {
       console.log(error);

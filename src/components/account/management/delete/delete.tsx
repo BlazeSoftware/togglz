@@ -70,6 +70,7 @@ export class DeleteAccount {
         .collection('settings')
         .doc(this.user.uid)
         .delete();
+
       await store
         .collection('plans')
         .doc(this.user.uid)

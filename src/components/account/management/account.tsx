@@ -10,8 +10,9 @@ export class Account {
   changeEmailPopup: any;
   changePasswordPopup: any;
   generateKeyPopup: any;
-  addDomainPopup: any;
-  deleteDomainPopup: any;
+  addEnvironmentPopup: any;
+  editEnvironmentPopup: any;
+  deleteEnvironmentPopup: any;
   deleteAccountPopup: any;
 
   @Prop()
@@ -72,7 +73,7 @@ export class Account {
 
   renderInfoRow(label: string, value: string, popup?: any) {
     return (
-      <div class="o-grid o-grid--center">
+      <div class="o-grid o-grid--center o-info-item">
         <label class="o-grid__cell o-grid__cell--width-20 u-text--quiet">{label}:</label>
         <span class="o-grid__cell">
           {!this.loading && (
@@ -93,38 +94,50 @@ export class Account {
     );
   }
 
-  renderDomains() {
-    const domains = this.settings.domains || [];
-    const rows = domains.map((domain) => (
-      <li class="c-list__item">
-        {domain}
-        <button
-          class="c-edit-info c-edit-info--error c-button c-button--nude c-tooltip c-tooltip--right"
-          aria-label="Remove domain"
-          onClick={() => this.deleteDomainPopup.show(domain)}>
-          <i class="fa-fw far fa-trash-alt" />
-        </button>
-      </li>
+  renderEnvironments() {
+    const environments = this.settings.environments || [];
+    const rows = environments.map((environment) => (
+      <tr class="c-table__row">
+        <td class="c-table__cell">{environment}</td>
+        <td class="c-table__cell c-table__cell--center o-actions">
+          <button
+            class="c-button c-button--nude c-button--edit"
+            aria-label="Edit environment"
+            onClick={() => this.editEnvironmentPopup.show(environment)}>
+            <i class="fa-fw fas fa-edit" />
+          </button>
+          <button
+            class="c-button c-button--nude c-button--delete"
+            aria-label="Remove environment"
+            onClick={() => this.deleteEnvironmentPopup.show(environment)}>
+            <i class="fa-fw far fa-trash-alt" />
+          </button>
+        </td>
+      </tr>
     ));
     rows.unshift(
-      <li class="c-list__item">
-        localhost
-        <button
-          class="c-edit-info c-button c-button--nude c-tooltip c-tooltip--top"
-          aria-label="Add new domain"
-          onClick={() => this.addDomainPopup.show()}
-          disabled={domains.length >= 2 && this.plan.current === 'starter'}>
-          <i class="fa-fw fas fa-plus" />
-        </button>
-        {domains.length >= 2 && this.plan.current === 'starter' && (
-          <span class="u-small u-text--quiet">Upgrade to Pro</span>
-        )}
-      </li>
+      <tr class="c-table__row">
+        <td class="c-table__cell">defaults</td>
+        <td class="c-table__cell c-table__cell--center">-</td>
+      </tr>
     );
-    return rows;
+
+    return (
+      <table class="c-table c-table--condensed">
+        <thead class="c-table__head">
+          <tr class="c-table__row c-table__row--heading">
+            <th class="c-table__cell">Name</th>
+            <th class="c-table__cell c-table__cell--center">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="c-table__body">{rows}</tbody>
+      </table>
+    );
   }
 
   render() {
+    const environments = this.settings.environments || [];
+
     return (
       <nav-page history={this.history}>
         <stencil-route-title pageTitle="Account" />
@@ -145,16 +158,46 @@ export class Account {
 
         <blaze-card>
           <blaze-card-header>
+            <div class="o-grid o-grid--no-gutter">
+              <h3 class="o-grid__cell c-heading">Environments</h3>
+              <div class="o-grid__cell u-right">
+                <button
+                  class="c-button c-button--ghost-success u-small"
+                  aria-label="Add new environment"
+                  onClick={() => this.addEnvironmentPopup.show()}
+                  disabled={environments.length >= 2 && this.plan.current === 'starter'}>
+                  <span class="c-button__icon-left" aria-hidden>
+                    <i class="fa-fw fas fa-star-of-life" />
+                  </span>
+                  Add new environment
+                </button>
+                {environments.length >= 2 && this.plan.current === 'starter' && (
+                  <div class="u-small u-text--quiet">Upgrade to Pro</div>
+                )}
+              </div>
+            </div>
+          </blaze-card-header>
+          <blaze-card-body>{this.renderEnvironments()}</blaze-card-body>
+        </blaze-card>
+
+        <blaze-card>
+          <blaze-card-header>
             <h3 class="c-heading">Development settings</h3>
           </blaze-card-header>
           <blaze-card-body>
-            <div class="o-grid o-grid--top">
-              <label class="o-grid__cell o-grid__cell--width-20 u-text--quiet">Authorised domains:</label>
+            <div class="o-grid o-grid--top o-info-item">
+              <label class="o-grid__cell o-grid__cell--width-20 u-text--quiet">Web API requests:</label>
               <span class="o-grid__cell">
-                <ul class="c-list c-list--unstyled">{this.renderDomains()}</ul>
+                {this.plan.current === 'starter' && (
+                  <span>
+                    {this.settings.requests || 0} of your 100 limit
+                    <div class="u-small u-text--quiet">Upgrade your plan to Pro for unlimited requests</div>
+                  </span>
+                )}
+                {this.plan.current === 'pro' && <span>Unlimited</span>}
               </span>
             </div>
-            <div class="o-grid o-grid--top">
+            <div class="o-grid o-grid--top o-info-item">
               <label class="o-grid__cell o-grid__cell--width-20 u-text--quiet">Web API key:</label>
               <span class="o-grid__cell">
                 <code class="u-code">{this.settings.webAPIKey}</code>
@@ -164,6 +207,9 @@ export class Account {
                   onClick={() => this.generateKeyPopup.show()}>
                   <i class="fa-fw fas fa-sync-alt" />
                 </button>
+                <div class="u-small u-text--quiet">
+                  Treat this key as sensitive information. <span class="u-text--loud">Do not share it.</span>
+                </div>
               </span>
             </div>
           </blaze-card-body>
@@ -198,8 +244,9 @@ export class Account {
         />
         <account-change-password user={this.user} ref={(popup) => (this.changePasswordPopup = popup)} />
         <account-generate-key user={this.user} ref={(popup) => (this.generateKeyPopup = popup)} />
-        <account-add-domain user={this.user} ref={(popup) => (this.addDomainPopup = popup)} />
-        <account-delete-domain user={this.user} ref={(popup) => (this.deleteDomainPopup = popup)} />
+        <account-add-environment user={this.user} ref={(popup) => (this.addEnvironmentPopup = popup)} />
+        <account-edit-environment user={this.user} ref={(popup) => (this.editEnvironmentPopup = popup)} />
+        <account-delete-environment user={this.user} ref={(popup) => (this.deleteEnvironmentPopup = popup)} />
         <account-delete user={this.user} history={this.history} ref={(popup) => (this.deleteAccountPopup = popup)} />
       </nav-page>
     );

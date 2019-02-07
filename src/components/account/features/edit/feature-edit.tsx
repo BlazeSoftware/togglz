@@ -28,11 +28,15 @@ export class FeatureEdit {
   @State()
   featureSnapshot: any;
 
+  @State()
+  active: boolean;
+
   @Method()
   show(featureSnapshot) {
     this.featureSnapshot = featureSnapshot;
     this.name = this.featureSnapshot.data().name;
     this.key = this.featureSnapshot.data().key;
+    this.isActive();
     this.panel.show();
   }
 
@@ -90,6 +94,13 @@ export class FeatureEdit {
     }
   }
 
+  isActive() {
+    debugger;
+    const feature = this.featureSnapshot.data();
+    this.active = feature.active;
+    Object.keys(feature.environments).forEach((env) => (this.active = feature.environments[env] ? true : this.active));
+  }
+
   render() {
     return (
       <blaze-drawer position="right" dismissible ref={(drawer) => (this.panel = drawer)}>
@@ -118,7 +129,7 @@ export class FeatureEdit {
               </blaze-alert>
               {this.featureSnapshot && (
                 <div>
-                  {this.featureSnapshot.data().active && (
+                  {this.active && (
                     <div>
                       <p class="c-paragraph u-text--highlight">This feature is still active.</p>
                       <p class="c-paragraph u-text--quiet u-small">

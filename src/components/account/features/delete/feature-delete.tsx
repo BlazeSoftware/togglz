@@ -20,9 +20,13 @@ export class FeatureDelete {
   @State()
   featureSnapshot: any;
 
+  @State()
+  active: boolean;
+
   @Method()
   show(featureSnapshot) {
     this.featureSnapshot = featureSnapshot;
+    this.isActive();
     this.panel.show();
   }
 
@@ -46,6 +50,13 @@ export class FeatureDelete {
     }
   }
 
+  isActive() {
+    debugger;
+    const feature = this.featureSnapshot.data();
+    this.active = feature.active;
+    Object.keys(feature.environments).forEach((env) => (this.active = feature.environments[env] ? true : this.active));
+  }
+
   render() {
     return (
       <blaze-drawer position="right" dismissible ref={(panel) => (this.panel = panel)}>
@@ -59,9 +70,7 @@ export class FeatureDelete {
           <blaze-card-body>
             {this.featureSnapshot && (
               <div>
-                {this.featureSnapshot.data().active && (
-                  <p class="c-paragraph u-text--highlight">This feature is still active.</p>
-                )}
+                {this.active && <p class="c-paragraph u-text--highlight">This feature is still active.</p>}
                 <p class="c-paragraph u-text--quiet u-small">
                   By deleting this feature it will no longer be accessible via the API and condition statements within
                   your site or app may stop behaving correctly.

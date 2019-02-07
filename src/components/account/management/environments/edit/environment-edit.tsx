@@ -1,11 +1,12 @@
 import { Component, State, Prop, Method } from '@stencil/core';
-import firebase, { store } from '@/firebase/firebase';
+import slug from 'slug';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
+import services from '@/firebase/services';
 
 @Component({
-  tag: 'account-add-domain',
+  tag: 'account-edit-environment',
 })
-export class AddDomain {
+export class EditEnvironment {
   alert: any;
   panel: any;
 
@@ -19,14 +20,21 @@ export class AddDomain {
   alertMsg: AlertMessage = {};
 
   @State()
-  domain: string;
+  environment: string;
 
-  handleDomainChange(e) {
-    this.domain = e.target.value;
+  originalEnvironment: string;
+
+  handleEnvironmentChange(e) {
+    this.environment = slug(e.target.value, {
+      lower: true,
+      replacement: '_',
+    });
   }
 
   @Method()
-  show() {
+  show(environment) {
+    this.originalEnvironment = environment;
+    this.environment = environment;
     this.panel.show();
   }
 
@@ -37,23 +45,17 @@ export class AddDomain {
 
   @Method()
   reset() {
-    this.domain = null;
+    this.environment = null;
     this.panel.close();
     this.loading = false;
   }
 
-  async addDomain(e) {
+  async editEnvironment(e) {
     e.preventDefault();
 
     this.loading = true;
-    if (this.domain === 'localhost') return this.reset();
     try {
-      await store
-        .collection('settings')
-        .doc(this.user.uid)
-        .update({
-          domains: firebase.firestore.FieldValue.arrayUnion(this.domain),
-        });
+      await services.updateEnvironment(this.user.uid, this.originalEnvironment, this.environment);
       this.reset();
     } catch (error) {
       console.log(error);
@@ -70,9 +72,9 @@ export class AddDomain {
           ×
         </button>
         <blaze-card>
-          <form onSubmit={(e) => this.addDomain(e)}>
+          <form onSubmit={(e) => this.editEnvironment(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">Add domain</h2>
+              <h2 class="c-heading">Edit environment</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -90,16 +92,16 @@ export class AddDomain {
                 </div>
               </blaze-alert>{' '}
               <label class="c-label o-form-element">
-                Domain name:
+                Environment name:
                 <div class="o-field o-field--icon-left">
-                  <i class="fa-fw fas fa-globe c-icon" />
+                  <i class="fa-fw fas fa-server c-icon" />
                   <input
                     type="text"
-                    value={this.domain}
+                    value={this.environment}
                     class="c-field c-field--label"
                     required
                     disabled={this.loading}
-                    onInput={(e) => this.handleDomainChange(e)}
+                    onChange={(e) => this.handleEnvironmentChange(e)}
                   />
                 </div>
               </label>
@@ -109,7 +111,7 @@ export class AddDomain {
                 <span class="c-button__icon-left" aria-hidden>
                   <i class="fa-fw fas fa-save" />
                 </span>
-                Save domain
+                Save environment
               </button>
             </blaze-card-footer>
           </form>

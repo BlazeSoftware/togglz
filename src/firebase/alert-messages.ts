@@ -88,6 +88,10 @@ const messages = (email: string) => ({
     type: 'error',
     message: 'Feature keys must be unique, please use a different value for your key.',
   },
+  'settings/environment-exists': {
+    type: 'error',
+    message: 'Environments must be unique, please use a different name for your environment.',
+  },
   'plans/updating': {
     type: 'info',
     message: 'We are updating your plan...',

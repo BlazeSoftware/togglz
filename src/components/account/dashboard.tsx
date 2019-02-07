@@ -21,10 +21,16 @@ export class Dashboard {
   plan: any = {};
 
   @State()
+  settings: any = {};
+
+  @State()
   features: Array<any> = [];
 
   @State()
   loading: boolean = true;
+
+  @State()
+  selectedEnvironment: string;
 
   firebaseUnsubscribe: any;
   componentDidUnload() {
@@ -34,6 +40,12 @@ export class Dashboard {
   async componentDidLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       this.user = user;
+
+      const settingsSnapshot = await store
+        .collection('settings')
+        .doc(this.user.uid)
+        .get();
+      this.settings = settingsSnapshot.data();
 
       const plansSnapshot = await store
         .collection('plans')
@@ -57,6 +69,36 @@ export class Dashboard {
     });
   }
 
+  handleEnvironmentChange(e) {
+    this.loading = true;
+    this.selectedEnvironment = e.target.value;
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
+  }
+
+  renderEnvironmentChooser() {
+    let environments =
+      this.settings.environments &&
+      this.settings.environments.map((environment) => (
+        <option value={environment} selected={this.selectedEnvironment === environment}>
+          {environment}
+        </option>
+      ));
+
+    return (
+      <div class="c-environment-chooser u-small">
+        Environment:
+        <select class="c-field" onInput={(e) => this.handleEnvironmentChange(e)}>
+          <option value="" selected={this.selectedEnvironment === null}>
+            defaults
+          </option>
+          {environments}
+        </select>
+      </div>
+    );
+  }
+
   renderRows() {
     return this.features.map((featureSnapshot) => {
       const feature = featureSnapshot.data();
@@ -69,13 +111,10 @@ export class Dashboard {
           </td>
           <td class="c-table__cell c-table__cell--center u-center-block">
             <div class="u-center-block__content u-center-block__content--vertical">
-              <feature-toggle featureSnapshot={featureSnapshot} />
+              <feature-toggle featureSnapshot={featureSnapshot} selectedEnvironment={this.selectedEnvironment} />
             </div>
           </td>
           <td class="c-table__cell c-table__cell--center o-actions">
-            <button type="button" class="c-button c-button--nude c-button--info" aria-label="Details">
-              <i class="fa-fw fas fa-info-circle" />
-            </button>
             <button
               type="button"
               class="c-button c-button--nude c-button--edit"
@@ -103,6 +142,7 @@ export class Dashboard {
         <h2 class="c-heading">Dashboard</h2>
         <div>
           <div class="u-right u-letter-box-small">
+            {!this.loading && this.features.length > 0 && this.renderEnvironmentChooser()}
             <button
               class="c-button c-button--success u-small"
               onClick={() => this.addFeaturePopup.show()}
@@ -110,7 +150,7 @@ export class Dashboard {
               <span class="c-button__icon-left" aria-hidden>
                 <i class="fa-fw fas fa-star-of-life" />
               </span>
-              New feature
+              Add feature
             </button>
             {this.features.length >= 10 && this.plan.current === 'starter' && (
               <div class="u-small u-text--quiet">Upgrade to Pro</div>

@@ -1,11 +1,12 @@
 import { Component, State, Prop, Method } from '@stencil/core';
-import firebase, { store } from '@/firebase/firebase';
+import slug from 'slug';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
+import services from '@/firebase/services';
 
 @Component({
-  tag: 'account-delete-domain',
+  tag: 'account-add-environment',
 })
-export class DeleteDomain {
+export class AddEnvironment {
   alert: any;
   panel: any;
 
@@ -19,11 +20,17 @@ export class DeleteDomain {
   alertMsg: AlertMessage = {};
 
   @State()
-  domain: string;
+  environment: string;
+
+  handleEnvironmentChange(e) {
+    this.environment = slug(e.target.value, {
+      lower: true,
+      replacement: '_',
+    });
+  }
 
   @Method()
-  show(domain: string) {
-    this.domain = domain;
+  show() {
     this.panel.show();
   }
 
@@ -34,22 +41,17 @@ export class DeleteDomain {
 
   @Method()
   reset() {
-    this.domain = null;
+    this.environment = null;
     this.panel.close();
     this.loading = false;
   }
 
-  async deleteDomain(e) {
+  async addEnvironment(e) {
     e.preventDefault();
 
     this.loading = true;
     try {
-      await store
-        .collection('settings')
-        .doc(this.user.uid)
-        .update({
-          domains: firebase.firestore.FieldValue.arrayRemove(this.domain),
-        });
+      await services.addEnvironment(this.user.uid, this.environment);
       this.reset();
     } catch (error) {
       console.log(error);
@@ -66,9 +68,9 @@ export class DeleteDomain {
           ×
         </button>
         <blaze-card>
-          <form onSubmit={(e) => this.deleteDomain(e)}>
+          <form onSubmit={(e) => this.addEnvironment(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">Delete domain</h2>
+              <h2 class="c-heading">Add environment</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -84,24 +86,28 @@ export class DeleteDomain {
                     </stencil-route-link>
                   )}
                 </div>
-              </blaze-alert>
-              <p class="c-paragraph u-text--highlight">The API will no longer be accessible from this domain.</p>
-              <p class="c-paragraph u-text--quiet u-small">
-                You can only make requests to the API from trusted domains. Once deleted any requests from this domain
-                will receive a 403 forbidden response.
-              </p>
-              <p class="c-paragraph u-text--loud">Are you sure you want to delete this domain?</p>
-              <p class="c-paragraph">
-                <div class="u-text--quiet">Name: </div>
-                <span class="u-text--loud">{this.domain}</span>
-              </p>
+              </blaze-alert>{' '}
+              <label class="c-label o-form-element">
+                Environment name:
+                <div class="o-field o-field--icon-left">
+                  <i class="fa-fw fas fa-server c-icon" />
+                  <input
+                    type="text"
+                    value={this.environment}
+                    class="c-field c-field--label"
+                    required
+                    disabled={this.loading}
+                    onChange={(e) => this.handleEnvironmentChange(e)}
+                  />
+                </div>
+              </label>
             </blaze-card-body>
             <blaze-card-footer>
-              <button class="c-button c-button--block c-button--error" disabled={this.loading}>
+              <button class="c-button c-button--block c-button--success" disabled={this.loading}>
                 <span class="c-button__icon-left" aria-hidden>
-                  <i class="fa-fw far fa-trash-alt" />
+                  <i class="fa-fw fas fa-save" />
                 </span>
-                Delete domain
+                Save environment
               </button>
             </blaze-card-footer>
           </form>

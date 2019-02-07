@@ -46,6 +46,25 @@ body {
   }
 }
 
+.o-actions {
+  .c-button {
+    margin: 0 0.5em;
+    color: map-get($colors, grey-light-2);
+
+    &--delete:hover {
+      color: map-get($colors, red-light-2);
+    }
+
+    &--edit:hover {
+      color: map-get($colors, orange-light-2);
+    }
+
+    &--info:hover {
+      color: map-get($colors, blue-light-2);
+    }
+  }
+}
+
 aside.o-drawer.o-drawer--left,
 aside.o-drawer.o-drawer--right {
   width: 320px;
@@ -119,6 +138,18 @@ home-page {
 }
 
 account-dashboard {
+  .c-environment-chooser {
+    float: left;
+    margin-right: 1em;
+    text-align: left;
+
+    select {
+      width: auto;
+      display: inline-block;
+      margin-left: 0.5em;
+    }
+  }
+
   .c-table {
     border-radius: 4px;
     border: 1px solid $card-item-border-color;
@@ -132,25 +163,6 @@ account-dashboard {
   .o-modal--small .o-modal {
     max-width: 300px;
   }
-
-  .o-actions {
-    .c-button {
-      margin: 0 0.5em;
-      color: map-get($colors, grey-light-2);
-
-      &--delete:hover {
-        color: map-get($colors, red-light-2);
-      }
-
-      &--edit:hover {
-        color: map-get($colors, orange-light-2);
-      }
-
-      &--info:hover {
-        color: map-get($colors, blue-light-2);
-      }
-    }
-  }
 }
 
 account-management,
@@ -158,8 +170,9 @@ account-plan {
   .c-card {
     margin-top: 1.25em;
   }
+
   .c-edit-info.c-button--nude {
-    margin: 0 0.75em;
+    margin: 0 0 0 0.75em;
     color: $link-color;
   }
 
@@ -167,8 +180,12 @@ account-plan {
     color: $color-error;
   }
 
-  .o-grid {
-    padding-bottom: 0.5em;
+  .o-info-item {
+    padding-bottom: 0.8em;
+  }
+
+  ul.c-list .c-list__item--environment {
+    padding-bottom: 0.75em;
   }
 }
 

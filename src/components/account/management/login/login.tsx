@@ -42,7 +42,6 @@ export class Login {
       const { user } = await firebase.auth().signInWithEmailAndPassword(this.email, this.password);
       console.log(this.history.location.query.url);
       if (user.emailVerified) {
-        debugger;
         const url = this.history.location.query.url || '/dashboard';
         return this.history.push(url);
       }

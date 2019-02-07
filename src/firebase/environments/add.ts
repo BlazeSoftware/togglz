@@ -1,17 +1,17 @@
 import firebase, { store } from '@/firebase/firebase';
 
-export default async (userId, environment) => {
-  const settingsRef = await store.collection('settings').doc(userId);
+export default async (user, environment) => {
+  const settingsRef = await store.collection('settings').doc(user.uid);
   const settingsSnapshot = await settingsRef.get();
   const settings = settingsSnapshot.data();
 
-  if (settings.environments.indexOf(environment) >= 0) {
+  if (settings.environments && settings.environments.indexOf(environment) >= 0) {
     throw { code: 'settings/environment-exists' };
   }
 
   const featuresSnapshot = await store
     .collection('features')
-    .where('owner', '==', userId)
+    .where('owner', '==', user.uid)
     .get();
 
   const batch = store.batch();

@@ -1,11 +1,11 @@
 import firebase, { store } from '@/firebase/firebase';
 
-export default async (userId, environment) => {
-  const settingsRef = await store.collection('settings').doc(userId);
+export default async (user, environment) => {
+  const settingsRef = await store.collection('settings').doc(user.uid);
 
   const featuresSnapshot = await store
     .collection('features')
-    .where('owner', '==', userId)
+    .where('owner', '==', user.uid)
     .get();
 
   const batch = store.batch();

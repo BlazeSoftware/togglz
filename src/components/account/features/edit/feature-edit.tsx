@@ -95,7 +95,6 @@ export class FeatureEdit {
   }
 
   isActive() {
-    debugger;
     const feature = this.featureSnapshot.data();
     this.active = feature.active;
     Object.keys(feature.environments).forEach((env) => (this.active = feature.environments[env] ? true : this.active));

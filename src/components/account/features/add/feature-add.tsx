@@ -59,7 +59,7 @@ export class FeatureAdd {
     e.preventDefault();
     this.loading = true;
     try {
-      services.addFeature(this.user.uid, this.name, this.key);
+      services.addFeature(this.user, this.name, this.key);
       this.reset();
     } catch (error) {
       console.log(error);

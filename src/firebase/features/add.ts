@@ -1,9 +1,9 @@
 import firebase, { store } from '@/firebase/firebase';
 
-export default async (userId, name, key) => {
+export default async (user, name, key) => {
   const existingFeature = await store
     .collection('features')
-    .where('owner', '==', userId)
+    .where('owner', '==', user.uid)
     .where('key', '==', key)
     .get();
 
@@ -11,7 +11,7 @@ export default async (userId, name, key) => {
 
   const settingsSnapshot = await store
     .collection('settings')
-    .doc(userId)
+    .doc(user.uid)
     .get();
   const environments = {};
   const settings = settingsSnapshot.data();
@@ -29,7 +29,7 @@ export default async (userId, name, key) => {
       key,
       active: false,
       environments,
-      owner: userId,
+      owner: user.uid,
       created: firebase.firestore.FieldValue.serverTimestamp(),
     });
 };

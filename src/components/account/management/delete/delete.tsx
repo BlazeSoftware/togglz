@@ -1,7 +1,7 @@
 import { Component, State, Prop, Method } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
-import firebase, { store } from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
+import services from '@/firebase/services';
 
 @Component({
   tag: 'account-delete',
@@ -23,10 +23,10 @@ export class DeleteAccount {
   alertMsg: AlertMessage = {};
 
   @State()
-  currentPassword: string;
+  password: string;
 
   @State()
-  currentPasswordVisible: boolean = false;
+  passwordVisible: boolean = false;
 
   @Method()
   show() {
@@ -39,7 +39,7 @@ export class DeleteAccount {
   }
 
   handleCurrentPasswordChange(e) {
-    this.currentPassword = e.target.value;
+    this.password = e.target.value;
   }
 
   async deleteAccount(e) {
@@ -47,37 +47,7 @@ export class DeleteAccount {
 
     this.loading = true;
     try {
-      const credentials = firebase.auth.EmailAuthProvider.credential(this.user.email, this.currentPassword);
-      await this.user.reauthenticateAndRetrieveDataWithCredential(credentials);
-
-      await fetch(`https://us-central1-blaze-togglz.cloudfunctions.net/plans/subscriptions/${this.user.uid}`, {
-        method: 'DELETE',
-        mode: 'cors',
-      });
-
-      const featuresSnapshot = await store
-        .collection('features')
-        .where('owner', '==', this.user.uid)
-        .get();
-
-      const batch = store.batch();
-      featuresSnapshot.forEach((f) => {
-        batch.delete(f.ref);
-      });
-      await batch.commit();
-
-      await store
-        .collection('settings')
-        .doc(this.user.uid)
-        .delete();
-
-      await store
-        .collection('plans')
-        .doc(this.user.uid)
-        .delete();
-
-      await this.user.delete();
-      await firebase.auth().signOut();
+      await services.deleteAccount(this.user, this.password);
       this.history.push('/');
     } catch (error) {
       console.log(error);
@@ -124,8 +94,8 @@ export class DeleteAccount {
                   <div class="o-field o-field--icon-left">
                     <i class="fa-fw fas fa-lock c-icon" />
                     <input
-                      type={this.currentPasswordVisible ? 'text' : 'password'}
-                      value={this.currentPassword}
+                      type={this.passwordVisible ? 'text' : 'password'}
+                      value={this.password}
                       class="c-field"
                       required
                       disabled={this.loading}
@@ -137,8 +107,8 @@ export class DeleteAccount {
                     type="button"
                     class="c-button c-button--ghost-brand"
                     disabled={this.loading}
-                    onClick={() => (this.currentPasswordVisible = !this.currentPasswordVisible)}>
-                    {this.currentPasswordVisible ? 'Hide' : 'Show'}
+                    onClick={() => (this.passwordVisible = !this.passwordVisible)}>
+                    {this.passwordVisible ? 'Hide' : 'Show'}
                   </button>
                 </div>
               </label>

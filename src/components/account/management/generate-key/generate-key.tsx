@@ -1,6 +1,6 @@
 import { Component, State, Prop, Method } from '@stencil/core';
-import { store } from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
+import services from '@/firebase/services';
 
 @Component({
   tag: 'account-generate-key',
@@ -39,15 +39,7 @@ export class GenerateKey {
 
     this.loading = true;
     try {
-      await store
-        .collection('settings')
-        .doc(this.user.uid)
-        .update({
-          webAPIKey: new Array(20)
-            .fill(undefined)
-            .map(() => 'abcdefghijklmnopqrstuvwxyz0123456789'.charAt(Math.floor(Math.random() * 36)))
-            .join(''),
-        });
+      await services.generateKey(this.user);
       this.reset();
     } catch (error) {
       console.log(error);

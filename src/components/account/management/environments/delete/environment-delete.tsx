@@ -84,7 +84,7 @@ export class DeleteEnvironment {
                 The API will stop returning any feature toggles for this environment.
               </p>
               <p class="c-paragraph u-text--quiet u-small">
-                Once deleted any requests for this environment will receive a 404 not found response.
+                Once deleted any requests for this environment will receive an empty response.
               </p>
               <p class="c-paragraph u-text--loud">Are you sure you want to delete this environment?</p>
               <p class="c-paragraph">

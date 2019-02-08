@@ -84,7 +84,7 @@ export class DowngradePlan {
               </blaze-alert>
               <p class="c-paragraph u-text--loud">Are you sure you want to downgrade?</p>
               <p class="c-paragraph">
-                You will lose access to your teams and feature toggles that are outside the free limit of 10.
+                No features or environments will be deleted, however your API requests will be limited.
               </p>
               <p class="c-paragraph u-text--quiet u-small">
                 It is recommended you update your site or app appropriately before downgrading.

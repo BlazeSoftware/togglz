@@ -137,6 +137,10 @@ export class Account {
 
   render() {
     const environments = this.settings.environments || [];
+    const apiCalls = this.settings.apiCalls || 0;
+    let usageIndicator = 'info';
+    if (apiCalls > 750) usageIndicator = 'warning';
+    if (apiCalls > 850) usageIndicator = 'error';
 
     return (
       <nav-page history={this.history}>
@@ -190,11 +194,18 @@ export class Account {
               <span class="o-grid__cell">
                 {this.plan.current === 'starter' && (
                   <span>
-                    {this.settings.requests || 0} of your 100 limit
+                    {apiCalls} of your 1000 limit
+                    <blaze-progress size="xsmall" rounded>
+                      <blaze-progress-bar value={apiCalls / 10} type={usageIndicator} />
+                    </blaze-progress>
                     <div class="u-small u-text--quiet">Upgrade your plan to Pro for unlimited requests</div>
                   </span>
                 )}
-                {this.plan.current === 'pro' && <span>Unlimited</span>}
+                {this.plan.current === 'pro' && (
+                  <span>
+                    Unlimited <span class="u-text--quiet u-small">({this.settings.apiCalls || 0} this month)</span>
+                  </span>
+                )}
               </span>
             </div>
             <div class="o-grid o-grid--top o-info-item">

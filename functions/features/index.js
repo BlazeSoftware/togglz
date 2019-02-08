@@ -26,7 +26,16 @@ module.exports = (store) => {
         const settings = settingsSnapshot.docs[0];
         req.uid = settings.ref.id;
 
+        const planSnapshot = await store
+          .collection('plans')
+          .doc(req.uid)
+          .get();
+
         const apiCalls = settings.data().apiCalls;
+        if (planSnapshot.data().current === 'starter' && apiCalls >= 1000) {
+          return res.send(403);
+        }
+
         await settings.ref.update({
           apiCalls: (apiCalls || 0) + 1,
         });

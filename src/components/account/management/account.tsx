@@ -194,7 +194,7 @@ export class Account {
               <span class="o-grid__cell">
                 {this.plan.current === 'starter' && (
                   <span>
-                    {apiCalls} of your 10,000 limit
+                    {apiCalls} of your 10,000 monthly limit
                     <blaze-progress size="xsmall" rounded>
                       <blaze-progress-bar value={apiCalls / 100} type={usageIndicator} />
                     </blaze-progress>

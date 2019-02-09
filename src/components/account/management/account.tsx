@@ -139,8 +139,8 @@ export class Account {
     const environments = this.settings.environments || [];
     const apiCalls = this.settings.apiCalls || 0;
     let usageIndicator = 'info';
-    if (apiCalls > 750) usageIndicator = 'warning';
-    if (apiCalls > 850) usageIndicator = 'error';
+    if (apiCalls > 7500) usageIndicator = 'warning';
+    if (apiCalls > 8500) usageIndicator = 'error';
 
     return (
       <nav-page history={this.history}>

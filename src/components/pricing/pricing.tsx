@@ -46,7 +46,7 @@ export class Pricing {
                   </li>
                   <li class="o-feature c-list__item">
                     <i class="o-icon u-text--quiet fa-fw far fa-check-circle" />
-                    1000 API requests per month
+                    10,000 API requests per month
                   </li>
                 </ul>
               </div>

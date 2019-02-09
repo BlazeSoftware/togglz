@@ -194,9 +194,9 @@ export class Account {
               <span class="o-grid__cell">
                 {this.plan.current === 'starter' && (
                   <span>
-                    {apiCalls} of your 1000 limit
+                    {apiCalls} of your 10,000 limit
                     <blaze-progress size="xsmall" rounded>
-                      <blaze-progress-bar value={apiCalls / 10} type={usageIndicator} />
+                      <blaze-progress-bar value={apiCalls / 100} type={usageIndicator} />
                     </blaze-progress>
                     <div class="u-small u-text--quiet">Upgrade your plan to Pro for unlimited requests</div>
                   </span>

@@ -43,7 +43,7 @@ module.exports = (store) => {
           apiMonthStart = admin.firestore.FieldValue.serverTimestamp();
         }
 
-        if (planSnapshot.data().current === 'starter' && apiCalls >= 1000) {
+        if (planSnapshot.data().current === 'starter' && apiCalls >= 10000) {
           return res.send(403);
         }
 

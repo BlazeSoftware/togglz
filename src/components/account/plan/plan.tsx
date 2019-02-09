@@ -87,16 +87,7 @@ export class Plan {
         this.downgradePopup.close();
       });
 
-      const planSnapshot = await planRef.get();
-      this.plan = planSnapshot.data();
-
-      if (!this.plan) await planRef.set({ current: 'starter' });
-
-      if (this.plan && this.plan.current !== 'pro' && this.history.location.query.upgraded) {
-        this.alertMsg = getAlertMessage('plans/updating');
-        this.alert.show();
-      }
-
+      await planRef.get();
       this.loading = false;
     });
   }

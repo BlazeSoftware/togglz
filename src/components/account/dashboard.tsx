@@ -62,9 +62,7 @@ export class Dashboard {
         this.features = featuresSnapshot.docs;
       });
 
-      const featuresSnapshot = await featuresQuery.get();
-
-      this.features = featuresSnapshot.docs;
+      await featuresQuery.get();
       this.loading = false;
     });
   }

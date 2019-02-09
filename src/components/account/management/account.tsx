@@ -66,8 +66,7 @@ export class Account {
         this.settings = settingsSnapshot.data();
       });
 
-      const settingsSnapshot = await settingsRef.get();
-      this.settings = settingsSnapshot.data();
+      await settingsRef.get();
     });
   }
 
@@ -194,7 +193,7 @@ export class Account {
               <span class="o-grid__cell">
                 {this.plan.current === 'starter' && (
                   <span>
-                    {apiCalls} of your 10,000 monthly limit
+                    {apiCalls.toLocaleString('en-GB')} of your 10,000 monthly limit
                     <blaze-progress size="xsmall" rounded>
                       <blaze-progress-bar value={apiCalls / 100} type={usageIndicator} />
                     </blaze-progress>
@@ -203,7 +202,8 @@ export class Account {
                 )}
                 {this.plan.current === 'pro' && (
                   <span>
-                    Unlimited <span class="u-text--quiet u-small">({this.settings.apiCalls || 0} this month)</span>
+                    Unlimited{' '}
+                    <span class="u-text--quiet u-small">({apiCalls.toLocaleString('en-GB') || 0} this month)</span>
                   </span>
                 )}
               </span>

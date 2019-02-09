@@ -1,3 +1,5 @@
+const admin = require('firebase-admin');
+
 module.exports = (store) => {
   const app = require('express')();
 
@@ -31,13 +33,23 @@ module.exports = (store) => {
           .doc(req.uid)
           .get();
 
-        const apiCalls = settings.data().apiCalls;
+        let apiCalls = settings.data().apiCalls;
+        let apiMonthStart = settings.data().apiMonthStart;
+        const monthAgo = new Date();
+        monthAgo.setMonth(monthAgo.getMonth() - 1);
+
+        if (!apiMonthStart || apiMonthStart.toDate() < monthAgo) {
+          apiCalls = 0;
+          apiMonthStart = admin.firestore.FieldValue.serverTimestamp();
+        }
+
         if (planSnapshot.data().current === 'starter' && apiCalls >= 1000) {
           return res.send(403);
         }
 
         await settings.ref.update({
           apiCalls: (apiCalls || 0) + 1,
+          apiMonthStart,
         });
       } catch (e) {
         console.error('/features', e);

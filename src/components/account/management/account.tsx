@@ -72,8 +72,8 @@ export class Account {
 
   renderInfoRow(label: string, value: string, popup?: any) {
     return (
-      <div class="o-grid o-grid--center o-info-item">
-        <label class="o-grid__cell o-grid__cell--width-20 u-text--quiet">{label}:</label>
+      <div class="o-grid o-grid--center o-grid--xsmall-full o-grid--small-full o-info-item">
+        <label class="o-grid__cell o-grid__cell--width-25 u-text--quiet">{label}:</label>
         <span class="o-grid__cell">
           {!this.loading && (
             <span>
@@ -172,7 +172,7 @@ export class Account {
                   <span class="c-button__icon-left" aria-hidden>
                     <i class="fa-fw fas fa-star-of-life" />
                   </span>
-                  Add new environment
+                  Add <span class="u-display-medium-up">new environment</span>
                 </button>
                 {environments.length >= 2 && this.plan.current === 'starter' && (
                   <div class="u-small u-text--quiet">Upgrade to Pro</div>
@@ -188,8 +188,8 @@ export class Account {
             <h3 class="c-heading">Development settings</h3>
           </blaze-card-header>
           <blaze-card-body>
-            <div class="o-grid o-grid--top o-info-item">
-              <label class="o-grid__cell o-grid__cell--width-20 u-text--quiet">Web API requests:</label>
+            <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full o-info-item">
+              <label class="o-grid__cell o-grid__cell--width-25 u-text--quiet">Web API requests:</label>
               <span class="o-grid__cell">
                 {this.plan.current === 'starter' && (
                   <span>
@@ -208,8 +208,8 @@ export class Account {
                 )}
               </span>
             </div>
-            <div class="o-grid o-grid--top o-info-item">
-              <label class="o-grid__cell o-grid__cell--width-20 u-text--quiet">Web API key:</label>
+            <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full o-info-item">
+              <label class="o-grid__cell o-grid__cell--width-25 u-text--quiet">Web API key:</label>
               <span class="o-grid__cell">
                 <code class="u-code">{this.settings.webAPIKey}</code>
                 <button
@@ -231,18 +231,11 @@ export class Account {
             <h3 class="c-heading">Danger Zone</h3>
           </blaze-card-header>
           <blaze-card-body>
-            <div class="o-grid o-grid--center">
-              <span class="o-grid__cell o-grid__cell--width-20">
-                <button
-                  type="button"
-                  class="c-button c-button--ghost-error"
-                  onClick={() => this.deleteAccountPopup.show()}>
-                  Delete account
-                </button>
-              </span>
-              <label class="o-grid__cell u-text--quiet">
-                Once you delete an account, that's it, there is no recovery.
-              </label>
+            <button type="button" class="c-button c-button--ghost-error" onClick={() => this.deleteAccountPopup.show()}>
+              Delete account
+            </button>
+            <div class="u-letter-box-small">
+              <label class="u-text--quiet">Once you delete an account, that's it, there is no recovery.</label>
             </div>
           </blaze-card-body>
         </blaze-card>

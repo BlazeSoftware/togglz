@@ -26,10 +26,21 @@ body {
     'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
+.u-display-medium-up {
+  display: none !important;
+  @include screen--medium-and-up {
+    display: initial !important;
+  }
+}
+
 .o-page-loading {
   position: relative;
-  width: calc(100% - 4em);
+  width: calc(100% - 2em);
   height: 10em;
+
+  @include screen--medium-and-up {
+    width: calc(100% - 4em);
+  }
 }
 
 .c-alert {
@@ -73,19 +84,29 @@ aside.o-drawer.o-drawer--right {
 nav-page {
   .o-layout {
     &__sidebar {
-      position: fixed;
-      width: 200px;
+      @include screen--medium-and-up {
+        display: block;
+        position: fixed;
+        width: 200px;
+      }
     }
 
     &__main {
-      width: calc(100% - 200px);
-      margin-left: 200px;
+      @include screen--medium-and-up {
+        width: calc(100% - 200px);
+        margin-left: 200px;
+      }
     }
   }
 
   .c-nav {
     background-color: map-get($colors, grey-background);
     color: map-get($colors, brand);
+    width: 100%;
+
+    @include screen--medium-and-up {
+      width: 200px;
+    }
 
     .c-nav__content {
       background-color: map-get($colors, brand);
@@ -100,14 +121,16 @@ nav-page {
         margin-right: 1em;
       }
 
-      &--active:after {
-        content: '';
-        position: absolute;
-        top: calc(50% - 12px);
-        right: -20px;
-        padding: 12px;
-        transform: rotate(45deg);
-        background-color: map-get($colors, white);
+      @include screen--medium-and-up {
+        &--active:after {
+          content: '';
+          position: absolute;
+          top: calc(50% - 12px);
+          right: -20px;
+          padding: 12px;
+          transform: rotate(45deg);
+          background-color: map-get($colors, white);
+        }
       }
     }
   }
@@ -139,14 +162,26 @@ home-page {
 
 account-dashboard {
   .c-environment-chooser {
-    float: left;
-    margin-right: 1em;
     text-align: left;
 
+    @include screen--small-and-up {
+      float: left;
+      margin-right: 1em;
+    }
+
     select {
-      width: auto;
+      @include screen--small-and-up {
+        width: auto;
+        margin: 0 0 0 0.5em;
+      }
       display: inline-block;
-      margin-left: 0.5em;
+      margin: 0 0 1em 0;
+    }
+  }
+
+  .c-button--block.c-button--add-feature {
+    @include screen--small-and-up {
+      width: auto;
     }
   }
 
@@ -172,8 +207,10 @@ account-plan {
   }
 
   .c-edit-info.c-button--nude {
-    margin: 0 0 0 0.75em;
     color: $link-color;
+    @include screen--small-and-up {
+      margin: 0 0 0 0.75em;
+    }
   }
 
   .c-edit-info--error.c-button--nude {

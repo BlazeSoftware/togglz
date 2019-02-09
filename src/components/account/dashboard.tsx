@@ -104,7 +104,7 @@ export class Dashboard {
       return (
         <tr class="c-table__row" key={featureSnapshot.ref.id}>
           <td class="c-table__cell">{feature.name}</td>
-          <td class="c-table__cell">
+          <td class="c-table__cell u-display-medium-up">
             <code class="u-code">{feature.key}</code>
           </td>
           <td class="c-table__cell c-table__cell--center u-center-block">
@@ -141,15 +141,17 @@ export class Dashboard {
         <div>
           <div class="u-right u-letter-box-small">
             {!this.loading && this.features.length > 0 && this.renderEnvironmentChooser()}
-            <button
-              class="c-button c-button--success u-small"
-              onClick={() => this.addFeaturePopup.show()}
-              disabled={this.features.length >= 10 && this.plan.current === 'starter'}>
-              <span class="c-button__icon-left" aria-hidden>
-                <i class="fa-fw fas fa-star-of-life" />
-              </span>
-              Add feature
-            </button>
+            {!this.loading && this.features.length > 0 && (
+              <button
+                class="c-button c-button--block c-button--success c-button--add-feature u-small"
+                onClick={() => this.addFeaturePopup.show()}
+                disabled={this.features.length >= 10 && this.plan.current === 'starter'}>
+                <span class="c-button__icon-left" aria-hidden>
+                  <i class="fa-fw fas fa-star-of-life" />
+                </span>
+                Add feature
+              </button>
+            )}
             {this.features.length >= 10 && this.plan.current === 'starter' && (
               <div class="u-small u-text--quiet">Upgrade to Pro</div>
             )}
@@ -164,7 +166,7 @@ export class Dashboard {
               <thead class="c-table__head">
                 <tr class="c-table__row c-table__row--heading">
                   <th class="c-table__cell">Feature</th>
-                  <th class="c-table__cell">Key</th>
+                  <th class="c-table__cell u-display-medium-up">Key</th>
                   <th class="c-table__cell c-table__cell--center">Status</th>
                   <th class="c-table__cell c-table__cell--center">Actions</th>
                 </tr>

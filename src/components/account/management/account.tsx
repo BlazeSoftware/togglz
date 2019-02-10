@@ -218,9 +218,6 @@ export class Account {
                   onClick={() => this.generateKeyPopup.show()}>
                   <i class="fa-fw fas fa-sync-alt" />
                 </button>
-                <div class="u-small u-text--quiet">
-                  Treat this key as sensitive information. <span class="u-text--loud">Do not share it.</span>
-                </div>
               </span>
             </div>
           </blaze-card-body>

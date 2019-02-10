@@ -68,6 +68,9 @@ export class NavPage {
           <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/plan">
             <i class="o-icon fa-fw fas fa-dollar-sign" aria-hidden /> Plan
           </stencil-route-link>
+          <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/api">
+            <i class="o-icon fa-fw fas fa-code" aria-hidden /> API
+          </stencil-route-link>
           <stencil-route-link
             anchorClass="c-nav__item c-nav__item--error"
             activeClass="c-nav__item--active"

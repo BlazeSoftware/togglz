@@ -18,7 +18,7 @@ export class Pricing {
 
   render() {
     return (
-      <div class="o-container o-container--medium">
+      <div class="o-container o-container--large">
         <div class="o-grid o-grid--wrap o-grid--xsmall-full o-grid--small-full o-grid--medium-full o-grid--large-fit">
           <div class="o-grid__cell o-grid__cell--width-50">
             <div class="c-card">

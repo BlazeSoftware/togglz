@@ -80,13 +80,22 @@ export class ApiDocs {
         <section>
           <h3 class="c-heading">Successful responses</h3>
           <p class="c-paragraph">
-            If web API key is correct you will receive an array of <strong class="u-text--loud">active</strong> feature
-            keys.
+            If web API key is correct you will receive an object of feature keys with their respective values.
           </p>
           <p class="c-paragraph u-text--quiet">Example:</p>
-          <code class="u-code u-code--multiline">[ 'feature_one', 'feature_two' ]</code>
+          <code class="u-code u-code--multiline">{`{
+  boolean_feature: true,
+  multivariate_feature: 'something'
+}`}</code>
           <p class="c-paragraph">
-            If you have no active features the API will return an empty array: <code class="u-code">[]</code>.
+            <strong class="u-text--loud">Boolean</strong> features will{' '}
+            <strong class="u-text--loud">only appear</strong> in the response if they are{' '}
+            <strong class="u-text--loud">active</strong>.
+          </p>
+          <p class="c-paragraph">
+            <strong class="u-text--loud">Multivariate</strong> features{' '}
+            <strong class="u-text--loud">will always</strong> appear in the response with their values changing
+            depending on their state.
           </p>
         </section>
         <section>

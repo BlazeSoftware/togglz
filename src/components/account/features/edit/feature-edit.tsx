@@ -31,11 +31,27 @@ export class FeatureEdit {
   @State()
   active: boolean;
 
+  @State()
+  type: string = 'boolean';
+
+  @State()
+  activeValue: string;
+
+  @State()
+  inactiveValue: string;
+
   @Method()
   show(featureSnapshot) {
+    this.reset();
+    const feature = featureSnapshot.data();
     this.featureSnapshot = featureSnapshot;
-    this.name = this.featureSnapshot.data().name;
-    this.key = this.featureSnapshot.data().key;
+    this.name = feature.name;
+    this.key = feature.key;
+    if (feature.multivariate) {
+      this.type = 'multivariate';
+      this.activeValue = feature.multivariate.activeValue;
+      this.inactiveValue = feature.multivariate.inactiveValue;
+    }
     this.isActive();
     this.panel.show();
   }
@@ -52,6 +68,9 @@ export class FeatureEdit {
     this.loading = false;
     this.name = '';
     this.key = '';
+    this.type = 'boolean';
+    this.activeValue = '';
+    this.inactiveValue = '';
   }
 
   handleNameChange(e) {
@@ -63,6 +82,18 @@ export class FeatureEdit {
       lower: true,
       replacement: '_',
     });
+  }
+
+  handleTypeChange(e) {
+    this.type = e.target.value;
+  }
+
+  handleActiveValueChange(e) {
+    this.activeValue = e.target.value;
+  }
+
+  handleInactiveValueChange(e) {
+    this.inactiveValue = e.target.value;
   }
 
   async edit(e) {
@@ -81,9 +112,15 @@ export class FeatureEdit {
       )
         throw { code: 'storage/document-exists' };
 
+      let multivariate = null;
+      if (this.type === 'multivariate' && this.activeValue && this.inactiveValue) {
+        multivariate = { activeValue: this.activeValue, inactiveValue: this.inactiveValue };
+      }
+
       await this.featureSnapshot.ref.update({
         name: this.name,
         key: this.key,
+        multivariate,
       });
       this.reset();
     } catch (error) {
@@ -169,6 +206,79 @@ export class FeatureEdit {
                       </div>
                     </div>
                   </label>
+                  <fieldset class="o-fieldset">
+                    <legend class="o-fieldset__legend">Type:</legend>
+                    <label class="c-label c-field c-field--choice" aria-label="Boolean">
+                      <div class="o-grid o-grid--no-gutter">
+                        <div class="o-grid__cell o-grid__cell--width-10">
+                          <input
+                            type="radio"
+                            name="type"
+                            value="boolean"
+                            checked={this.type === 'boolean'}
+                            onClick={(e) => this.handleTypeChange(e)}
+                          />
+                        </div>
+                        <div class="o-grid__cell">
+                          Boolean
+                          <div class="u-small u-text--quiet">
+                            Active flags will return <strong class="u-text--loud">true</strong>.
+                          </div>
+                        </div>
+                      </div>
+                    </label>
+                    <label class="c-label c-field c-field--choice" aria-label="Multivariate">
+                      <div class="o-grid o-grid--no-gutter">
+                        <div class="o-grid__cell o-grid__cell--width-10">
+                          <input
+                            type="radio"
+                            name="type"
+                            value="multivariate"
+                            checked={this.type === 'multivariate'}
+                            onClick={(e) => this.handleTypeChange(e)}
+                          />
+                        </div>
+                        <div class="o-grid__cell">
+                          Multivariate
+                          <div class="u-small u-text--quiet">
+                            Set your own <strong class="u-text--loud">custom</strong> values.
+                          </div>
+                        </div>
+                      </div>
+                    </label>
+                    {this.type === 'multivariate' && (
+                      <div>
+                        <label class="c-label o-form-element">
+                          Active:
+                          <div class="o-field o-field--icon-left">
+                            <i class="fa-fw fas fa-toggle-on c-icon" />
+                            <input
+                              type="text"
+                              value={this.activeValue}
+                              class="c-field c-field--label u-text--mono"
+                              required={this.type === 'multivariate'}
+                              disabled={this.loading}
+                              onChange={(e) => this.handleActiveValueChange(e)}
+                            />
+                          </div>
+                        </label>
+                        <label class="c-label o-form-element">
+                          Inactive:
+                          <div class="o-field o-field--icon-left">
+                            <i class="fa-fw fas fa-toggle-off c-icon" />
+                            <input
+                              type="text"
+                              value={this.inactiveValue}
+                              class="c-field c-field--label u-text--mono"
+                              required={this.type === 'multivariate'}
+                              disabled={this.loading}
+                              onChange={(e) => this.handleInactiveValueChange(e)}
+                            />
+                          </div>
+                        </label>
+                      </div>
+                    )}
+                  </fieldset>
                 </div>
               )}
             </blaze-card-body>

@@ -25,6 +25,15 @@ export class FeatureAdd {
   @State()
   key: string;
 
+  @State()
+  type: string = 'boolean';
+
+  @State()
+  activeValue: string;
+
+  @State()
+  inactiveValue: string;
+
   @Method()
   show() {
     this.panel.show();
@@ -42,6 +51,9 @@ export class FeatureAdd {
     this.loading = false;
     this.name = '';
     this.key = '';
+    this.type = 'boolean';
+    this.activeValue = '';
+    this.inactiveValue = '';
   }
 
   handleNameChange(e) {
@@ -55,11 +67,23 @@ export class FeatureAdd {
     });
   }
 
+  handleTypeChange(e) {
+    this.type = e.target.value;
+  }
+
+  handleActiveValueChange(e) {
+    this.activeValue = e.target.value;
+  }
+
+  handleInactiveValueChange(e) {
+    this.inactiveValue = e.target.value;
+  }
+
   async create(e) {
     e.preventDefault();
     this.loading = true;
     try {
-      services.addFeature(this.user, this.name, this.key);
+      await services.addFeature(this.user, this);
       this.reset();
     } catch (error) {
       console.log(error);
@@ -109,7 +133,6 @@ export class FeatureAdd {
                   />
                 </div>
               </label>
-
               <label class="c-label o-form-element">
                 Key:
                 <div class="o-field o-field--icon-left">
@@ -127,6 +150,79 @@ export class FeatureAdd {
                   </div>
                 </div>
               </label>
+              <fieldset class="o-fieldset">
+                <legend class="o-fieldset__legend">Type:</legend>
+                <label class="c-label c-field c-field--choice" aria-label="Boolean">
+                  <div class="o-grid o-grid--no-gutter">
+                    <div class="o-grid__cell o-grid__cell--width-10">
+                      <input
+                        type="radio"
+                        name="type"
+                        value="boolean"
+                        checked={this.type === 'boolean'}
+                        onClick={(e) => this.handleTypeChange(e)}
+                      />
+                    </div>
+                    <div class="o-grid__cell">
+                      Boolean
+                      <div class="u-small u-text--quiet">
+                        Active flags will return <strong class="u-text--loud">true</strong>.
+                      </div>
+                    </div>
+                  </div>
+                </label>
+                <label class="c-label c-field c-field--choice" aria-label="Multivariate">
+                  <div class="o-grid o-grid--no-gutter">
+                    <div class="o-grid__cell o-grid__cell--width-10">
+                      <input
+                        type="radio"
+                        name="type"
+                        value="multivariate"
+                        checked={this.type === 'multivariate'}
+                        onClick={(e) => this.handleTypeChange(e)}
+                      />
+                    </div>
+                    <div class="o-grid__cell">
+                      Multivariate
+                      <div class="u-small u-text--quiet">
+                        Set your own <strong class="u-text--loud">custom</strong> values.
+                      </div>
+                    </div>
+                  </div>
+                </label>
+                {this.type === 'multivariate' && (
+                  <div>
+                    <label class="c-label o-form-element">
+                      Active:
+                      <div class="o-field o-field--icon-left">
+                        <i class="fa-fw fas fa-toggle-on c-icon" />
+                        <input
+                          type="text"
+                          value={this.activeValue}
+                          class="c-field c-field--label u-text--mono"
+                          required={this.type === 'multivariate'}
+                          disabled={this.loading}
+                          onChange={(e) => this.handleActiveValueChange(e)}
+                        />
+                      </div>
+                    </label>
+                    <label class="c-label o-form-element">
+                      Inactive:
+                      <div class="o-field o-field--icon-left">
+                        <i class="fa-fw fas fa-toggle-off c-icon" />
+                        <input
+                          type="text"
+                          value={this.inactiveValue}
+                          class="c-field c-field--label u-text--mono"
+                          required={this.type === 'multivariate'}
+                          disabled={this.loading}
+                          onChange={(e) => this.handleInactiveValueChange(e)}
+                        />
+                      </div>
+                    </label>
+                  </div>
+                )}
+              </fieldset>
             </blaze-card-body>
             <blaze-card-footer>
               <button class="c-button c-button--success c-button--block" disabled={this.loading}>

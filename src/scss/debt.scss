@@ -51,3 +51,7 @@ $grey-background-dark: lighten($color-grey, 35);
 .c-nav {
   overflow-x: hidden;
 }
+
+.c-field--choice input {
+  margin: 0;
+}

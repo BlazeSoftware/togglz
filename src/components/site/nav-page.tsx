@@ -58,7 +58,7 @@ export class NavPage {
     return (
       <div class="o-layout">
         <nav class="c-nav o-layout__sidebar">
-          <span class="c-nav__content u-centered u-large">Togglz</span>
+          <span class="c-nav__content u-centered u-large c-heading">Togglz</span>
           <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/dashboard">
             <i class="o-icon fa-fw fas fa-tachometer-alt" aria-hidden /> Dashboard
           </stencil-route-link>

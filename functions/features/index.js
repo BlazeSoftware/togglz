@@ -67,12 +67,18 @@ module.exports = (store) => {
           .where('owner', '==', req.uid)
           .get();
 
-        const activeFeatures = featuresSnapshot.docs
-          .filter((fs) => {
-            const feature = fs.data();
-            return environment ? feature.environments[environment] : feature.active;
-          })
-          .map((f) => f.data().key);
+        const activeFeatures = featuresSnapshot.docs.reduce((activeFeatures, f) => {
+          const feature = f.data();
+          const active = environment ? feature.environments[environment] : feature.active;
+          if (feature.multivariate) {
+            activeFeatures[feature.key] = active
+              ? feature.multivariate.activeValue
+              : feature.multivariate.inactiveValue;
+          } else if (active) {
+            activeFeatures[feature.key] = true;
+          }
+          return activeFeatures;
+        }, {});
 
         res.send(activeFeatures);
       } catch (e) {

@@ -1,6 +1,6 @@
 import firebase, { store } from '@/firebase/firebase';
 
-export default async (user, name, key) => {
+export default async (user, { name, key, type, activeValue, inactiveValue }) => {
   const existingFeature = await store
     .collection('features')
     .where('owner', '==', user.uid)
@@ -21,12 +21,18 @@ export default async (user, name, key) => {
     });
   }
 
+  let multivariate = null;
+  if (type === 'multivariate' && activeValue && inactiveValue) {
+    multivariate = { activeValue, inactiveValue };
+  }
+
   await store
     .collection('features')
     .doc()
     .set({
       name,
       key,
+      multivariate,
       active: false,
       environments,
       owner: user.uid,

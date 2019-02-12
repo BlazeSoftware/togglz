@@ -85,7 +85,7 @@ export class Dashboard {
       ));
 
     return (
-      <div class="c-environment-chooser u-small">
+      <label class="c-environment-chooser u-small">
         Environment:
         <select class="c-field" onInput={(e) => this.handleEnvironmentChange(e)}>
           <option value="" selected={this.selectedEnvironment === null}>
@@ -93,7 +93,7 @@ export class Dashboard {
           </option>
           {environments}
         </select>
-      </div>
+      </label>
     );
   }
 
@@ -107,6 +107,7 @@ export class Dashboard {
           <td class="c-table__cell u-display-medium-up">
             <code class="u-code">{feature.key}</code>
           </td>
+          <td class="c-table__cell u-display-medium-up">{feature.multivariate ? 'Multivariate' : 'Boolean'}</td>
           <td class="c-table__cell c-table__cell--center u-center-block">
             <div class="u-center-block__content u-center-block__content--vertical">
               <feature-toggle featureSnapshot={featureSnapshot} selectedEnvironment={this.selectedEnvironment} />
@@ -167,6 +168,7 @@ export class Dashboard {
                 <tr class="c-table__row c-table__row--heading">
                   <th class="c-table__cell">Feature</th>
                   <th class="c-table__cell u-display-medium-up">Key</th>
+                  <th class="c-table__cell u-display-medium-up">Type</th>
                   <th class="c-table__cell c-table__cell--center">Status</th>
                   <th class="c-table__cell c-table__cell--center">Actions</th>
                 </tr>
@@ -177,7 +179,7 @@ export class Dashboard {
           {!this.loading && this.features.length == 0 && (
             <div class="u-centered u-letter-box-super">
               <div class="u-super">😢</div>
-              <h3 class="u-heading">You don't have any feature toggles</h3>
+              <h3 class="c-heading">You don't have any feature toggles</h3>
               <button class="c-button c-button--ghost-success" onClick={() => this.addFeaturePopup.show()}>
                 <span class="c-button__icon-left" aria-hidden>
                   <i class="fa-fw fas fa-star-of-life" />

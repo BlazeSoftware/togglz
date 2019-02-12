@@ -20,10 +20,10 @@ export class Logout {
 
         <div style={{ 'font-size': '4em' }}>👋</div>
         {!this.loggedOut ? (
-          <h2 class="u-heading">Logging out....</h2>
+          <h2 class="c-heading">Logging out....</h2>
         ) : (
           <div>
-            <h2 class="u-heading">Logged out.</h2>
+            <h2 class="c-heading">Logged out.</h2>
             <p class="c-paragraph u-text--quiet">See you soon!</p>
             <p class="c-paragraph">
               <stencil-route-link url={'/'} anchorClass="c-link">

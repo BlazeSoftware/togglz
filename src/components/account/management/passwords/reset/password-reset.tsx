@@ -76,7 +76,7 @@ export class ResetPassword {
                 class="c-button c-button--brand c-button--block"
                 disabled={this.complete}
                 onClick={(e) => this.send(e)}>
-                <span class="c-button__icon-left" aria-hidden>
+                <span class="c-button__icon-left" aria-hidden={true}>
                   <i class="fa-fw fas fa-paper-plane" />
                 </span>
                 Send password reset email

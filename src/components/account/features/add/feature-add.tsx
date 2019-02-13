@@ -226,7 +226,7 @@ export class FeatureAdd {
             </blaze-card-body>
             <blaze-card-footer>
               <button class="c-button c-button--success c-button--block" disabled={this.loading}>
-                <span class="c-button__icon-left" aria-hidden>
+                <span class="c-button__icon-left" aria-hidden={true}>
                   <i class="fa-fw fas fa-star-of-life" />
                 </span>
                 Create new feature

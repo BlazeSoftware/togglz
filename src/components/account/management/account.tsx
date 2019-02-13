@@ -172,7 +172,7 @@ export class Account {
                   aria-label="Add new environment"
                   onClick={() => this.addEnvironmentPopup.show()}
                   disabled={environments.length >= 2 && this.plan.current === 'starter'}>
-                  <span class="c-button__icon-left" aria-hidden>
+                  <span class="c-button__icon-left" aria-hidden={true}>
                     <i class="fa-fw fas fa-star-of-life" />
                   </span>
                   Add <span class="u-display-medium-up">new environment</span>

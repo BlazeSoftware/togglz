@@ -23,7 +23,7 @@ export class HomePage {
           <stencil-route-link url="/login" anchorClass="c-link u-pillar-box-medium">
             Login
           </stencil-route-link>
-          <span aria-hidden class="u-text--quiet u-small">
+          <span aria-hidden={true} class="u-text--quiet u-small">
             &bull;
           </span>
           <stencil-route-link url="/join" anchorClass="c-link u-pillar-box-medium">

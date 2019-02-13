@@ -138,7 +138,7 @@ export class Join {
             </blaze-card-body>
             <blaze-card-footer>
               <button class="c-button c-button--block c-button--brand" disabled={this.loading}>
-                <span class="c-button__icon-left" aria-hidden>
+                <span class="c-button__icon-left" aria-hidden={true}>
                   <i class="fa-fw fas fa-user-plus" />
                 </span>
                 Create new account

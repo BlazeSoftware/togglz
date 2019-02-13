@@ -62,22 +62,22 @@ export class NavPage {
         <nav class="c-nav o-layout__sidebar">
           <span class="c-nav__content u-centered u-large c-heading">Togglz</span>
           <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/dashboard">
-            <i class="o-icon fa-fw fas fa-tachometer-alt" aria-hidden /> Dashboard
+            <i class="o-icon fa-fw fas fa-tachometer-alt" aria-hidden={true} /> Dashboard
           </stencil-route-link>
           <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/account">
-            <i class="o-icon fa-fw fas fa-user" aria-hidden /> Account
+            <i class="o-icon fa-fw fas fa-user" aria-hidden={true} /> Account
           </stencil-route-link>
           <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/plan">
-            <i class="o-icon fa-fw fas fa-dollar-sign" aria-hidden /> Plan
+            <i class="o-icon fa-fw fas fa-dollar-sign" aria-hidden={true} /> Plan
           </stencil-route-link>
           <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/api">
-            <i class="o-icon fa-fw fas fa-code" aria-hidden /> API
+            <i class="o-icon fa-fw fas fa-code" aria-hidden={true} /> API
           </stencil-route-link>
           <stencil-route-link
             anchorClass="c-nav__item c-nav__item--error"
             activeClass="c-nav__item--active"
             url="/logout">
-            <i class="o-icon fa-fw fas fa-sign-out-alt" aria-hidden /> Log out
+            <i class="o-icon fa-fw fas fa-sign-out-alt" aria-hidden={true} /> Log out
           </stencil-route-link>
         </nav>
         <div class="o-layout__main u-window-box-medium">

@@ -39,7 +39,7 @@ export class Dashboard {
     this.firebaseUnsubscribe();
   }
 
-  async componentWillLoad() {
+  componentDidLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) return this.history.push('/login');
       this.user = user;

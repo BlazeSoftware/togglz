@@ -8,7 +8,7 @@ export class Logout {
   @State()
   loggedOut: boolean;
 
-  async componentWillLoad() {
+  async componentDidLoad() {
     await firebase.auth().signOut();
     this.loggedOut = true;
   }

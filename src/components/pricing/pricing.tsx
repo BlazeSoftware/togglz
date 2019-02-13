@@ -74,7 +74,7 @@ export class Pricing {
                   Pro
                   <div class="c-heading__sub">More traffic, more environments</div>
                 </h2>
-                <div class="u-super">$99/mo</div>
+                <div class="u-super">$199/mo</div>
                 {this.plan === 'pro' ? (
                   <blaze-badge type="success">current plan</blaze-badge>
                 ) : (

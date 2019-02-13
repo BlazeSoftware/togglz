@@ -51,7 +51,7 @@ export class UpdatePassword {
     }
   }
 
-  async componentWillLoad() {
+  async componentDidLoad() {
     if (!this.history.location.query.oobCode) throw { code: 'auth/missing-action-code' };
 
     try {

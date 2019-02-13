@@ -58,7 +58,7 @@ export class Login {
     this.firebaseUnsubscribe();
   }
 
-  componentWillLoad() {
+  componentDidLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         if (user.emailVerified) {

@@ -208,17 +208,6 @@ account-plan {
     margin-top: 1.25em;
   }
 
-  .c-edit-info.c-button--nude {
-    color: $link-color;
-    @include screen--small-and-up {
-      margin: 0 0 0 0.75em;
-    }
-  }
-
-  .c-edit-info--error.c-button--nude {
-    color: $color-error;
-  }
-
   .o-info-item {
     padding-bottom: 0.8em;
   }

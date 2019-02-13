@@ -25,7 +25,7 @@ export class ApiDocs {
     this.firebaseUnsubscribe();
   }
 
-  componentWillLoad() {
+  componentDidLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) return this.history.push('/login');
       this.user = user;

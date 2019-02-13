@@ -25,7 +25,7 @@ export class ResetPassword {
     this.email = e.target.value;
   }
 
-  componentWillLoad() {
+  componentDidLoad() {
     this.email = this.history.location.query.email;
   }
 

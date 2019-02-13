@@ -19,7 +19,7 @@ export class FeatureToggle {
   @State()
   status: string;
 
-  componentWillLoad() {
+  componentDidLoad() {
     const feature = this.featureSnapshot.data();
     this.initialActiveState = feature.active;
     if (this.selectedEnvironment) {

@@ -25,12 +25,7 @@ export class ResetPassword {
     this.email = e.target.value;
   }
 
-  firebaseUnsubscribe: any;
-  componentDidUnload() {
-    this.firebaseUnsubscribe();
-  }
-
-  componentDidLoad() {
+  componentWillLoad() {
     this.email = this.history.location.query.email;
   }
 

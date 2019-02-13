@@ -59,7 +59,7 @@ export class Join {
     this.firebaseUnsubscribe();
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.email = this.history.location.query.email;
 
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged((user) => {

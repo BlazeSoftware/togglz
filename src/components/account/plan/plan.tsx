@@ -66,18 +66,21 @@ export class Plan {
     });
   }
 
+  onPlansSnapshot: any;
   firebaseUnsubscribe: any;
   componentDidUnload() {
+    this.onPlansSnapshot();
     this.firebaseUnsubscribe();
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
+      if (!user) return this.history.push('/login');
       this.user = user;
 
       const planRef = store.collection('plans').doc(this.user.uid);
 
-      planRef.onSnapshot((planSnapshot) => {
+      this.onPlansSnapshot = planRef.onSnapshot((planSnapshot) => {
         this.plan = planSnapshot.data();
         if (this.plan && this.plan.current === 'pro' && this.history.location.query.upgraded) {
           this.alertMsg = getAlertMessage('plans/upgraded');

@@ -18,11 +18,13 @@ export class NavPage {
   settings: any = {};
 
   firebaseUnsubscribe: any;
+  onSettingsSnapshot: any;
   componentDidUnload() {
+    this.onSettingsSnapshot();
     this.firebaseUnsubscribe();
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) return this.history.push('/login');
       if (!user.emailVerified) return this.history.push(`/verify?email=${user.email}`);
@@ -38,7 +40,7 @@ export class NavPage {
 
       const settingsRef = store.collection('settings').doc(this.user.uid);
 
-      settingsRef.onSnapshot((settingsSnapshot) => {
+      this.onSettingsSnapshot = settingsRef.onSnapshot((settingsSnapshot) => {
         this.settings = settingsSnapshot.data();
         if (plan.current === 'starter' && this.settings.apiCalls > 7500) {
           this.accountWarning.show();

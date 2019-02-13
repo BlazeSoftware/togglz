@@ -33,12 +33,15 @@ export class Dashboard {
   selectedEnvironment: string;
 
   firebaseUnsubscribe: any;
+  onFeaturesSnapshot: any;
   componentDidUnload() {
+    this.onFeaturesSnapshot();
     this.firebaseUnsubscribe();
   }
 
-  async componentDidLoad() {
+  async componentWillLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
+      if (!user) return this.history.push('/login');
       this.user = user;
 
       const settingsSnapshot = await store
@@ -58,7 +61,7 @@ export class Dashboard {
         .where('owner', '==', this.user.uid)
         .orderBy('created', 'desc');
 
-      featuresQuery.onSnapshot((featuresSnapshot) => {
+      this.onFeaturesSnapshot = featuresQuery.onSnapshot((featuresSnapshot) => {
         this.features = featuresSnapshot.docs;
       });
 
@@ -191,10 +194,6 @@ export class Dashboard {
           <feature-add user={this.user} ref={(addFeature) => (this.addFeaturePopup = addFeature)} />
           <feature-edit user={this.user} ref={(editFeature) => (this.editFeaturePopup = editFeature)} />
           <feature-delete ref={(deleteFeature) => (this.deleteFeaturePopup = deleteFeature)} />
-          <account-change-password
-            user={this.user}
-            ref={(changePassword) => (this.changePasswordPopup = changePassword)}
-          />
         </div>
       </nav-page>
     );

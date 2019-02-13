@@ -28,12 +28,9 @@ export class Verify {
     this.firebaseUnsubscribe();
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
-      if (!user) {
-        return this.history.push('/login');
-      }
-
+      if (!user) return this.history.push('/login');
       this.user = user;
 
       if (this.user.emailVerified) {

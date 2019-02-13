@@ -42,13 +42,16 @@ export class Account {
     this.email = detail.email;
   }
 
+  onSettingsSnapshot: any;
   firebaseUnsubscribe: any;
   componentDidUnload() {
+    this.onSettingsSnapshot();
     this.firebaseUnsubscribe();
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
+      if (!user) return this.history.push('/login');
       this.user = user;
       this.displayName = user.displayName;
       this.email = user.email;
@@ -62,7 +65,7 @@ export class Account {
 
       const settingsRef = store.collection('settings').doc(this.user.uid);
 
-      settingsRef.onSnapshot((settingsSnapshot) => {
+      this.onSettingsSnapshot = settingsRef.onSnapshot((settingsSnapshot) => {
         this.settings = settingsSnapshot.data();
       });
 
@@ -79,12 +82,12 @@ export class Account {
             <span>
               {value || <span class="u-text--normal u-text--highlight u-text--quiet">None set</span>}
               {popup && (
-                <button
-                  class="c-edit-info c-button c-button--nude c-tooltip c-tooltip--right"
-                  aria-label={`Edit ${label.toLowerCase()}`}
+                <a
+                  role="button"
+                  class="c-edit-info c-link u-small u-display-inline-block u-pillar-box-medium"
                   onClick={() => popup.show()}>
-                  <i class="fa-fw fas fa-pencil-alt" />
-                </button>
+                  edit
+                </a>
               )}
             </span>
           )}
@@ -212,12 +215,12 @@ export class Account {
               <label class="o-grid__cell o-grid__cell--width-25 u-text--quiet">Web API key:</label>
               <span class="o-grid__cell">
                 <code class="u-code">{this.settings.webAPIKey}</code>
-                <button
-                  class="c-edit-info c-button c-button--nude c-tooltip c-tooltip--right"
-                  aria-label="Generate new web API key"
+                <a
+                  role="button"
+                  class="c-edit-info c-link u-small u-display-inline-block u-pillar-box-medium"
                   onClick={() => this.generateKeyPopup.show()}>
-                  <i class="fa-fw fas fa-sync-alt" />
-                </button>
+                  generate new key
+                </a>
               </span>
             </div>
           </blaze-card-body>

@@ -55,3 +55,12 @@ $grey-background-dark: lighten($color-grey, 35);
 .c-field--choice input {
   margin: 0;
 }
+
+.o-field--icon-left,
+.o-field--icon-right {
+  .c-icon:first-child {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

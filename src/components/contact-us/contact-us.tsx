@@ -76,7 +76,7 @@ export class ContactUs {
 
   messageSent() {
     this.alertSent.show();
-    setTimeout(() => this.alertSent.close(), 4000);
+    setTimeout(() => this.alertSent.close(), 3000);
   }
 
   firebaseUnsubscribe: any;
@@ -134,12 +134,12 @@ export class ContactUs {
                 class="c-field c-field--label"
                 placeholder="Write your message here..."
                 required
-                maxLength={5000}
+                maxLength={3000}
                 onInput={(e) => this.handleMessageChange(e)}
                 value={this.message}
               />
               <div role="tooltip" class="c-hint">
-                {this.message.length} of 5000
+                {this.message.length} of 3000
               </div>
             </label>
             <div class="u-letter-box-xlarge">
@@ -159,7 +159,7 @@ export class ContactUs {
           <blaze-alert ref={(alert) => (this.alertSent = alert)} type="success">
             Message sent, thank you
           </blaze-alert>
-          <blaze-alert ref={(alert) => (this.alertError = alert)} type="error">
+          <blaze-alert ref={(alert) => (this.alertError = alert)} type="error" dismissible>
             Failed to send message. Try{' '}
             <a
               class="c-link"

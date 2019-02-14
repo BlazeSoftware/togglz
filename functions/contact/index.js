@@ -1,3 +1,4 @@
+const functions = require('firebase-functions');
 const sendgrid = require('@sendgrid/mail');
 
 module.exports = () => {
@@ -11,7 +12,7 @@ module.exports = () => {
       return res.send(400, 'Form is incomplete');
     }
 
-    if (req.body.message.length > 5000) {
+    if (req.body.message.length > 3000) {
       return res.send(413, 'Message is too long, max length 5000 characters');
     }
 

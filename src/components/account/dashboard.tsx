@@ -110,7 +110,17 @@ export class Dashboard {
           <td class="c-table__cell u-display-medium-up">
             <code class="u-code">{feature.key}</code>
           </td>
-          <td class="c-table__cell u-display-medium-up">{feature.multivariate ? 'Multivariate' : 'Boolean'}</td>
+          <td class="c-table__cell u-display-medium-up">
+            {feature.multivariate ? (
+              <span>
+                <i class="fa-fw fas fa-code-branch" /> Multivariate
+              </span>
+            ) : (
+              <span>
+                <i class="fa-fw fas fa-power-off" /> Boolean
+              </span>
+            )}
+          </td>
           <td class="c-table__cell c-table__cell--center u-center-block">
             <div class="u-center-block__content u-center-block__content--vertical">
               <feature-toggle featureSnapshot={featureSnapshot} selectedEnvironment={this.selectedEnvironment} />

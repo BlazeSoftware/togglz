@@ -22,6 +22,7 @@ export class AppRoot {
             <stencil-route url="/account" component="account-management" />
             <stencil-route url="/plan" component="account-plan" />
             <stencil-route url="/api" component="api-docs" />
+            <stencil-route url="/contact" component="contact-us" />
             <stencil-route url="/action" component="account-oob-action" />
             <stencil-route url="/verify" component="account-verify" />
             <stencil-route url="/complete" component="account-complete" />

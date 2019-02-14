@@ -73,6 +73,9 @@ export class NavPage {
           <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/api">
             <i class="o-icon fa-fw fas fa-code" aria-hidden={true} /> API
           </stencil-route-link>
+          <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/contact">
+            <i class="o-icon fa-fw far fa-comment" aria-hidden={true} /> Contact
+          </stencil-route-link>
           <stencil-route-link
             anchorClass="c-nav__item c-nav__item--error"
             activeClass="c-nav__item--active"

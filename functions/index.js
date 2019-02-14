@@ -11,6 +11,8 @@ store.settings({ timestampsInSnapshots: true });
 
 const plansApi = require('./plans')(admin, store);
 const featuresApi = require('./features')(store);
+const contactApi = require('./contact')();
 
 exports.plans = functions.https.onRequest(plansApi);
 exports.features = functions.https.onRequest(featuresApi);
+exports.contact = functions.https.onRequest(contactApi);

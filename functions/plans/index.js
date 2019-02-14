@@ -3,9 +3,9 @@ const functions = require('firebase-functions');
 module.exports = (admin, store) => {
   const app = require('express')();
 
-  const stripe = require('stripe')(functions.config().stripe_test.key);
-  const upgradeSignature = functions.config().stripe_test.signatures.upgrade;
-  const downgradeSignature = functions.config().stripe_test.signatures.downgrade;
+  const stripe = require('stripe')(functions.config().stripe.key);
+  const upgradeSignature = functions.config().stripe.signatures.upgrade;
+  const downgradeSignature = functions.config().stripe.signatures.downgrade;
 
   app.use(require('cors')({ origin: true }));
   app.use(require('body-parser').raw({ type: '*/*' }));

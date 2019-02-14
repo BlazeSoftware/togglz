@@ -27,7 +27,7 @@ export class Plan {
   @State()
   loading: boolean = true;
 
-  stripe = Stripe('pk_test_umI4vlS4g2bIOudlru0PcU0w', {
+  stripe = Stripe('pk_live_Z2Ilgh9ZSq2I7Azr0H3LCcxH', {
     betas: ['checkout_beta_4'],
   });
 
@@ -35,7 +35,7 @@ export class Plan {
     this.alert.close();
 
     const result = await this.stripe.redirectToCheckout({
-      items: [{ plan: 'plan_ERAHeqIAYD8I1q', quantity: 1 }],
+      items: [{ plan: 'plan_EWQBmPfIRIShgL', quantity: 1 }],
       successUrl: 'https://www.togglz.com/plan?upgraded=true',
       cancelUrl: 'https://www.togglz.com/plan',
       clientReferenceId: this.user.uid,

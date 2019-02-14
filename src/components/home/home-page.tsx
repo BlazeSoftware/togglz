@@ -30,10 +30,6 @@ export class HomePage {
             Join
           </stencil-route-link>
         </div>
-        <div class="u-small u-text--quiet">
-          <i class="fas fa-exclamation-triangle" />
-          <div class="u-letter-box--small">Under construction</div>
-        </div>
       </div>
     );
   }

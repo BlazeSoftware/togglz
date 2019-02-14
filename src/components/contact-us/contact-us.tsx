@@ -15,15 +15,15 @@ export class ContactUs {
   @State()
   settings: any = {};
 
-  @State()
-  loading: boolean = true;
-
   alertSending: any;
   alertSent: any;
   alertError: any;
 
   @State()
   sending: boolean;
+
+  @State()
+  sent: boolean;
 
   @State()
   email: string;
@@ -52,7 +52,6 @@ export class ContactUs {
     this.alertSending.show();
     setTimeout(() => this.alertSending.close(), 4000);
 
-    // Call email service
     try {
       const response = await fetch('https://us-central1-blaze-togglz.cloudfunctions.net/contact/send', {
         method: 'POST',
@@ -75,6 +74,7 @@ export class ContactUs {
   }
 
   messageSent() {
+    this.sent = true;
     this.alertSent.show();
     setTimeout(() => this.alertSent.close(), 3000);
   }
@@ -90,7 +90,6 @@ export class ContactUs {
       this.user = user;
       this.email = this.user.email;
       this.from = this.user.displayName;
-      this.loading = false;
     });
   }
 
@@ -100,6 +99,10 @@ export class ContactUs {
         <stencil-route-title pageTitle="Contact Us" />
         <h2 class="c-heading">Contact Us</h2>
         <div class="o-container o-container--small">
+          <p class="c-paragraph">
+            We're here to help. If you have any questions or just want to say hi then fill out the contact form below to
+            send us a message.
+          </p>
           <form onSubmit={(e) => this.sendMessage(e)}>
             <label class="c-label o-form-element">
               Email address:
@@ -110,6 +113,7 @@ export class ContactUs {
                   value={this.email}
                   class="c-field c-field--label"
                   required
+                  disabled={this.sent}
                   onInput={(e) => this.handleEmailChange(e)}
                 />
               </div>
@@ -123,6 +127,7 @@ export class ContactUs {
                   value={this.from}
                   class="c-field c-field--label"
                   required
+                  disabled={this.sent}
                   onInput={(e) => this.handleFromChange(e)}
                 />
               </div>
@@ -134,6 +139,7 @@ export class ContactUs {
                 class="c-field c-field--label"
                 placeholder="Write your message here..."
                 required
+                disabled={this.sent}
                 maxLength={3000}
                 onInput={(e) => this.handleMessageChange(e)}
                 value={this.message}
@@ -143,7 +149,7 @@ export class ContactUs {
               </div>
             </label>
             <div class="u-letter-box-xlarge">
-              <button class="c-button c-button--brand c-button--block">
+              <button disabled={this.sent} class="c-button c-button--brand c-button--block">
                 Send message
                 <span class="c-button__icon-right" aria-hidden={true}>
                   <i class="fa-fw far fa-paper-plane" />

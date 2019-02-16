@@ -44,6 +44,10 @@ export class Login {
         const url = this.history.location.query.url || '/dashboard';
         return this.history.push(url);
       }
+      const oobCode = this.history.location.query.oobCode;
+      if (oobCode) {
+        return this.history.push(`/complete?oobCode=${oobCode}`);
+      }
       return this.history.push(`/verify?email=${user.email}`);
     } catch (error) {
       this.loading = false;
@@ -51,23 +55,6 @@ export class Login {
       this.alertMsg = getAlertMessage(error.code, this.email);
       this.alert.show();
     }
-  }
-
-  firebaseUnsubscribe: any;
-  componentDidUnload() {
-    this.firebaseUnsubscribe();
-  }
-
-  componentDidLoad() {
-    this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        if (user.emailVerified) {
-          const url = this.history.location.query.url || '/dashboard';
-          return this.history.push(url);
-        }
-        return this.history.push(`/verify?email=${user.email}`);
-      }
-    });
   }
 
   render() {

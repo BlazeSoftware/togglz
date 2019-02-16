@@ -32,10 +32,10 @@ export class Complete {
 
   componentDidLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
-      if (!user) return this.history.push('/login');
-      this.user = user;
-
       if (!this.history.location.query.oobCode) throw { code: 'auth/missing-action-code' };
+
+      if (!user) return this.history.push(`/login?oobCode=${this.history.location.query.oobCode}`);
+      this.user = user;
 
       try {
         if (this.user.emailVerified) {

@@ -143,13 +143,46 @@ nav-page {
 }
 
 home-page {
-  .o-home-page {
-    margin-top: -2em;
-    width: 80%;
-
+  .o-hero {
     .c-heading {
       margin: 1em 0 0.5em;
       padding: 0;
+    }
+  }
+
+  .o-benefits {
+    .c-heading {
+      margin: 0;
+      padding: 0;
+    }
+
+    i {
+      color: transparent;
+      background-clip: text;
+    }
+
+    .fa-tasks {
+      background-image: linear-gradient($color-green 30%, $color-orange 40%, $color-red);
+    }
+
+    .fa-sitemap {
+      background-image: linear-gradient(90deg, $color-red 5%, $color-purple 50%, $color-blue 95%);
+    }
+
+    .fa-rocket {
+      background-image: linear-gradient(45deg, $color-yellow 5%, $color-orange 50%, $color-red 95%);
+    }
+
+    .fa-server {
+      background-image: linear-gradient($color-blue 15%, $color-green 45%, $color-yellow 100%);
+    }
+
+    .fa-signal {
+      background-image: linear-gradient(90deg, $color-blue 25%, $color-purple 100%);
+    }
+
+    .fa-dollar-sign {
+      background-image: radial-gradient($color-green, $color-yellow 80%);
     }
   }
 

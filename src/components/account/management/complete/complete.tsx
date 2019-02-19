@@ -64,7 +64,7 @@ export class Complete {
         <stencil-route-title pageTitle="Account setup..." />
         <blaze-card>
           <blaze-card-header>
-            <h2 class="c-heading">Account setup...</h2>
+            <h2 class="c-heading u-gradient-text">Account setup...</h2>
           </blaze-card-header>
           <blaze-card-body>
             <p class="u-paragraph">

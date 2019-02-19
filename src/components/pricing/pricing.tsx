@@ -23,7 +23,7 @@ export class Pricing {
           <div class="o-grid__cell o-grid__cell--width-50">
             <div class="c-card">
               <header class="c-card__header">
-                <h2 class="c-heading">
+                <h2 class="c-heading u-gradient-text u-gradient-text--success">
                   Starter
                   <div class="c-heading__sub">Best for individuals</div>
                 </h2>
@@ -70,7 +70,7 @@ export class Pricing {
           <div class="o-grid__cell o-grid__cell--width-50">
             <div class="c-card">
               <header class="c-card__header">
-                <h2 class="c-heading">
+                <h2 class="c-heading u-gradient-text">
                   Pro
                   <div class="c-heading__sub">More traffic, more environments</div>
                 </h2>

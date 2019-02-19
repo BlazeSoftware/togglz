@@ -72,7 +72,7 @@ export class UpdatePassword {
         <blaze-card>
           <form onSubmit={(e) => this.updatePassword(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">New password</h2>
+              <h2 class="c-heading u-gradient-text">New password</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>

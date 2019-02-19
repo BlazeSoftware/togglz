@@ -64,7 +64,7 @@ export class Login {
         <blaze-card>
           <form onSubmit={(e) => this.login(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">Log In</h2>
+              <h2 class="c-heading u-gradient-text">Log In</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>

@@ -147,7 +147,7 @@ export class Account {
     return (
       <nav-page history={this.history}>
         <stencil-route-title pageTitle="Account" />
-        <h2 class="c-heading">Account</h2>
+        <h2 class="c-heading u-gradient-text">Account</h2>
         <blaze-card>
           <blaze-card-header>
             <h3 class="c-heading">Details</h3>
@@ -168,7 +168,7 @@ export class Account {
               <h3 class="o-grid__cell c-heading">Environments</h3>
               <div class="o-grid__cell u-right">
                 <button
-                  class="c-button c-button--ghost-success u-small"
+                  class="c-button c-button--success u-small"
                   aria-label="Add new environment"
                   onClick={() => this.addEnvironmentPopup.show()}
                   disabled={environments.length >= 2 && this.plan.current === 'starter'}>

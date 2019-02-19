@@ -71,7 +71,7 @@ export class ChangeName {
         <blaze-card>
           <form onSubmit={(e) => this.changeName(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">Change name</h2>
+              <h2 class="c-heading u-gradient-text">Change name</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>

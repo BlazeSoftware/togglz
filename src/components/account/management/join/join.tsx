@@ -79,7 +79,7 @@ export class Join {
         <blaze-card>
           <form onSubmit={(e) => this.createAccount(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">Create a new account</h2>
+              <h2 class="c-heading u-gradient-text">Create a new account</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>

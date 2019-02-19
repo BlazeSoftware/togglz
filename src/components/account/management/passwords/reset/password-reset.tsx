@@ -50,7 +50,7 @@ export class ResetPassword {
         <blaze-card>
           <form onSubmit={(e) => this.send(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">Reset password</h2>
+              <h2 class="c-heading u-gradient-text">Reset password</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type="success">

@@ -55,7 +55,7 @@ export class Verify {
         <stencil-route-title pageTitle="Verify email" />
         <blaze-card>
           <blaze-card-header>
-            <h2 class="c-heading">Verify email address</h2>
+            <h2 class="c-heading u-gradient-text">Verify email address</h2>
           </blaze-card-header>
           <blaze-card-body>
             <blaze-alert ref={(alert) => (this.alert = alert)} type="success">

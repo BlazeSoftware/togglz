@@ -63,7 +63,7 @@ export class DeleteEnvironment {
         <blaze-card>
           <form onSubmit={(e) => this.deleteEnv(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">Delete environment</h2>
+              <h2 class="c-heading u-gradient-text u-gradient-text--error">Delete environment</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -80,9 +80,9 @@ export class DeleteEnvironment {
                   )}
                 </div>
               </blaze-alert>
-              <p class="c-paragraph u-text--highlight">
+              <span class="u-gradient-text u-gradient-text--warning">
                 The API will stop returning any feature toggles for this environment.
-              </p>
+              </span>
               <p class="c-paragraph u-text--quiet u-small">
                 Once deleted any requests for this environment will receive an empty response.
               </p>

@@ -111,8 +111,8 @@ nav-page {
     }
 
     .c-nav__content {
-      background-color: map-get($colors, brand);
-      color: map-get($colors, grey-background);
+      background-image: linear-gradient(135deg, $color-purple, $color-blue);
+      color: $color-white;
     }
 
     .c-nav__item {
@@ -121,6 +121,10 @@ nav-page {
 
       .o-icon {
         margin-right: 1em;
+      }
+
+      &--active {
+        background-color: map-get($colors, brand);
       }
 
       @include screen--medium-and-up {
@@ -143,11 +147,37 @@ nav-page {
 }
 
 home-page {
+  .o-hero,
+  .o-blurb,
+  .o-benefits {
+    padding: 1em;
+  }
+
   .o-hero {
-    .c-heading {
+    text-align: center;
+    font-size: 1.2em;
+    background-color: map-get($colors, grey-background);
+
+    .c-title {
       margin: 1em 0 0.5em;
       padding: 0;
     }
+
+    .c-toggle__track {
+      margin: 0 auto;
+    }
+
+    .c-tagline {
+      font-weight: normal;
+      padding: 2em 0 0.5em 0;
+    }
+  }
+
+  .o-blurb {
+    padding: 1em;
+    text-align: center;
+    background-image: linear-gradient(90deg, $color-purple, $color-blue);
+    color: $color-white;
   }
 
   .o-benefits {
@@ -185,41 +215,9 @@ home-page {
       background-image: radial-gradient($color-green, $color-yellow 80%);
     }
   }
-
-  .c-toggle__track {
-    margin: 0 auto;
-  }
-
-  .c-tagline {
-    font-weight: normal;
-  }
 }
 
 account-dashboard {
-  .c-environment-chooser {
-    text-align: left;
-
-    @include screen--small-and-up {
-      float: left;
-      margin-right: 1em;
-    }
-
-    select {
-      @include screen--small-and-up {
-        width: auto;
-        margin: 0 0 0 0.5em;
-      }
-      display: inline-block;
-      margin: 0 0 1em 0;
-    }
-  }
-
-  .c-button--block.c-button--add-feature {
-    @include screen--small-and-up {
-      width: auto;
-    }
-  }
-
   .c-table {
     border-radius: 4px;
     border: 1px solid $card-item-border-color;
@@ -251,6 +249,10 @@ account-plan {
 }
 
 pricing-overview {
+  .c-heading__sub {
+    opacity: 1;
+  }
+
   .c-list .o-feature {
     padding: 0.7em 0;
 

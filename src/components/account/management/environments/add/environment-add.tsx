@@ -70,7 +70,7 @@ export class AddEnvironment {
         <blaze-card>
           <form onSubmit={(e) => this.addEnvironment(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">Add environment</h2>
+              <h2 class="c-heading u-gradient-text u-gradient-text--success">Add environment</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>

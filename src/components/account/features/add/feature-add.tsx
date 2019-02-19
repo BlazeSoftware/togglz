@@ -102,7 +102,7 @@ export class FeatureAdd {
         <blaze-card>
           <form onSubmit={(e) => this.create(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">New feature</h2>
+              <h2 class="c-heading u-gradient-text u-gradient-text--success">New feature</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>

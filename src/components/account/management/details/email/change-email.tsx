@@ -88,7 +88,7 @@ export class ChangeEmail {
         <blaze-card>
           <form onSubmit={(e) => this.changeEmail(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">Change email</h2>
+              <h2 class="c-heading u-gradient-text">Change email</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>

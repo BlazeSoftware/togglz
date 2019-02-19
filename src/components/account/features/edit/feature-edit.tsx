@@ -146,7 +146,7 @@ export class FeatureEdit {
         <blaze-card>
           <form onSubmit={(e) => this.edit(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">Edit feature</h2>
+              <h2 class="c-heading u-gradient-text">Edit feature</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -167,7 +167,7 @@ export class FeatureEdit {
                 <div>
                   {this.active && (
                     <div>
-                      <p class="c-paragraph u-text--highlight">This feature is still active.</p>
+                      <span class="u-gradient-text u-gradient-text--warning">This feature is still active.</span>
                       <p class="c-paragraph u-text--quiet u-small">
                         Editing the key on an active feature might cause condition statements within your site or app to
                         stop behaving correctly.

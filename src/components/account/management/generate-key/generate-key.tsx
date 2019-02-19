@@ -58,7 +58,7 @@ export class GenerateKey {
         <blaze-card>
           <form onSubmit={(e) => this.generateKey(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">Generate key</h2>
+              <h2 class="c-heading u-gradient-text u-gradient-text--error">Generate key</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -75,7 +75,9 @@ export class GenerateKey {
                   )}
                 </div>
               </blaze-alert>
-              <p class="c-paragraph u-text--highlight">Generating a new key will invalidate the old one.</p>
+              <span class="u-gradient-text u-gradient-text--warning">
+                Generating a new key will invalidate the old one.
+              </span>
               <p class="c-paragraph">
                 Once you generate a new key, you will have to update your site or app to use the new key.
               </p>

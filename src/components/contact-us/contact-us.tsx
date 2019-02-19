@@ -97,7 +97,7 @@ export class ContactUs {
     return (
       <nav-page history={this.history}>
         <stencil-route-title pageTitle="Contact Us" />
-        <h2 class="c-heading">Contact Us</h2>
+        <h2 class="c-heading u-gradient-text">Contact Us</h2>
         <div class="o-container o-container--small">
           <p class="c-paragraph">
             We're here to help. If you have any questions or just want to say hi then fill out the contact form below to
@@ -149,7 +149,7 @@ export class ContactUs {
               </div>
             </label>
             <div class="u-letter-box-xlarge">
-              <button disabled={this.sent} class="c-button c-button--brand c-button--block">
+              <button disabled={this.sent} class="c-button c-button--info c-button--block">
                 Send message
                 <span class="c-button__icon-right" aria-hidden={true}>
                   <i class="fa-fw far fa-paper-plane" />

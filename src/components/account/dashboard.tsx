@@ -88,7 +88,7 @@ export class Dashboard {
       ));
 
     return (
-      <label class="c-environment-chooser u-small">
+      <label class="u-small">
         Environment:
         <select class="c-field" onInput={(e) => this.handleEnvironmentChange(e)}>
           <option value="" selected={this.selectedEnvironment === null}>
@@ -151,24 +151,28 @@ export class Dashboard {
     return (
       <nav-page history={this.history}>
         <stencil-route-title pageTitle="Dashboard" />
-        <h2 class="c-heading">Dashboard</h2>
+        <h2 class="c-heading u-gradient-text">Dashboard</h2>
         <div>
-          <div class="u-right u-letter-box-small">
-            {!this.loading && this.features.length > 0 && this.renderEnvironmentChooser()}
-            {!this.loading && this.features.length > 0 && (
-              <button
-                class="c-button c-button--block c-button--success c-button--add-feature u-small"
-                onClick={() => this.addFeaturePopup.show()}
-                disabled={this.features.length >= 10 && this.plan.current === 'starter'}>
-                <span class="c-button__icon-left" aria-hidden={true}>
-                  <i class="fa-fw fas fa-star-of-life" />
-                </span>
-                Add feature
-              </button>
-            )}
-            {this.features.length >= 10 && this.plan.current === 'starter' && (
-              <div class="u-small u-text--quiet">Upgrade to Pro</div>
-            )}
+          <div class="u-letter-box-small o-grid o-grid--no-gutter o-grid--bottom">
+            <div class="o-grid__cell o-grid__cell--width-40">
+              {!this.loading && this.features.length > 0 && this.renderEnvironmentChooser()}
+            </div>
+            <div class="o-grid__cell u-right">
+              {!this.loading && this.features.length > 0 && (
+                <button
+                  class="c-button c-button--success c-button--add-feature u-small"
+                  onClick={() => this.addFeaturePopup.show()}
+                  disabled={this.features.length >= 10 && this.plan.current === 'starter'}>
+                  <span class="c-button__icon-left" aria-hidden={true}>
+                    <i class="fa-fw fas fa-star-of-life" />
+                  </span>
+                  Add feature
+                </button>
+              )}
+              {this.features.length >= 10 && this.plan.current === 'starter' && (
+                <div class="u-small u-text--quiet">Upgrade to Pro</div>
+              )}
+            </div>
           </div>
           {this.loading && (
             <div class="u-centered u-super o-page-loading">

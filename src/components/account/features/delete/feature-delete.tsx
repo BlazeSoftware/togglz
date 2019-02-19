@@ -64,12 +64,14 @@ export class FeatureDelete {
         </button>
         <blaze-card>
           <blaze-card-header>
-            <h2 class="c-heading u-xlarge">Delete feature</h2>
+            <h2 class="c-heading u-gradient-text u-gradient-text--error">Delete feature</h2>
           </blaze-card-header>
           <blaze-card-body>
             {this.featureSnapshot && (
               <div>
-                {this.active && <p class="c-paragraph u-text--highlight">This feature is still active.</p>}
+                {this.active && (
+                  <span class="u-gradient-text u-gradient-text--warning">This feature is still active.</span>
+                )}
                 <p class="c-paragraph u-text--quiet u-small">
                   By deleting this feature it will no longer be accessible via the API and condition statements within
                   your site or app may stop behaving correctly.

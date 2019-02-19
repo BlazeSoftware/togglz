@@ -74,7 +74,7 @@ export class EditEnvironment {
         <blaze-card>
           <form onSubmit={(e) => this.editEnvironment(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">Edit environment</h2>
+              <h2 class="c-heading u-gradient-text u-gradient-text--warning">Edit environment</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -90,7 +90,10 @@ export class EditEnvironment {
                     </stencil-route-link>
                   )}
                 </div>
-              </blaze-alert>{' '}
+              </blaze-alert>
+              <span class="u-gradient-text u-gradient-text--warning">
+                The API will stop returning any feature toggles for this environment.
+              </span>
               <label class="c-label o-form-element">
                 Environment name:
                 <div class="o-field o-field--icon-left">

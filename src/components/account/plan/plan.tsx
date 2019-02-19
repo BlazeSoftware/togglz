@@ -99,7 +99,7 @@ export class Plan {
     return (
       <nav-page history={this.history}>
         <stencil-route-title pageTitle="Plan" />
-        <h2 class="c-heading">Plan</h2>
+        <h2 class="c-heading u-gradient-text">Plan</h2>
         <div>
           <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
             <div>{this.alertMsg.message}</div>

@@ -66,7 +66,7 @@ export class DeleteAccount {
         <blaze-card>
           <form onSubmit={(e) => this.deleteAccount(e)}>
             <blaze-card-header>
-              <h2 class="c-heading">Delete account</h2>
+              <h2 class="c-heading u-gradient-text u-gradient-text--error">Delete account</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -83,7 +83,7 @@ export class DeleteAccount {
                   )}
                 </div>
               </blaze-alert>
-              <p class="c-paragraph u-text--highlight">Deleting your account is a permanent action.</p>
+              <span class="u-gradient-text u-gradient-text--error">Deleting your account is permanent.</span>
               <p class="c-paragraph u-text--quiet u-small">
                 If you delete your account all information we hold about you will be destroyed, all your feature toggles
                 will be deleted and we will not be able to provide you with any support.

@@ -7,8 +7,6 @@ admin.initializeApp({
 });
 
 const store = admin.firestore();
-store.settings({ timestampsInSnapshots: true });
-
 const plansApi = require('./plans')(admin, store);
 const featuresApi = require('./features')(store);
 const contactApi = require('./contact')();

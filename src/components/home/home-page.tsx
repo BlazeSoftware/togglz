@@ -5,17 +5,19 @@ import { Component } from '@stencil/core';
   tag: 'home-page',
 })
 export class HomePage {
+  modal: any;
+
   renderAboutSection(icon: string, heading: string, body: any) {
     return (
       <section class="o-grid__cell o-grid__cell--width-50 u-letter-box-xlarge">
         <div class="o-grid o-grid--center o-grid--wrap">
-          <div class=" o-grid__cell o-grid__cell--width-20">
+          <div class="o-grid__cell o-grid__cell--width-20">
             <i class={`fa-fw ${icon} fa-3x`} />
           </div>
-          <div class=" o-grid__cell o-grid__cell--width-80">
+          <div class="o-grid__cell o-grid__cell--width-80">
             <h2 class="c-heading">{heading}</h2>
           </div>
-          <div class=" o-grid__cell o-grid__cell--width-80 o-grid__cell--offset-20">
+          <div class="o-grid__cell o-grid__cell--width-80 o-grid__cell--offset-20">
             <p class="c-paragraph">{body}</p>
           </div>
         </div>
@@ -89,9 +91,86 @@ export class HomePage {
           </section>
         </div>
 
+        <div class="o-steps">
+          <h2 class="c-heading u-super u-centered">How To Use</h2>
+
+          <div class="o-grid o-grid--center o-grid--wrap u-letter-box-large">
+            <div class="o-grid__cell o-grid__cell--width-20">
+              <i class="fa-fw fas fa-user-plus u-xlarge" />
+            </div>
+            <div class="o-grid__cell o-grid__cell--width-80">
+              <span class="u-gradient-text u-gradient-text--error u-xlarge">Step 1</span>
+            </div>
+            <div class="o-grid__cell o-grid__cell--offset-20">
+              <stencil-route-link url="/join" anchorClass="c-link">
+                Create an account
+              </stencil-route-link>
+            </div>
+          </div>
+
+          <div class="o-grid o-grid--center o-grid--wrap u-letter-box-large">
+            <div class="o-grid__cell o-grid__cell--width-20">
+              <i class="fa-fw fas fa-toggle-on u-xlarge" />
+            </div>
+            <div class="o-grid__cell o-grid__cell--width-80">
+              <span class="u-gradient-text u-gradient-text--warning u-xlarge">Step 2</span>
+            </div>
+            <div class="o-grid__cell o-grid__cell--offset-20">Add feature toggles</div>
+          </div>
+
+          <div class="o-grid o-grid--center o-grid--wrap u-letter-box-large">
+            <div class="o-grid__cell o-grid__cell--width-20">
+              <i class="fa-fw fas fa-code u-xlarge" />
+            </div>
+            <div class="o-grid__cell o-grid__cell--width-80">
+              <span class="u-gradient-text u-gradient-text--success u-xlarge">Step 3</span>
+            </div>
+            <div class="o-grid__cell o-grid__cell--offset-20">
+              <a class="c-link" onClick={() => this.modal.show()}>
+                Integrate into your app
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="o-example u-window-box-large">
+          <div class="o-example__content">
+            <code class="u-text--mono">
+              <pre>{`const res = await fetch('<Togglz-API>');
+const features = await res.json();
+
+if (features.myNewThing) {
+  // ...new feature code
+}`}</pre>
+            </code>
+          </div>
+        </div>
+
         <footer class="u-centered u-small u-text--quiet u-letter-box-super">
           {new Date().getFullYear()} &copy; Blaze Software Engineering Ltd.
         </footer>
+
+        <blaze-modal ref={(modal) => (this.modal = modal)} dismissible full>
+          <blaze-card>
+            <blaze-card-header>
+              <h2 class="c-heading u-gradient-text">Using the API</h2>
+            </blaze-card-header>
+            <blaze-card-body>
+              <how-to-use />
+            </blaze-card-body>
+            <blaze-card-footer>
+              <div class="u-right">
+                <button
+                  class="c-button c-button--info"
+                  onClick={() => {
+                    this.modal.close();
+                  }}>
+                  Close
+                </button>
+              </div>
+            </blaze-card-footer>
+          </blaze-card>
+        </blaze-modal>
       </div>
     );
   }

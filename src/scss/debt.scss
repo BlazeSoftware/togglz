@@ -91,3 +91,7 @@ $grey-background-dark: lighten($color-grey, 35);
     transform: translateY(-50%);
   }
 }
+
+.o-modal--full .c-card {
+  box-shadow: none;
+}

@@ -156,7 +156,6 @@ home-page {
   .o-hero {
     text-align: center;
     font-size: 1.2em;
-    background-color: map-get($colors, grey-background);
 
     .c-title {
       margin: 1em 0 0.5em;
@@ -214,6 +213,29 @@ home-page {
     .fa-dollar-sign {
       background-image: radial-gradient($color-green, $color-yellow 80%);
     }
+  }
+
+  .o-steps {
+    width: 320px;
+    margin: auto;
+  }
+
+  .o-example {
+    background-color: map-get($colors, brand);
+    color: white;
+
+    .o-example__content {
+      max-width: 320px;
+      margin: auto;
+
+      @include screen--medium-and-up {
+        font-size: 1.2em;
+      }
+    }
+  }
+
+  .c-card {
+    max-width: 500px;
   }
 }
 

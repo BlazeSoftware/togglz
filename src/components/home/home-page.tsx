@@ -33,7 +33,7 @@ export class HomePage {
             <h1 class="c-heading u-super c-title">Togglz</h1>
             <blaze-toggle class="u-super" toggled type="brand" />
             <h2 class="c-heading u-medium u-text--quiet c-tagline">Feature toggle service for websites and apps</h2>
-            <div class="u-letter-box-large u-small u-text--loud">
+            <div class="u-letter-box-large">
               <stencil-route-link url="/login" anchorClass="c-link u-pillar-box-medium">
                 Login
               </stencil-route-link>

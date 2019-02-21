@@ -23,10 +23,9 @@ export class Pricing {
           <div class="o-grid__cell o-grid__cell--width-50">
             <div class="c-card">
               <header class="c-card__header">
-                <h2 class="c-heading u-gradient-text u-gradient-text--success">
-                  Starter
-                  <div class="c-heading__sub">Best for individuals</div>
-                </h2>
+                <h2 class="c-heading u-gradient-text u-gradient-text--success">Starter</h2>
+                <br />
+                <h3 class="c-heading u-gradient-text u-gradient-text--success">Best for individuals</h3>
                 <div class="u-super">$0/mo</div>
                 {this.plan === 'starter' ? (
                   <blaze-badge type="success">current plan</blaze-badge>
@@ -70,10 +69,9 @@ export class Pricing {
           <div class="o-grid__cell o-grid__cell--width-50">
             <div class="c-card">
               <header class="c-card__header">
-                <h2 class="c-heading u-gradient-text">
-                  Pro
-                  <div class="c-heading__sub">More traffic, more environments</div>
-                </h2>
+                <h2 class="c-heading u-gradient-text">Pro</h2>
+                <br />
+                <h3 class="c-heading u-gradient-text">More traffic, more environments</h3>
                 <div class="u-super">$199/mo</div>
                 {this.plan === 'pro' ? (
                   <blaze-badge type="success">current plan</blaze-badge>

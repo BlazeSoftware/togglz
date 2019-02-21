@@ -26,6 +26,12 @@ module.exports = (store) => {
         }
 
         const settings = settingsSnapshot.docs[0];
+        if (req.query.environment) {
+          if (!settings.data().environments || !settings.data().environments.includes(req.query.environment)) {
+            return res.send({});
+          }
+        }
+
         req.uid = settings.ref.id;
 
         const planSnapshot = await store

@@ -7,7 +7,7 @@ module.exports = (store) => {
   app.use(require('body-parser').raw({ type: '*/*' }));
 
   app
-    .route('/:apiKey')
+    .route('/features/:apiKey')
     .all(async (req, res, next) => {
       if (!req.params.apiKey) {
         console.error('/features', 'No api key');

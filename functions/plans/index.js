@@ -10,7 +10,7 @@ module.exports = (admin, store) => {
   app.use(require('cors')({ origin: true }));
   app.use(require('body-parser').raw({ type: '*/*' }));
 
-  app.post('/upgrade', async (req, res) => {
+  app.post('/plans/upgrade', async (req, res) => {
     const event = stripe.webhooks.constructEvent(req.rawBody, req.header('stripe-signature'), upgradeSignature);
     const userId = event.data.object.client_reference_id;
 
@@ -29,7 +29,7 @@ module.exports = (admin, store) => {
     }
   });
 
-  app.delete('/subscriptions/:uid', async (req, res) => {
+  app.delete('/plans/subscriptions/:uid', async (req, res) => {
     const uid = req.params.uid;
 
     try {
@@ -52,7 +52,7 @@ module.exports = (admin, store) => {
     }
   });
 
-  app.post('/downgrade', async (req, res) => {
+  app.post('/plans/downgrade', async (req, res) => {
     const event = stripe.webhooks.constructEvent(req.rawBody, req.header('stripe-signature'), downgradeSignature);
     const subscriptionId = event.data.object.id;
 

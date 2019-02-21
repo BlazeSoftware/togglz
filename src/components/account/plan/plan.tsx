@@ -50,22 +50,6 @@ export class Plan {
     }
   }
 
-  downgrade() {
-    this.alertMsg = getAlertMessage('plans/updating');
-    this.alert.show();
-
-    fetch(`https://us-central1-blaze-togglz.cloudfunctions.net/plans/subscriptions/${this.user.uid}`, {
-      method: 'DELETE',
-      mode: 'cors',
-    }).catch((e) => {
-      this.alertMsg = {
-        type: 'error',
-        message: e,
-      };
-      this.alert.show();
-    });
-  }
-
   onPlansSnapshot: any;
   firebaseUnsubscribe: any;
   componentDidUnload() {

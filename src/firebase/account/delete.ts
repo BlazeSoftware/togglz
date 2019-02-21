@@ -4,7 +4,7 @@ export default async (user, password) => {
   const credentials = firebase.auth.EmailAuthProvider.credential(user.email, password);
   await user.reauthenticateAndRetrieveDataWithCredential(credentials);
 
-  await fetch(`https://us-central1-blaze-togglz.cloudfunctions.net/plans/subscriptions/${user.uid}`, {
+  await fetch(`/plans/subscriptions/${user.uid}`, {
     method: 'DELETE',
     mode: 'cors',
   });

@@ -53,7 +53,7 @@ export class ContactUs {
     setTimeout(() => this.alertSending.close(), 4000);
 
     try {
-      const response = await fetch('https://us-central1-blaze-togglz.cloudfunctions.net/contact/send', {
+      const response = await fetch('/contact/send', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

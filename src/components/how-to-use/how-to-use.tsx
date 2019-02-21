@@ -16,12 +16,9 @@ export class HowToUse {
             The API currently only has one <strong class="u-text--loud">GET</strong> end point:
           </p>
           <p class="c-paragraph">
-            <a
-              href={`https://us-central1-blaze-togglz.cloudfunctions.net/features/${this.apiKey}`}
-              class="c-link u-small"
-              target="_blank">
+            <a href={`https://www.togglz.com/features/${this.apiKey}`} class="c-link u-small" target="_blank">
               <span>
-                {'https://us-central1-blaze-togglz.cloudfunctions.net/features/'}
+                {'https://www.togglz.com/features/'}
                 <span class="u-text--loud">{this.apiKey}</span>
               </span>
             </a>
@@ -36,9 +33,7 @@ export class HowToUse {
           <p class="c-paragraph u-text--quiet">Example:</p>
           <p class="c-paragraph">
             <a
-              href={`https://us-central1-blaze-togglz.cloudfunctions.net/features/${
-                this.apiKey
-              }?environment=development`}
+              href={`https://www.togglz.com/features/${this.apiKey}?environment=development`}
               class="c-link u-small"
               target="_blank">
               <span>

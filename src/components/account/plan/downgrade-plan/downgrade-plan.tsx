@@ -43,7 +43,7 @@ export class DowngradePlan {
     this.alert.show();
 
     try {
-      await fetch(`https://us-central1-blaze-togglz.cloudfunctions.net/plans/subscriptions/${this.user.uid}`, {
+      await fetch(`/plans/subscriptions/${this.user.uid}`, {
         method: 'DELETE',
         mode: 'cors',
       });

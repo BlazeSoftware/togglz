@@ -7,7 +7,7 @@ module.exports = () => {
   app.use(require('cors')({ origin: true }));
   app.use(require('body-parser').raw({ type: '*/*' }));
 
-  app.post('/send', async (req, res) => {
+  app.post('/contact/send', async (req, res) => {
     if (!req.body.email || !req.body.from || !req.body.message) {
       return res.send(400, 'Form is incomplete');
     }

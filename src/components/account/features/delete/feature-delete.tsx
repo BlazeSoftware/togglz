@@ -69,9 +69,7 @@ export class FeatureDelete {
           <blaze-card-body>
             {this.featureSnapshot && (
               <div>
-                {this.active && (
-                  <span class="u-gradient-text u-gradient-text--warning">This feature is still active.</span>
-                )}
+                {this.active && <span class="u-gradient-text u-gradient-text--warning">This feature is active.</span>}
                 <p class="c-paragraph u-text--quiet u-small">
                   By deleting this feature it will no longer be accessible via the API and condition statements within
                   your site or app may stop behaving correctly.

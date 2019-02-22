@@ -167,7 +167,7 @@ export class FeatureEdit {
                 <div>
                   {this.active && (
                     <div>
-                      <span class="u-gradient-text u-gradient-text--warning">This feature is still active.</span>
+                      <span class="u-gradient-text u-gradient-text--warning">This feature is active.</span>
                       <p class="c-paragraph u-text--quiet u-small">
                         Editing the key on an active feature might cause condition statements within your site or app to
                         stop behaving correctly.

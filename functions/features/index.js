@@ -1,4 +1,5 @@
 const admin = require('firebase-admin');
+const getActiveFeatures = require('./getActiveFeatures');
 
 module.exports = (store) => {
   const app = require('express')();
@@ -65,28 +66,16 @@ module.exports = (store) => {
       next();
     })
     .get(async (req, res) => {
-      const environment = req.query.environment;
-
       try {
-        const featuresSnapshot = await store
-          .collection('features')
-          .where('owner', '==', req.uid)
-          .get();
-
-        const activeFeatures = featuresSnapshot.docs.reduce((activeFeatures, f) => {
-          const feature = f.data();
-          const active = environment ? feature.environments[environment] : feature.active;
-          if (feature.multivariate) {
-            activeFeatures[feature.key] = active
-              ? feature.multivariate.activeValue
-              : feature.multivariate.inactiveValue;
-          } else if (active) {
-            activeFeatures[feature.key] = true;
-          }
-          return activeFeatures;
-        }, {});
-
-        res.send(activeFeatures);
+        res.send(await getActiveFeatures(store, req));
+      } catch (e) {
+        console.error('/features', e);
+        res.send(500, e);
+      }
+    })
+    .post(async (req, res) => {
+      try {
+        res.send(await getActiveFeatures(store, req));
       } catch (e) {
         console.error('/features', e);
         res.send(500, e);

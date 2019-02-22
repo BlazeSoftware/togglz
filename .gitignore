@@ -26,4 +26,4 @@ UserInterfaceState.xcuserstate
 
 components.d.ts
 .firebase/
-service-account.json
+.runtimeconfig.json

@@ -1,10 +1,25 @@
+const operators = {
+  '=': '===',
+  '<': '<',
+  '>': '>',
+  '<=': '<=',
+  '>=': '>=',
+};
+
 const applyConditions = (feature, payload) => {
   if (!feature.conditions || feature.conditions.length === 0) return true;
   for (let i = 0; i < feature.conditions.length; i++) {
     const condition = feature.conditions[i];
     const value = payload[condition.prop];
+    const operations = {
+      '=': value === condition.target,
+      '<': value < condition.target,
+      '>': value > condition.target,
+      '<=': value <= condition.target,
+      '>=': value >= condition.target,
+    };
 
-    if (eval(`${value} ${condition.operator} ${condition.target}`) === false) {
+    if (operations[condition.operator] === false) {
       return false;
     }
   }

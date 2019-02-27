@@ -1,6 +1,6 @@
 import firebase, { store } from '@/firebase/firebase';
 
-export default async (user, { name, key, type, activeValue, inactiveValue }) => {
+export default async (user, { name, key, type, activeValue, inactiveValue, conditions }) => {
   const existingFeature = await store
     .collection('features')
     .where('owner', '==', user.uid)
@@ -35,6 +35,7 @@ export default async (user, { name, key, type, activeValue, inactiveValue }) => 
       multivariate,
       active: false,
       environments,
+      conditions,
       owner: user.uid,
       created: firebase.firestore.FieldValue.serverTimestamp(),
     });

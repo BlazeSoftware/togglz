@@ -40,6 +40,9 @@ export class FeatureEdit {
   @State()
   inactiveValue: string;
 
+  @State()
+  conditions: Array<any>;
+
   @Method()
   show(featureSnapshot) {
     this.reset();
@@ -52,6 +55,7 @@ export class FeatureEdit {
       this.activeValue = feature.multivariate.activeValue;
       this.inactiveValue = feature.multivariate.inactiveValue;
     }
+    this.conditions = feature.conditions || [];
     this.isActive();
     this.panel.show();
   }
@@ -71,6 +75,7 @@ export class FeatureEdit {
     this.type = 'boolean';
     this.activeValue = '';
     this.inactiveValue = '';
+    this.conditions = [];
   }
 
   handleNameChange(e) {
@@ -121,6 +126,7 @@ export class FeatureEdit {
         name: this.name,
         key: this.key,
         multivariate,
+        conditions: this.conditions,
       });
       this.reset();
     } catch (error) {
@@ -137,6 +143,93 @@ export class FeatureEdit {
     Object.keys(feature.environments).forEach((env) => (this.active = feature.environments[env] ? true : this.active));
   }
 
+  addCondition() {
+    this.conditions = [...this.conditions, { operator: '=' }];
+  }
+
+  removeCondition(i: number) {
+    this.conditions.splice(i, 1);
+    this.conditions = [...this.conditions];
+  }
+
+  handleConditionChange(e, editIndex: number, property: string) {
+    this.conditions[editIndex][property] = e.target.value;
+    this.conditions = [...this.conditions];
+  }
+
+  renderConditions() {
+    return (
+      <fieldset class="o-fieldset">
+        <legend class="o-fieldset__legend">Conditions:</legend>
+        {this.conditions.map((condition, i) => (
+          <div class="o-grid o-grid--center o-grid--no-gutter">
+            <div class="o-grid__cell">
+              <div class="c-input-group u-small u-letter-box-medium">
+                <div class="o-field">
+                  <input
+                    class="c-field u-text--mono"
+                    value={condition.prop}
+                    onInput={(e) => this.handleConditionChange(e, i, 'prop')}
+                    required
+                    placeholder="property"
+                  />
+                </div>
+                <div class="o-field">
+                  <select
+                    class="c-field u-text--mono u-text--loud"
+                    onChange={(e) => this.handleConditionChange(e, i, 'operator')}
+                    required>
+                    <option value="=" selected={condition.operator === '='}>
+                      equals
+                    </option>
+                    <option value="!=" selected={condition.operator === '!='}>
+                      is not
+                    </option>
+                    <option value="<" selected={condition.operator === '<'}>
+                      {'<'}
+                    </option>
+                    <option value="<=" selected={condition.operator === '<='}>
+                      {'<='}
+                    </option>
+                    <option value=">" selected={condition.operator === '>'}>
+                      {'>'}
+                    </option>
+                    <option value=">=" selected={condition.operator === '>='}>
+                      {'>='}
+                    </option>
+                  </select>
+                </div>
+                <div class="o-field">
+                  <input
+                    class="c-field u-text--mono"
+                    value={condition.value}
+                    onInput={(e) => this.handleConditionChange(e, i, 'value')}
+                    required
+                    placeholder="value"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="o-grid__cell o-grid__cell--width-10 u-right o-actions">
+              <button
+                type="button"
+                class="c-button c-button--nude c-button--delete"
+                aria-label="Delete condition"
+                onClick={() => this.removeCondition(i)}>
+                <i class="fa-fw far fa-trash-alt" />
+              </button>
+            </div>
+          </div>
+        ))}
+        <div class="u-letter-box-small">
+          <a class="c-link u-small" onClick={() => this.addCondition()}>
+            <i class="fa-fw fas fa-plus" /> Add condition
+          </a>
+        </div>
+      </fieldset>
+    );
+  }
+
   render() {
     return (
       <blaze-drawer position="right" dismissible ref={(drawer) => (this.panel = drawer)}>
@@ -146,7 +239,7 @@ export class FeatureEdit {
         <blaze-card>
           <form onSubmit={(e) => this.edit(e)}>
             <blaze-card-header>
-              <h2 class="c-heading u-gradient-text">Edit feature</h2>
+              <h2 class="c-heading u-gradient-text">Edit Feature</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -279,6 +372,7 @@ export class FeatureEdit {
                       </div>
                     )}
                   </fieldset>
+                  {this.renderConditions()}
                 </div>
               )}
             </blaze-card-body>

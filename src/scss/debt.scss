@@ -95,3 +95,14 @@ $grey-background-dark: lighten($color-grey, 35);
 .o-modal--full .c-card {
   box-shadow: none;
 }
+
+.o-over .c-overlay {
+  z-index: 500;
+}
+
+select:required:invalid {
+  color: map-get($colors, disabled);
+}
+option[value=''][disabled] {
+  display: none;
+}

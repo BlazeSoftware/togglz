@@ -74,6 +74,11 @@ export class HomePage {
               'Provide your own custom values per the active and inactive states for each of your feature toggles.'
             )}
             {this.renderAboutSection(
+              'fas fa-code-branch',
+              'Conditional Rules',
+              'Create rules that must be met by provided conditions before a feature toggle is activated. Multiple rules can be created all of which need to be met.'
+            )}
+            {this.renderAboutSection(
               'fas fa-server',
               'Multiple Environments',
               'Produce different configurations of your site or app dependant on environment. If you want you can turn everything on in Test but only a selection of features in Live.'

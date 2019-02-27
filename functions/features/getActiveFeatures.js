@@ -1,22 +1,19 @@
-const operators = {
-  '=': '===',
-  '<': '<',
-  '>': '>',
-  '<=': '<=',
-  '>=': '>=',
-};
-
 const applyConditions = (feature, payload) => {
-  if (!feature.conditions || feature.conditions.length === 0) return true;
+  if (Object.keys(payload).length === 0 || !feature.conditions || feature.conditions.length === 0) return true;
+
   for (let i = 0; i < feature.conditions.length; i++) {
     const condition = feature.conditions[i];
-    const value = payload[condition.prop];
+
+    if (typeof payload[condition.prop] === 'undefined') return false;
+
+    const incomingValue = payload[condition.prop].toString();
     const operations = {
-      '=': value === condition.target,
-      '<': value < condition.target,
-      '>': value > condition.target,
-      '<=': value <= condition.target,
-      '>=': value >= condition.target,
+      '=': incomingValue === condition.value,
+      '!=': incomingValue !== condition.value,
+      '<': incomingValue < condition.value,
+      '<=': incomingValue <= condition.value,
+      '>': incomingValue > condition.value,
+      '>=': incomingValue >= condition.value,
     };
 
     if (operations[condition.operator] === false) {

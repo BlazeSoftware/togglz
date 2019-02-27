@@ -61,15 +61,6 @@ export class Join {
 
   componentDidLoad() {
     this.email = this.history.location.query.email;
-
-    this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        if (user.emailVerified) {
-          return this.history.push('/dashboard');
-        }
-        return this.history.push(`/verify?email=${user.email}`);
-      }
-    });
   }
 
   render() {

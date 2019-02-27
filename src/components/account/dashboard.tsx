@@ -90,7 +90,7 @@ export class Dashboard {
     return (
       <label class="u-small">
         Environment:
-        <select class="c-field" onInput={(e) => this.handleEnvironmentChange(e)}>
+        <select class="c-field" onChange={(e) => this.handleEnvironmentChange(e)}>
           <option value="" selected={this.selectedEnvironment === null}>
             defaults
           </option>
@@ -113,11 +113,11 @@ export class Dashboard {
           <td class="c-table__cell u-display-medium-up">
             {feature.multivariate ? (
               <span>
-                <i class="fa-fw fas fa-code-branch" /> Multivariate
+                <i class="fa-fw fas fa-sitemap u-gradient-text" /> Multivariate
               </span>
             ) : (
               <span>
-                <i class="fa-fw fas fa-power-off" /> Boolean
+                <i class="fa-fw fas fa-power-off u-gradient-text u-gradient-text--warning" /> Boolean
               </span>
             )}
           </td>

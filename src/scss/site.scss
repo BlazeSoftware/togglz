@@ -198,6 +198,10 @@ home-page {
       background-image: linear-gradient(90deg, $color-red 5%, $color-purple 50%, $color-blue 95%);
     }
 
+    .fa-code-branch {
+      background-image: linear-gradient(45deg, $color-blue 40%, $color-green 50%);
+    }
+
     .fa-rocket {
       background-image: linear-gradient(45deg, $color-yellow 5%, $color-orange 50%, $color-red 95%);
     }

@@ -202,6 +202,11 @@ home-page {
       background-image: linear-gradient(45deg, $color-blue 40%, $color-green 50%);
     }
 
+    .fa-clock {
+      background-image: radial-gradient($color-black 5%, $color-grey 50%, $color-brand 95%);
+      // background-image: radial-gradient($color-red 5%, $color-orange 50%, $color-yellow 95%);
+    }
+
     .fa-rocket {
       background-image: linear-gradient(45deg, $color-yellow 5%, $color-orange 50%, $color-red 95%);
     }

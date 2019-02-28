@@ -76,7 +76,15 @@ export class HomePage {
             {this.renderAboutSection(
               'fas fa-code-branch',
               'Conditional Rules',
-              'Create rules that must be met by provided conditions before a feature toggle is activated. Multiple rules can be created all of which need to be met.'
+              'Create multiple conditions that must be satisfied before a feature toggle is activated.'
+            )}
+            {this.renderAboutSection(
+              'fas fa-clock',
+              'Schedule Features',
+              <div class="u-text--quiet">
+                <div class="u-text--italic">Coming soon</div>
+                Plan when features become active at a particular time and for how long they remain active.
+              </div>
             )}
             {this.renderAboutSection(
               'fas fa-server',

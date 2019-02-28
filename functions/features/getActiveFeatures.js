@@ -1,9 +1,14 @@
 const applyConditions = (feature, payload) => {
-  if (Object.keys(payload).length === 0 || !feature.conditions || feature.conditions.length === 0) return true;
+  // if no conditions on toggle return active
+  if (!feature.conditions || feature.conditions.length === 0) return true;
+
+  // if toggle has conditions but no conditions in request return inactive
+  if (Object.keys(payload).length === 0) return false;
 
   for (let i = 0; i < feature.conditions.length; i++) {
     const condition = feature.conditions[i];
 
+    // if there is no corresponding condition in the request return inactive
     if (typeof payload[condition.prop] === 'undefined') return false;
 
     const incomingValue = payload[condition.prop].toString();

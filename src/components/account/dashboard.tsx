@@ -103,6 +103,7 @@ export class Dashboard {
   renderRows() {
     return this.features.map((featureSnapshot) => {
       const feature = featureSnapshot.data();
+      const conditional = feature.conditions && feature.conditions.length > 0;
 
       return (
         <tr class="c-table__row" key={featureSnapshot.ref.id}>
@@ -113,11 +114,13 @@ export class Dashboard {
           <td class="c-table__cell u-display-medium-up">
             {feature.multivariate ? (
               <span>
-                <i class="fa-fw fas fa-sitemap u-gradient-text" /> Multivariate
+                <i class="fa-fw fas fa-sitemap u-gradient-text" />{' '}
+                {conditional ? <span>Conditional</span> : <span>Multivariate</span>}
               </span>
             ) : (
               <span>
-                <i class="fa-fw fas fa-power-off u-gradient-text u-gradient-text--warning" /> Boolean
+                <i class="fa-fw fas fa-power-off u-gradient-text u-gradient-text--warning" />{' '}
+                {conditional ? <span>Conditional</span> : <span>Boolean</span>}
               </span>
             )}
           </td>

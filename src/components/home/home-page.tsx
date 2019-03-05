@@ -28,21 +28,23 @@ export class HomePage {
   render() {
     return (
       <div>
+        <stencil-route-title pageTitle="Togglz - Feature toggle service for websites and apps." />
         <div class="o-hero">
           <section class="o-container o-container--large">
-            <h1 class="c-heading u-super c-title">Togglz</h1>
-            <blaze-toggle class="u-super" toggled type="brand" />
-            <h2 class="c-heading u-medium u-text--quiet c-tagline">Feature toggle service for websites and apps</h2>
-            <div class="u-letter-box-large">
-              <stencil-route-link url="/login" anchorClass="c-link u-pillar-box-medium">
-                Login
-              </stencil-route-link>
-              <span aria-hidden={true} class="u-text--quiet u-small">
-                &bull;
-              </span>
-              <stencil-route-link url="/join" anchorClass="c-link u-pillar-box-medium">
-                Join
-              </stencil-route-link>
+            <div class="o-grid o-grid--wrap o-grid--xsmall-full  o-grid--small-full o-grid--medium-full">
+              <div class="o-grid__cell u-large u-centered">
+                <h1 class="c-heading u-super c-title">Togglz</h1>
+                <blaze-toggle class="u-super" toggled type="brand" />
+                <h2 class="c-heading u-medium u-text--quiet c-tagline">Feature toggle service for websites and apps</h2>
+                <div class="u-letter-box-large o-container o-container--xsmall">
+                  <stencil-route-link url="/login" anchorClass="c-button c-button--brand c-button--block">
+                    Login
+                  </stencil-route-link>
+                </div>
+              </div>
+              <div class="o-grid__cell">
+                <account-join />
+              </div>
             </div>
           </section>
         </div>

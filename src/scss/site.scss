@@ -154,8 +154,12 @@ home-page {
   }
 
   .o-hero {
-    text-align: center;
-    font-size: 1.2em;
+    padding: 4em 0;
+    background-color: #fafafa;
+
+    .c-card {
+      background-color: #fff;
+    }
 
     .c-title {
       margin: 1em 0 0.5em;

@@ -60,13 +60,12 @@ export class Join {
   }
 
   componentDidLoad() {
-    this.email = this.history.location.query.email;
+    if (this.history) this.email = this.history.location.query.email;
   }
 
   render() {
     return (
       <div class="o-container o-container--xsmall u-window-box-medium">
-        <stencil-route-title pageTitle="Join" />
         <blaze-card>
           <form onSubmit={(e) => this.createAccount(e)}>
             <blaze-card-header>

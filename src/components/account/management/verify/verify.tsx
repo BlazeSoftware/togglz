@@ -76,7 +76,7 @@ export class Verify {
               disabled={this.complete}
               onClick={() => this.resend()}>
               <span class="c-button__icon-left" aria-hidden={true}>
-                <i class="fa-fw fas fa-paper-plane" />
+                <i aria-hidden={true} class="fa-fw fas fa-paper-plane" />
               </span>
               Re-send verification email
             </button>

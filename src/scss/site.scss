@@ -2,7 +2,6 @@
 @import 'node_modules/@blaze/css/src/scss/mixins/_tools.mediaqueries';
 @import 'node_modules/@blaze/css/src/scss/mixins/_utilities.visibility';
 @import 'node_modules/@blaze/css/src/scss/blaze';
-@import './debt';
 
 html,
 body {
@@ -57,6 +56,10 @@ body {
     color: #000 !important;
     text-decoration: underline !important;
   }
+}
+
+.c-table__cell--center {
+  justify-content: center;
 }
 
 .o-actions {

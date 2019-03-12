@@ -92,7 +92,7 @@ export class FeatureDelete {
               disabled={this.loading}
               onClick={(e) => this.delete(e)}>
               <span class="c-button__icon-left" aria-hidden={true}>
-                <i class="fa-fw far fa-trash-alt" />
+                <i aria-hidden={true} class="fa-fw far fa-trash-alt" />
               </span>
               Delete feature
             </button>

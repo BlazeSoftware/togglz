@@ -107,7 +107,7 @@ export class ContactUs {
             <label class="c-label o-form-element">
               Email address:
               <div class="o-field o-field--icon-left">
-                <i class="fa-fw fas fa-at c-icon" />
+                <i aria-hidden={true} class="fa-fw fas fa-at c-icon" />
                 <input
                   type="email"
                   value={this.email}
@@ -122,7 +122,7 @@ export class ContactUs {
             <label class="c-label o-form-element">
               Name:
               <div class="o-field o-field--icon-left">
-                <i class="fa-fw fas fa-user c-icon" />
+                <i aria-hidden={true} class="fa-fw fas fa-user c-icon" />
                 <input
                   value={this.from}
                   class="c-field c-field--label"
@@ -152,7 +152,7 @@ export class ContactUs {
               <button disabled={this.sent} class="c-button c-button--info c-button--block">
                 Send message
                 <span class="c-button__icon-right" aria-hidden={true}>
-                  <i class="fa-fw far fa-paper-plane" />
+                  <i aria-hidden={true} class="fa-fw far fa-paper-plane" />
                 </span>
               </button>
             </div>

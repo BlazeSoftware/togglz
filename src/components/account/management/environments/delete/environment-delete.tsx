@@ -95,7 +95,7 @@ export class DeleteEnvironment {
             <blaze-card-footer>
               <button class="c-button c-button--block c-button--error" disabled={this.loading}>
                 <span class="c-button__icon-left" aria-hidden={true}>
-                  <i class="fa-fw far fa-trash-alt" />
+                  <i aria-hidden={true} class="fa-fw far fa-trash-alt" />
                 </span>
                 Delete environment
               </button>

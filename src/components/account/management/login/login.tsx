@@ -84,7 +84,7 @@ export class Login {
               <label class="c-label o-form-element">
                 Email address:
                 <div class="o-field o-field--icon-left">
-                  <i class="fa-fw fas fa-at c-icon" />
+                  <i aria-hidden={true} class="fa-fw fas fa-at c-icon" />
                   <input
                     type="email"
                     value={this.email}
@@ -100,7 +100,7 @@ export class Login {
                 Password:
                 <div class="c-input-group c-input-group--label">
                   <div class="o-field o-field--icon-left">
-                    <i class="fa-fw fas fa-lock c-icon" />
+                    <i aria-hidden={true} class="fa-fw fas fa-lock c-icon" />
                     <input
                       type={this.passwordVisible ? 'text' : 'password'}
                       value={this.password}
@@ -124,7 +124,7 @@ export class Login {
             <blaze-card-footer>
               <button class="c-button c-button--block c-button--brand" disabled={this.loading}>
                 <span class="c-button__icon-left" aria-hidden={true}>
-                  <i class="fa-fw fas fa-sign-in-alt" />
+                  <i aria-hidden={true} class="fa-fw fas fa-sign-in-alt" />
                 </span>
                 Log In
               </button>

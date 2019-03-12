@@ -85,7 +85,7 @@ export class GenerateKey {
             <blaze-card-footer>
               <button class="c-button c-button--block c-button--warning" disabled={this.loading}>
                 <span class="c-button__icon-left" aria-hidden={true}>
-                  <i class="fa-fw fas fa-sync-alt" />
+                  <i aria-hidden={true} class="fa-fw fas fa-sync-alt" />
                 </span>
                 Generate key
               </button>

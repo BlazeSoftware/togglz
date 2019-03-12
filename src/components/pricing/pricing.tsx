@@ -37,14 +37,14 @@ export class Pricing {
                 <div class="u-small">Includes:</div>
                 <ul class="c-list c-list--unstyled">
                   <li class="o-feature c-list__item">
-                    <i class="o-icon u-text--quiet fa-fw far fa-check-circle" />
+                    <i aria-hidden={true} class="o-icon u-text--quiet fa-fw far fa-check-circle" />
                     10 feature toggles
                   </li>
                   <li class="o-feature c-list__item">
-                    <i class="o-icon u-text--quiet fa-fw far fa-check-circle" />2 environments
+                    <i aria-hidden={true} class="o-icon u-text--quiet fa-fw far fa-check-circle" />2 environments
                   </li>
                   <li class="o-feature c-list__item">
-                    <i class="o-icon u-text--quiet fa-fw far fa-check-circle" />
+                    <i aria-hidden={true} class="o-icon u-text--quiet fa-fw far fa-check-circle" />
                     10,000 API requests per month
                   </li>
                 </ul>
@@ -85,15 +85,15 @@ export class Pricing {
                 </div>
                 <ul class="c-list c-list--unstyled">
                   <li class="o-feature c-list__item">
-                    <i class="o-icon u-text--quiet fa-fw far fa-check-circle" />
+                    <i aria-hidden={true} class="o-icon u-text--quiet fa-fw far fa-check-circle" />
                     Unlimited feature toggles
                   </li>
                   <li class="o-feature c-list__item">
-                    <i class="o-icon u-text--quiet fa-fw far fa-check-circle" />
+                    <i aria-hidden={true} class="o-icon u-text--quiet fa-fw far fa-check-circle" />
                     Unlimited environments
                   </li>
                   <li class="o-feature c-list__item">
-                    <i class="o-icon u-text--quiet fa-fw far fa-check-circle" />
+                    <i aria-hidden={true} class="o-icon u-text--quiet fa-fw far fa-check-circle" />
                     Unlimited API requests
                   </li>
                 </ul>

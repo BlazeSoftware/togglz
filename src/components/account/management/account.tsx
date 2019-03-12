@@ -106,13 +106,13 @@ export class Account {
             class="c-button c-button--nude c-button--edit"
             aria-label="Edit environment"
             onClick={() => this.editEnvironmentPopup.show(environment)}>
-            <i class="fa-fw fas fa-edit" />
+            <i aria-hidden={true} class="fa-fw fas fa-edit" />
           </button>
           <button
             class="c-button c-button--nude c-button--delete"
             aria-label="Remove environment"
             onClick={() => this.deleteEnvironmentPopup.show(environment)}>
-            <i class="fa-fw far fa-trash-alt" />
+            <i aria-hidden={true} class="fa-fw far fa-trash-alt" />
           </button>
         </td>
       </tr>
@@ -173,7 +173,7 @@ export class Account {
                   onClick={() => this.addEnvironmentPopup.show()}
                   disabled={environments.length >= 2 && this.plan.current === 'starter'}>
                   <span class="c-button__icon-left" aria-hidden={true}>
-                    <i class="fa-fw fas fa-star-of-life" />
+                    <i aria-hidden={true} class="fa-fw fas fa-star-of-life" />
                   </span>
                   Add <span class="u-display-medium-up">new environment</span>
                 </button>

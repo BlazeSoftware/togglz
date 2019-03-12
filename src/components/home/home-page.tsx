@@ -12,7 +12,7 @@ export class HomePage {
       <section class="o-grid__cell o-grid__cell--width-50 u-letter-box-xlarge">
         <div class="o-grid o-grid--center o-grid--wrap">
           <div class="o-grid__cell o-grid__cell--width-20">
-            <i class={`fa-fw ${icon} fa-3x`} />
+            <i aria-hidden={true} class={`fa-fw ${icon} fa-3x`} />
           </div>
           <div class="o-grid__cell o-grid__cell--width-80">
             <h2 class="c-heading">{heading}</h2>
@@ -111,7 +111,7 @@ export class HomePage {
 
           <div class="o-grid o-grid--center o-grid--wrap u-letter-box-large">
             <div class="o-grid__cell o-grid__cell--width-20">
-              <i class="fa-fw fas fa-user-plus u-xlarge" />
+              <i aria-hidden={true} class="fa-fw fas fa-user-plus u-xlarge" />
             </div>
             <div class="o-grid__cell o-grid__cell--width-80">
               <span class="u-gradient-text u-gradient-text--error u-xlarge">Step 1</span>
@@ -125,7 +125,7 @@ export class HomePage {
 
           <div class="o-grid o-grid--center o-grid--wrap u-letter-box-large">
             <div class="o-grid__cell o-grid__cell--width-20">
-              <i class="fa-fw fas fa-toggle-on u-xlarge" />
+              <i aria-hidden={true} class="fa-fw fas fa-toggle-on u-xlarge" />
             </div>
             <div class="o-grid__cell o-grid__cell--width-80">
               <span class="u-gradient-text u-gradient-text--warning u-xlarge">Step 2</span>
@@ -135,7 +135,7 @@ export class HomePage {
 
           <div class="o-grid o-grid--center o-grid--wrap u-letter-box-large">
             <div class="o-grid__cell o-grid__cell--width-20">
-              <i class="fa-fw fas fa-code u-xlarge" />
+              <i aria-hidden={true} class="fa-fw fas fa-code u-xlarge" />
             </div>
             <div class="o-grid__cell o-grid__cell--width-80">
               <span class="u-gradient-text u-gradient-text--success u-xlarge">Step 3</span>

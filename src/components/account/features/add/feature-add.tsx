@@ -170,14 +170,14 @@ export class FeatureAdd {
                 class="c-button c-button--nude c-button--delete"
                 aria-label="Delete condition"
                 onClick={() => this.removeCondition(i)}>
-                <i class="fa-fw far fa-trash-alt" />
+                <i aria-hidden={true} class="fa-fw far fa-trash-alt" />
               </button>
             </div>
           </div>
         ))}
         <div class="u-letter-box-small">
           <a class="c-link u-small" onClick={() => this.addCondition()}>
-            <i class="fa-fw fas fa-plus" /> Add condition
+            <i aria-hidden={true} class="fa-fw fas fa-plus" /> Add condition
           </a>
         </div>
       </fieldset>
@@ -213,7 +213,7 @@ export class FeatureAdd {
               <label class="c-label o-form-element">
                 Name:
                 <div class="o-field o-field--icon-left">
-                  <i class="fa-fw fas fa-tag c-icon" />
+                  <i aria-hidden={true} class="fa-fw fas fa-tag c-icon" />
                   <input
                     type="text"
                     value={this.name}
@@ -227,7 +227,7 @@ export class FeatureAdd {
               <label class="c-label o-form-element">
                 Key:
                 <div class="o-field o-field--icon-left">
-                  <i class="fa-fw fas fa-key c-icon" />
+                  <i aria-hidden={true} class="fa-fw fas fa-key c-icon" />
                   <input
                     type="text"
                     value={this.key}
@@ -286,7 +286,7 @@ export class FeatureAdd {
                     <label class="c-label o-form-element">
                       Active:
                       <div class="o-field o-field--icon-left">
-                        <i class="fa-fw fas fa-toggle-on c-icon" />
+                        <i aria-hidden={true} class="fa-fw fas fa-toggle-on c-icon" />
                         <input
                           type="text"
                           value={this.activeValue}
@@ -300,7 +300,7 @@ export class FeatureAdd {
                     <label class="c-label o-form-element">
                       Inactive:
                       <div class="o-field o-field--icon-left">
-                        <i class="fa-fw fas fa-toggle-off c-icon" />
+                        <i aria-hidden={true} class="fa-fw fas fa-toggle-off c-icon" />
                         <input
                           type="text"
                           value={this.inactiveValue}
@@ -319,7 +319,7 @@ export class FeatureAdd {
             <blaze-card-footer>
               <button class="c-button c-button--success c-button--block" disabled={this.loading}>
                 <span class="c-button__icon-left" aria-hidden={true}>
-                  <i class="fa-fw fas fa-star-of-life" />
+                  <i aria-hidden={true} class="fa-fw fas fa-star-of-life" />
                 </span>
                 Create new feature
               </button>

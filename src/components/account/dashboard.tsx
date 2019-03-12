@@ -114,12 +114,12 @@ export class Dashboard {
           <td class="c-table__cell u-display-medium-up">
             {feature.multivariate ? (
               <span>
-                <i class="fa-fw fas fa-sitemap u-gradient-text" />{' '}
+                <i aria-hidden={true} class="fa-fw fas fa-sitemap u-gradient-text" />{' '}
                 {conditional ? <span>Conditional</span> : <span>Multivariate</span>}
               </span>
             ) : (
               <span>
-                <i class="fa-fw fas fa-power-off u-gradient-text u-gradient-text--warning" />{' '}
+                <i aria-hidden={true} class="fa-fw fas fa-power-off u-gradient-text u-gradient-text--warning" />{' '}
                 {conditional ? <span>Conditional</span> : <span>Boolean</span>}
               </span>
             )}
@@ -135,14 +135,14 @@ export class Dashboard {
               class="c-button c-button--nude c-button--edit"
               aria-label="Edit feature"
               onClick={() => this.editFeaturePopup.show(featureSnapshot)}>
-              <i class="fa-fw fas fa-edit" />
+              <i aria-hidden={true} class="fa-fw fas fa-edit" />
             </button>
             <button
               type="button"
               class="c-button c-button--nude c-button--delete"
               aria-label="Delete feature"
               onClick={() => this.deleteFeaturePopup.show(featureSnapshot)}>
-              <i class="fa-fw far fa-trash-alt" />
+              <i aria-hidden={true} class="fa-fw far fa-trash-alt" />
             </button>
           </td>
         </tr>
@@ -167,7 +167,7 @@ export class Dashboard {
                   onClick={() => this.addFeaturePopup.show()}
                   disabled={this.features.length >= 10 && this.plan.current === 'starter'}>
                   <span class="c-button__icon-left" aria-hidden={true}>
-                    <i class="fa-fw fas fa-star-of-life" />
+                    <i aria-hidden={true} class="fa-fw fas fa-star-of-life" />
                   </span>
                   Add feature
                 </button>
@@ -202,7 +202,7 @@ export class Dashboard {
               <h3 class="c-heading">You don't have any feature toggles</h3>
               <button class="c-button c-button--ghost-success" onClick={() => this.addFeaturePopup.show()}>
                 <span class="c-button__icon-left" aria-hidden={true}>
-                  <i class="fa-fw fas fa-star-of-life" />
+                  <i aria-hidden={true} class="fa-fw fas fa-star-of-life" />
                 </span>
                 Add feature
               </button>

@@ -97,7 +97,7 @@ export class EditEnvironment {
               <label class="c-label o-form-element">
                 Environment name:
                 <div class="o-field o-field--icon-left">
-                  <i class="fa-fw fas fa-server c-icon" />
+                  <i aria-hidden={true} class="fa-fw fas fa-server c-icon" />
                   <input
                     type="text"
                     value={this.environment}
@@ -112,7 +112,7 @@ export class EditEnvironment {
             <blaze-card-footer>
               <button class="c-button c-button--block c-button--success" disabled={this.loading}>
                 <span class="c-button__icon-left" aria-hidden={true}>
-                  <i class="fa-fw fas fa-save" />
+                  <i aria-hidden={true} class="fa-fw fas fa-save" />
                 </span>
                 Save environment
               </button>

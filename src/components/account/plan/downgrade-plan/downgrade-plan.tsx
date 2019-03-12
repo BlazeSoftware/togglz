@@ -93,7 +93,7 @@ export class DowngradePlan {
             <blaze-card-footer>
               <button class="c-button c-button--block c-button--warning" disabled={this.loading}>
                 <span class="c-button__icon-left" aria-hidden={true}>
-                  <i class="fa-fw fas fa-arrow-down" />
+                  <i aria-hidden={true} class="fa-fw fas fa-arrow-down" />
                 </span>
                 Switch to Starter plan
               </button>

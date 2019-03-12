@@ -62,32 +62,32 @@ export class NavPage {
         <nav class="c-nav o-layout__sidebar">
           <span class="c-nav__content u-centered u-large c-heading">Togglz</span>
           <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/dashboard">
-            <i class="o-icon fa-fw fas fa-tachometer-alt" aria-hidden={true} /> Dashboard
+            <i aria-hidden={true} class="o-icon fa-fw fas fa-tachometer-alt" /> Dashboard
           </stencil-route-link>
           <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/account">
-            <i class="o-icon fa-fw fas fa-user" aria-hidden={true} /> Account
+            <i aria-hidden={true} class="o-icon fa-fw fas fa-user" /> Account
           </stencil-route-link>
           <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/plan">
-            <i class="o-icon fa-fw fas fa-dollar-sign" aria-hidden={true} /> Plan
+            <i aria-hidden={true} class="o-icon fa-fw fas fa-dollar-sign" /> Plan
           </stencil-route-link>
           <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/api">
-            <i class="o-icon fa-fw fas fa-code" aria-hidden={true} /> API
+            <i aria-hidden={true} class="o-icon fa-fw fas fa-code" /> API
           </stencil-route-link>
           <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/contact-us">
-            <i class="o-icon fa-fw far fa-comment" aria-hidden={true} /> Contact
+            <i aria-hidden={true} class="o-icon fa-fw far fa-comment" /> Contact
           </stencil-route-link>
           <stencil-route-link
             anchorClass="c-nav__item c-nav__item--error"
             activeClass="c-nav__item--active"
             url="/logout">
-            <i class="o-icon fa-fw fas fa-sign-out-alt" aria-hidden={true} /> Log out
+            <i aria-hidden={true} class="o-icon fa-fw fas fa-sign-out-alt" /> Log out
           </stencil-route-link>
         </nav>
         <div class="o-layout__main u-window-box-medium">
           <blaze-alert ref={(alert) => (this.accountWarning = alert)} type={usageIndicator}>
-            <i class="fa-fw fas fa-exclamation-circle" /> On the <strong class="u-text--loud">Starter</strong> plan you
-            have 10,000 free API requests per month. You have used{' '}
-            <strong class="u-text--loud">{apiCalls.toLocaleString('en-GB')}</strong>.{' '}
+            <i aria-hidden={true} class="fa-fw fas fa-exclamation-circle" /> On the{' '}
+            <strong class="u-text--loud">Starter</strong> plan you have 10,000 free API requests per month. You have
+            used <strong class="u-text--loud">{apiCalls.toLocaleString('en-GB')}</strong>.{' '}
             <stencil-route-link anchorClass="c-link" url="/plan">
               Update to Pro.
             </stencil-route-link>

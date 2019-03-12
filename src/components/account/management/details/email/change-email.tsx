@@ -109,7 +109,7 @@ export class ChangeEmail {
                 Password:
                 <div class="c-input-group c-input-group--label">
                   <div class="o-field o-field--icon-left">
-                    <i class="fa-fw fas fa-lock c-icon" />
+                    <i aria-hidden={true} class="fa-fw fas fa-lock c-icon" />
                     <input
                       type={this.passwordVisible ? 'text' : 'password'}
                       value={this.password}
@@ -132,7 +132,7 @@ export class ChangeEmail {
               <label class="c-label o-form-element">
                 Email address:
                 <div class="o-field o-field--icon-left">
-                  <i class="fa-fw fas fa-at c-icon" />
+                  <i aria-hidden={true} class="fa-fw fas fa-at c-icon" />
                   <input
                     type="email"
                     value={this.email}
@@ -147,7 +147,7 @@ export class ChangeEmail {
             <blaze-card-footer>
               <button class="c-button c-button--block c-button--success" disabled={this.loading}>
                 <span class="c-button__icon-left" aria-hidden={true}>
-                  <i class="fa-fw fas fa-save" />
+                  <i aria-hidden={true} class="fa-fw fas fa-save" />
                 </span>
                 Save email
               </button>

@@ -16,10 +16,7 @@ module.exports = (store) => {
       }
 
       try {
-        const settingsSnapshot = await store
-          .collection('settings')
-          .where('webAPIKey', '==', req.params.apiKey)
-          .get();
+        const settingsSnapshot = await store.collection('settings').where('webAPIKey', '==', req.params.apiKey).get();
 
         if (settingsSnapshot.empty) {
           console.error('/features', 'API key not found');
@@ -35,10 +32,7 @@ module.exports = (store) => {
 
         req.uid = settings.ref.id;
 
-        const planSnapshot = await store
-          .collection('plans')
-          .doc(req.uid)
-          .get();
+        const planSnapshot = await store.collection('plans').doc(req.uid).get();
 
         let apiCalls = settings.data().apiCalls;
         let apiMonthStart = settings.data().apiMonthStart;

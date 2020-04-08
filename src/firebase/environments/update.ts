@@ -9,10 +9,7 @@ export default async (user, originalEnvironment, environment) => {
     throw { code: 'settings/environment-exists' };
   }
 
-  const featuresSnapshot = await store
-    .collection('features')
-    .where('owner', '==', user.uid)
-    .get();
+  const featuresSnapshot = await store.collection('features').where('owner', '==', user.uid).get();
 
   const batch = store.batch();
   featuresSnapshot.forEach((f) => {

@@ -1,4 +1,4 @@
-import { Component, State, Prop, Method } from '@stencil/core';
+import { h, Component, State, Prop, Method } from '@stencil/core';
 import firebase from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 
@@ -31,17 +31,17 @@ export class ChangePassword {
   passwordVisible: boolean = false;
 
   @Method()
-  show() {
+  async show() {
     this.panel.show();
   }
 
   @Method()
-  close() {
+  async close() {
     this.panel.close();
   }
 
   @Method()
-  reset() {
+  async reset() {
     this.panel.close();
     this.alert.close();
     this.loading = false;
@@ -83,7 +83,7 @@ export class ChangePassword {
         <blaze-card>
           <form onSubmit={(e) => this.changePassword(e)}>
             <blaze-card-header>
-              <h2 class="c-heading u-gradient-text">Change password</h2>
+              <h2 class="c-heading">Change password</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -117,7 +117,7 @@ export class ChangePassword {
                   </div>
                   <button
                     type="button"
-                    class="c-button c-button--ghost-brand"
+                    class="c-button c-button--ghost c-button--brand"
                     disabled={this.loading}
                     onClick={() => (this.currentPasswordVisible = !this.currentPasswordVisible)}>
                     {this.currentPasswordVisible ? 'Hide' : 'Show'}
@@ -141,7 +141,7 @@ export class ChangePassword {
                   </div>
                   <button
                     type="button"
-                    class="c-button c-button--ghost-brand"
+                    class="c-button c-button--ghost c-button--brand"
                     disabled={this.loading}
                     onClick={() => (this.passwordVisible = !this.passwordVisible)}>
                     {this.passwordVisible ? 'Hide' : 'Show'}

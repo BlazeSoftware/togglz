@@ -1,4 +1,4 @@
-import { Component, Prop, State } from '@stencil/core';
+import { h, Component, Prop, State } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 import firebase from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
@@ -51,7 +51,7 @@ export class UpdatePassword {
     }
   }
 
-  async componentDidLoad() {
+  async componentWillLoad() {
     if (!this.history.location.query.oobCode) throw { code: 'auth/missing-action-code' };
 
     try {
@@ -69,26 +69,26 @@ export class UpdatePassword {
     return (
       <div class="o-container o-container--xsmall u-window-box-medium">
         <stencil-route-title pageTitle="Change password" />
+        <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
+          <div>{this.alertMsg.message}</div>
+          <div>
+            {this.alertMsg.action && (
+              <stencil-route-link
+                url={this.alertMsg.action.url}
+                anchorClass="c-link"
+                anchorRole="link"
+                anchorTitle={this.alertMsg.action.text}>
+                {this.alertMsg.action.text}
+              </stencil-route-link>
+            )}
+          </div>
+        </blaze-alert>
         <blaze-card>
           <form onSubmit={(e) => this.updatePassword(e)}>
             <blaze-card-header>
-              <h2 class="c-heading u-gradient-text">New password</h2>
+              <h2 class="c-heading">New password</h2>
             </blaze-card-header>
             <blaze-card-body>
-              <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
-                <div>{this.alertMsg.message}</div>
-                <div>
-                  {this.alertMsg.action && (
-                    <stencil-route-link
-                      url={this.alertMsg.action.url}
-                      anchorClass="c-link"
-                      anchorRole="link"
-                      anchorTitle={this.alertMsg.action.text}>
-                      {this.alertMsg.action.text}
-                    </stencil-route-link>
-                  )}
-                </div>
-              </blaze-alert>
               <label class="o-form-element c-label">
                 Password:
                 <div class="c-input-group c-input-group--label">
@@ -106,7 +106,7 @@ export class UpdatePassword {
                   </div>
                   <button
                     type="button"
-                    class="c-button c-button--ghost-brand"
+                    class="c-button c-button--ghost c-button--brand"
                     disabled={this.loading}
                     onClick={() => (this.passwordVisible = !this.passwordVisible)}>
                     {this.passwordVisible ? 'Hide' : 'Show'}

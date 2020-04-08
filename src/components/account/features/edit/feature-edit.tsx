@@ -1,4 +1,4 @@
-import { Component, State, Prop, Method } from '@stencil/core';
+import { h, Component, State, Prop, Method } from '@stencil/core';
 import slug from 'slug';
 import { store } from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
@@ -44,7 +44,7 @@ export class FeatureEdit {
   conditions: Array<any>;
 
   @Method()
-  show(featureSnapshot) {
+  async show(featureSnapshot) {
     this.reset();
     const feature = featureSnapshot.data();
     this.featureSnapshot = featureSnapshot;
@@ -61,12 +61,12 @@ export class FeatureEdit {
   }
 
   @Method()
-  close() {
+  async close() {
     this.panel.close();
   }
 
   @Method()
-  reset() {
+  async reset() {
     this.panel.close();
     this.alert.close();
     this.loading = false;
@@ -239,7 +239,7 @@ export class FeatureEdit {
         <blaze-card>
           <form onSubmit={(e) => this.edit(e)}>
             <blaze-card-header>
-              <h2 class="c-heading u-gradient-text">Edit Feature</h2>
+              <h2 class="c-heading">Edit Feature</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -260,7 +260,7 @@ export class FeatureEdit {
                 <div>
                   {this.active && (
                     <div>
-                      <span class="u-gradient-text u-gradient-text--warning">This feature is active.</span>
+                      <span class="u-text--highlight">This feature is active.</span>
                       <p class="c-paragraph u-text--quiet u-small">
                         Editing the key on an active feature might cause condition statements within your site or app to
                         stop behaving correctly.
@@ -289,7 +289,7 @@ export class FeatureEdit {
                       <input
                         type="text"
                         value={this.key}
-                        class="c-field c-field--label u-text--mono"
+                        class="c-field c-field--label u-text--mono u-large"
                         required
                         disabled={this.loading}
                         onChange={(e) => this.handleKeyChange(e)}
@@ -348,7 +348,7 @@ export class FeatureEdit {
                             <input
                               type="text"
                               value={this.activeValue}
-                              class="c-field c-field--label u-text--mono"
+                              class="c-field c-field--label u-text--mono u-large"
                               required={this.type === 'multivariate'}
                               disabled={this.loading}
                               onChange={(e) => this.handleActiveValueChange(e)}
@@ -362,7 +362,7 @@ export class FeatureEdit {
                             <input
                               type="text"
                               value={this.inactiveValue}
-                              class="c-field c-field--label u-text--mono"
+                              class="c-field c-field--label u-text--mono u-large"
                               required={this.type === 'multivariate'}
                               disabled={this.loading}
                               onChange={(e) => this.handleInactiveValueChange(e)}

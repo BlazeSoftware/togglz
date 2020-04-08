@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, State, Prop, Method } from '@stencil/core';
+import { h, Component, Event, EventEmitter, State, Prop, Method } from '@stencil/core';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 
 @Component({
@@ -24,18 +24,18 @@ export class ChangeName {
   displayName: string;
 
   @Method()
-  show() {
+  async show() {
     this.displayName = this.user.displayName;
     this.panel.show();
   }
 
   @Method()
-  close() {
+  async close() {
     this.panel.close();
   }
 
   @Method()
-  reset() {
+  async reset() {
     this.panel.close();
     this.alert.close();
     this.loading = false;
@@ -71,7 +71,7 @@ export class ChangeName {
         <blaze-card>
           <form onSubmit={(e) => this.changeName(e)}>
             <blaze-card-header>
-              <h2 class="c-heading u-gradient-text">Change name</h2>
+              <h2 class="c-heading">Change name</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>

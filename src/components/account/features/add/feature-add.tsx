@@ -1,4 +1,4 @@
-import { Component, State, Prop, Method } from '@stencil/core';
+import { h, Component, State, Prop, Method } from '@stencil/core';
 import slug from 'slug';
 import services from '@/firebase/services';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
@@ -38,17 +38,17 @@ export class FeatureAdd {
   conditions: Array<any> = [];
 
   @Method()
-  show() {
+  async show() {
     this.panel.show();
   }
 
   @Method()
-  close() {
+  async close() {
     this.panel.close();
   }
 
   @Method()
-  reset() {
+  async reset() {
     this.panel.close();
     this.alert.close();
     this.loading = false;
@@ -193,7 +193,7 @@ export class FeatureAdd {
         <blaze-card>
           <form onSubmit={(e) => this.create(e)}>
             <blaze-card-header>
-              <h2 class="c-heading u-gradient-text u-gradient-text--success">New feature</h2>
+              <h2 class="c-heading">New feature</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -231,7 +231,7 @@ export class FeatureAdd {
                   <input
                     type="text"
                     value={this.key}
-                    class="c-field c-field--label u-text--mono"
+                    class="c-field c-field--label u-text--mono u-large"
                     required
                     disabled={this.loading}
                     onChange={(e) => this.handleKeyChange(e)}
@@ -290,7 +290,7 @@ export class FeatureAdd {
                         <input
                           type="text"
                           value={this.activeValue}
-                          class="c-field c-field--label u-text--mono"
+                          class="c-field c-field--label u-text--mono u-large"
                           required={this.type === 'multivariate'}
                           disabled={this.loading}
                           onChange={(e) => this.handleActiveValueChange(e)}
@@ -304,7 +304,7 @@ export class FeatureAdd {
                         <input
                           type="text"
                           value={this.inactiveValue}
-                          class="c-field c-field--label u-text--mono"
+                          class="c-field c-field--label u-text--mono u-large"
                           required={this.type === 'multivariate'}
                           disabled={this.loading}
                           onChange={(e) => this.handleInactiveValueChange(e)}

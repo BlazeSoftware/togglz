@@ -1,4 +1,4 @@
-import { Component, State, Prop, Method } from '@stencil/core';
+import { h, Component, State, Prop, Method } from '@stencil/core';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 
 @Component({
@@ -18,18 +18,18 @@ export class DowngradePlan {
   alertMsg: AlertMessage = {};
 
   @Method()
-  show() {
+  async show() {
     this.reset();
     this.panel.show();
   }
 
   @Method()
-  close() {
+  async close() {
     this.panel.close();
   }
 
   @Method()
-  reset() {
+  async reset() {
     this.panel.close();
     this.alert.close();
     this.loading = false;

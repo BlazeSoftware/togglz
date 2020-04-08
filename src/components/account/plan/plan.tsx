@@ -1,4 +1,4 @@
-import { Component, Prop, State } from '@stencil/core';
+import { h, Component, Prop, State } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 import firebase, { store } from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
@@ -57,7 +57,7 @@ export class Plan {
     this.firebaseUnsubscribe();
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) return this.history.push('/login');
       this.user = user;
@@ -83,7 +83,7 @@ export class Plan {
     return (
       <nav-page history={this.history}>
         <stencil-route-title pageTitle="Plan" />
-        <h2 class="c-heading u-gradient-text">Plan</h2>
+        <h2 class="c-heading">Plan</h2>
         <div>
           <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
             <div>{this.alertMsg.message}</div>

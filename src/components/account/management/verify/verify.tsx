@@ -1,4 +1,4 @@
-import { Component, State, Prop } from '@stencil/core';
+import { h, Component, State, Prop } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 import firebase from '@/firebase/firebase';
 
@@ -28,7 +28,7 @@ export class Verify {
     this.firebaseUnsubscribe();
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) return this.history.push('/login');
       this.user = user;
@@ -55,7 +55,7 @@ export class Verify {
         <stencil-route-title pageTitle="Verify email" />
         <blaze-card>
           <blaze-card-header>
-            <h2 class="c-heading u-gradient-text">Verify email address</h2>
+            <h2 class="c-heading">Verify email address</h2>
           </blaze-card-header>
           <blaze-card-body>
             <blaze-alert ref={(alert) => (this.alert = alert)} type="success">

@@ -8,7 +8,7 @@ export class Action {
   @Prop()
   history: RouterHistory;
 
-  componentDidLoad() {
+  componentWillLoad() {
     if (!this.history.location.query.oobCode || !this.history.location.query.mode) {
       return this.history.push('/');
     }

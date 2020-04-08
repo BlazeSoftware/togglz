@@ -1,4 +1,4 @@
-import { Component, Prop, State } from '@stencil/core';
+import { h, Component, Prop, State } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 import firebase from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
@@ -27,7 +27,7 @@ export class RecoverEmail {
     setTimeout(() => this.history.push('/login?url=/account'), 5000);
   }
 
-  async componentDidLoad() {
+  async componentWillLoad() {
     if (!this.history.location.query.oobCode) throw { code: 'auth/missing-action-code' };
 
     try {
@@ -46,7 +46,7 @@ export class RecoverEmail {
         <stencil-route-title pageTitle="Recover email" />
         <blaze-card>
           <blaze-card-header>
-            <h2 class="c-heading u-gradient-text">Recover email</h2>
+            <h2 class="c-heading">Recover email</h2>
           </blaze-card-header>
           <blaze-card-body>
             <p class="u-paragraph">We're recovering your email address.</p>

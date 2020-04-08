@@ -15,13 +15,10 @@ module.exports = (admin, store) => {
     const userId = event.data.object.client_reference_id;
 
     try {
-      await store
-        .collection('plans')
-        .doc(userId)
-        .update({
-          current: 'pro',
-          subscription: event.data.object.subscription,
-        });
+      await store.collection('plans').doc(userId).update({
+        current: 'pro',
+        subscription: event.data.object.subscription,
+      });
       return res.send({ received: true });
     } catch (e) {
       console.error('/upgrade', e);
@@ -33,10 +30,7 @@ module.exports = (admin, store) => {
     const uid = req.params.uid;
 
     try {
-      const planSnapshot = await store
-        .collection('plans')
-        .doc(uid)
-        .get();
+      const planSnapshot = await store.collection('plans').doc(uid).get();
 
       const plan = planSnapshot.data();
       stripe.subscriptions.del(plan.subscription, (err) => {
@@ -57,10 +51,7 @@ module.exports = (admin, store) => {
     const subscriptionId = event.data.object.id;
 
     try {
-      const plansSnapshot = await store
-        .collection('plans')
-        .where('subscription', '==', subscriptionId)
-        .get();
+      const plansSnapshot = await store.collection('plans').where('subscription', '==', subscriptionId).get();
 
       if (plansSnapshot.empty) {
         console.error('/downgrade', 'SubscriptionId not found', subscriptionId);

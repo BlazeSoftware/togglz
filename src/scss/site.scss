@@ -1,7 +1,20 @@
-@import 'node_modules/@blaze/css/src/scss/mixins/_settings';
+@import 'node_modules/@blaze/css/src/scss/_variables';
 @import 'node_modules/@blaze/css/src/scss/mixins/_tools.mediaqueries';
 @import 'node_modules/@blaze/css/src/scss/mixins/_utilities.visibility';
 @import 'node_modules/@blaze/css/src/scss/blaze';
+
+:root {
+  --text-font-family-sans-serif: Avenir, sans-serif;
+  --color-grey: grey;
+  --color-red: #ee0202;
+  --color-orange: orange;
+  --color-blue: #4267ff;
+  --color-purple: purple;
+  --color-green: #088a05;
+  --color-black: black;
+  --color-yellow: #ffef14;
+  --color-quiet: var(--color-default);
+}
 
 html,
 body {
@@ -11,27 +24,16 @@ body {
 
 body {
   overflow-x: hidden;
-  background-color: map-get($colors, white);
-  color: map-get($colors, brand);
+  background-color: var(--color-background);
+  color: var(--color-brand);
 }
 
 .u-text {
-  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  color: map-get($colors, brand);
+  color: var(--color-brand);
 }
 
-.c-heading {
-  font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-  font-weight: 400;
-}
-
-.u-display-medium-up {
-  display: none !important;
-  @include screen--medium-and-up {
-    display: initial !important;
-  }
+.c-field {
+  -webkit-appearance: none;
 }
 
 .o-page-loading {
@@ -39,44 +41,54 @@ body {
   width: calc(100% - 2em);
   height: 10em;
 
-  @include screen--medium-and-up {
+  @include screen-and-up(medium) {
     width: calc(100% - 4em);
   }
 }
 
 .c-alert {
   .c-link {
-    color: #fff !important;
+    color: white !important;
     text-decoration: underline !important;
   }
 }
 
 .c-alert--warning {
   .c-link {
-    color: #000 !important;
+    color: black !important;
     text-decoration: underline !important;
   }
+}
+
+.c-table {
+  background-color: white;
+  border-radius: var(--border-radius);
+  overflow: hidden;
 }
 
 .c-table__cell--center {
   justify-content: center;
 }
 
+.c-card {
+  background-color: white;
+}
+
 .o-actions {
   .c-button {
     margin: 0 0.5em;
-    color: map-get($colors, grey-light-2);
+    color: var(--color-grey-light-2);
 
     &--delete:hover {
-      color: map-get($colors, red-light-2);
+      color: var(--color-red-light-2);
     }
 
     &--edit:hover {
-      color: map-get($colors, orange-light-2);
+      color: var(--color-orange-light-2);
     }
 
     &--info:hover {
-      color: map-get($colors, blue-light-2);
+      color: var(--color-blue-light-2);
     }
   }
 }
@@ -89,7 +101,7 @@ aside.o-drawer.o-drawer--right {
 nav-page {
   .o-layout {
     &__sidebar {
-      @include screen--medium-and-up {
+      @include screen-and-up(medium) {
         display: block;
         position: fixed;
         width: 200px;
@@ -97,7 +109,7 @@ nav-page {
     }
 
     &__main {
-      @include screen--medium-and-up {
+      @include screen-and-up(medium) {
         width: calc(100% - 200px);
         margin-left: 200px;
       }
@@ -105,17 +117,15 @@ nav-page {
   }
 
   .c-nav {
-    background-color: map-get($colors, grey-background);
-    color: map-get($colors, brand);
     width: 100%;
 
-    @include screen--medium-and-up {
+    @include screen-and-up(medium) {
       width: 200px;
     }
 
     .c-nav__content {
-      background-image: linear-gradient(135deg, $color-purple, $color-blue);
-      color: $color-white;
+      background-image: linear-gradient(135deg, var(--color-purple), var(--color-blue));
+      color: white;
     }
 
     .c-nav__item {
@@ -127,10 +137,10 @@ nav-page {
       }
 
       &--active {
-        background-color: map-get($colors, brand);
+        background-color: var(--color-brand);
       }
 
-      @include screen--medium-and-up {
+      @include screen-and-up(medium) {
         &--active:after {
           content: '';
           position: absolute;
@@ -138,7 +148,7 @@ nav-page {
           right: -20px;
           padding: 12px;
           transform: rotate(45deg);
-          background-color: map-get($colors, white);
+          background-color: white;
         }
       }
     }
@@ -158,11 +168,6 @@ home-page {
 
   .o-hero {
     padding: 4em 0;
-    background-color: #fafafa;
-
-    .c-card {
-      background-color: #fff;
-    }
 
     .c-title {
       margin: 1em 0 0.5em;
@@ -182,8 +187,8 @@ home-page {
   .o-blurb {
     padding: 1em;
     text-align: center;
-    background-image: linear-gradient(90deg, $color-purple, $color-blue);
-    color: $color-white;
+    background-image: linear-gradient(90deg, var(--color-purple), var(--color-blue));
+    color: white;
   }
 
   .o-benefits {
@@ -192,42 +197,36 @@ home-page {
       padding: 0;
     }
 
-    i {
-      color: transparent;
-      background-clip: text;
-    }
-
     .fa-tasks {
-      background-image: linear-gradient($color-green 30%, $color-orange 40%, $color-red);
+      color: var(--color-orange);
     }
 
     .fa-sitemap {
-      background-image: linear-gradient(90deg, $color-red 5%, $color-purple 50%, $color-blue 95%);
+      color: var(--color-blue);
     }
 
     .fa-code-branch {
-      background-image: linear-gradient(45deg, $color-blue 40%, $color-green 50%);
+      color: var(--color-red);
     }
 
     .fa-clock {
-      background-image: radial-gradient($color-black 5%, $color-grey 50%, $color-brand 95%);
-      // background-image: radial-gradient($color-red 5%, $color-orange 50%, $color-yellow 95%);
+      color: var(--color-brand);
     }
 
     .fa-rocket {
-      background-image: linear-gradient(45deg, $color-yellow 5%, $color-orange 50%, $color-red 95%);
+      color: var(--color-green);
     }
 
     .fa-server {
-      background-image: linear-gradient($color-blue 15%, $color-green 45%, $color-yellow 100%);
+      color: var(--color-grey);
     }
 
     .fa-signal {
-      background-image: linear-gradient(90deg, $color-blue 25%, $color-purple 100%);
+      color: var(--color-purple);
     }
 
     .fa-dollar-sign {
-      background-image: radial-gradient($color-green, $color-yellow 80%);
+      color: var(--color-green);
     }
   }
 
@@ -237,14 +236,14 @@ home-page {
   }
 
   .o-example {
-    background-color: map-get($colors, brand);
+    background-color: var(--color-brand);
     color: white;
 
     .o-example__content {
       max-width: 320px;
       margin: auto;
 
-      @include screen--medium-and-up {
+      @include screen-and-up(medium) {
         font-size: 1.2em;
       }
     }
@@ -256,12 +255,6 @@ home-page {
 }
 
 account-dashboard {
-  .c-table {
-    border-radius: 4px;
-    border: 1px solid $card-item-border-color;
-    overflow: hidden;
-  }
-
   .c-toggle span {
     width: 80px;
   }

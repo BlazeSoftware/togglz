@@ -1,4 +1,4 @@
-import { Component, Prop, Event, EventEmitter } from '@stencil/core';
+import { h, Component, Prop, Event, EventEmitter } from '@stencil/core';
 
 @Component({
   tag: 'pricing-overview',
@@ -23,9 +23,9 @@ export class Pricing {
           <div class="o-grid__cell o-grid__cell--width-50">
             <div class="c-card">
               <header class="c-card__header">
-                <h2 class="c-heading u-gradient-text u-gradient-text--success">Starter</h2>
+                <h2 class="c-heading">Starter</h2>
                 <br />
-                <h3 class="c-heading u-gradient-text u-gradient-text--success">Best for individuals</h3>
+                <h3 class="c-heading">Best for individuals</h3>
                 <div class="u-super">$0/mo</div>
                 {this.plan === 'starter' ? (
                   <blaze-badge type="success">current plan</blaze-badge>
@@ -69,14 +69,14 @@ export class Pricing {
           <div class="o-grid__cell o-grid__cell--width-50">
             <div class="c-card">
               <header class="c-card__header">
-                <h2 class="c-heading u-gradient-text">Pro</h2>
+                <h2 class="c-heading">Pro</h2>
                 <br />
-                <h3 class="c-heading u-gradient-text">More traffic, more environments</h3>
+                <h3 class="c-heading">More traffic, more environments</h3>
                 <div class="u-super">$199/mo</div>
                 {this.plan === 'pro' ? (
                   <blaze-badge type="success">current plan</blaze-badge>
                 ) : (
-                  <blaze-badge type="info">most popular</blaze-badge>
+                  <blaze-badge type="info">more power</blaze-badge>
                 )}
               </header>
               <div class="c-card__body">

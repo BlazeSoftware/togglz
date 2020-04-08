@@ -1,4 +1,4 @@
-import { Component, State, Prop } from '@stencil/core';
+import { h, Component, State, Prop } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 import firebase from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
@@ -59,33 +59,33 @@ export class Join {
     this.firebaseUnsubscribe();
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     if (this.history) this.email = this.history.location.query.email;
   }
 
   render() {
     return (
       <div class="o-container o-container--xsmall u-window-box-medium">
+        <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
+          <div>{this.alertMsg.message}</div>
+          <div>
+            {this.alertMsg.action && (
+              <stencil-route-link
+                url={this.alertMsg.action.url}
+                anchorClass="c-link"
+                anchorRole="link"
+                anchorTitle={this.alertMsg.action.text}>
+                {this.alertMsg.action.text}
+              </stencil-route-link>
+            )}
+          </div>
+        </blaze-alert>
         <blaze-card>
           <form onSubmit={(e) => this.createAccount(e)}>
             <blaze-card-header>
-              <h2 class="c-heading u-gradient-text">Create a new account</h2>
+              <h2 class="c-heading">Create a new account</h2>
             </blaze-card-header>
             <blaze-card-body>
-              <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
-                <div>{this.alertMsg.message}</div>
-                <div>
-                  {this.alertMsg.action && (
-                    <stencil-route-link
-                      url={this.alertMsg.action.url}
-                      anchorClass="c-link"
-                      anchorRole="link"
-                      anchorTitle={this.alertMsg.action.text}>
-                      {this.alertMsg.action.text}
-                    </stencil-route-link>
-                  )}
-                </div>
-              </blaze-alert>
               <label class="c-label o-form-element">
                 Email address:
                 <div class="o-field o-field--icon-left">
@@ -118,7 +118,7 @@ export class Join {
                   </div>
                   <button
                     type="button"
-                    class="c-button c-button--ghost-brand"
+                    class="c-button c-button--ghost c-button--brand"
                     disabled={this.loading}
                     onClick={() => (this.passwordVisible = !this.passwordVisible)}>
                     {this.passwordVisible ? 'Hide' : 'Show'}

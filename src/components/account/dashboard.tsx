@@ -1,4 +1,4 @@
-import { Component, Prop, State } from '@stencil/core';
+import { h, Component, Prop, State } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 import firebase, { store } from '@/firebase/firebase';
 
@@ -9,7 +9,6 @@ export class Dashboard {
   addFeaturePopup: any;
   editFeaturePopup: any;
   deleteFeaturePopup: any;
-  changePasswordPopup: any;
 
   @Prop()
   history: RouterHistory;
@@ -39,27 +38,18 @@ export class Dashboard {
     this.firebaseUnsubscribe();
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) return this.history.push('/login');
       this.user = user;
 
-      const settingsSnapshot = await store
-        .collection('settings')
-        .doc(this.user.uid)
-        .get();
+      const settingsSnapshot = await store.collection('settings').doc(this.user.uid).get();
       this.settings = settingsSnapshot.data();
 
-      const plansSnapshot = await store
-        .collection('plans')
-        .doc(this.user.uid)
-        .get();
+      const plansSnapshot = await store.collection('plans').doc(this.user.uid).get();
       this.plan = plansSnapshot.data();
 
-      const featuresQuery = store
-        .collection('features')
-        .where('owner', '==', this.user.uid)
-        .orderBy('created', 'desc');
+      const featuresQuery = store.collection('features').where('owner', '==', this.user.uid).orderBy('created', 'desc');
 
       this.onFeaturesSnapshot = featuresQuery.onSnapshot((featuresSnapshot) => {
         this.features = featuresSnapshot.docs;
@@ -108,19 +98,19 @@ export class Dashboard {
       return (
         <tr class="c-table__row" key={featureSnapshot.ref.id}>
           <td class="c-table__cell">{feature.name}</td>
-          <td class="c-table__cell u-display-medium-up">
+          <td class="c-table__cell u-display-none u-display-initial@medium">
             <code class="u-code">{feature.key}</code>
           </td>
-          <td class="c-table__cell u-display-medium-up">
+          <td class="c-table__cell u-display-none u-display-initial@medium">
             {feature.multivariate ? (
               <span>
-                <i aria-hidden={true} class="fa-fw fas fa-sitemap u-gradient-text" />{' '}
-                {conditional ? <span>Conditional</span> : <span>Multivariate</span>}
+                <i aria-hidden={true} class="fa-fw fas fa-sitemap" />{' '}
+                {conditional ? <span>Conditional</span> : <span>multivariate</span>}
               </span>
             ) : (
               <span>
-                <i aria-hidden={true} class="fa-fw fas fa-power-off u-gradient-text u-gradient-text--warning" />{' '}
-                {conditional ? <span>Conditional</span> : <span>Boolean</span>}
+                <i aria-hidden={true} class="fa-fw fas fa-power-off" />{' '}
+                {conditional ? <span>Conditional</span> : <span>boolean</span>}
               </span>
             )}
           </td>
@@ -154,7 +144,7 @@ export class Dashboard {
     return (
       <nav-page history={this.history}>
         <stencil-route-title pageTitle="Dashboard" />
-        <h2 class="c-heading u-gradient-text">Dashboard</h2>
+        <h2 class="c-heading">Dashboard</h2>
         <div>
           <div class="u-letter-box-small o-grid o-grid--no-gutter o-grid--bottom">
             <div class="o-grid__cell o-grid__cell--width-40">
@@ -183,12 +173,12 @@ export class Dashboard {
             </div>
           )}
           {!this.loading && this.features.length > 0 && (
-            <table class="c-table">
+            <table class="c-table u-high">
               <thead class="c-table__head">
                 <tr class="c-table__row c-table__row--heading">
                   <th class="c-table__cell">Feature</th>
-                  <th class="c-table__cell u-display-medium-up">Key</th>
-                  <th class="c-table__cell u-display-medium-up">Type</th>
+                  <th class="c-table__cell u-display-none u-display-initial@medium">Key</th>
+                  <th class="c-table__cell u-display-none u-display-initial@medium">Type</th>
                   <th class="c-table__cell c-table__cell--center">Status</th>
                   <th class="c-table__cell c-table__cell--center">Actions</th>
                 </tr>
@@ -200,7 +190,7 @@ export class Dashboard {
             <div class="u-centered u-letter-box-super">
               <div class="u-super">😢</div>
               <h3 class="c-heading">You don't have any feature toggles</h3>
-              <button class="c-button c-button--ghost-success" onClick={() => this.addFeaturePopup.show()}>
+              <button class="c-button c-button--ghost c-button--success" onClick={() => this.addFeaturePopup.show()}>
                 <span class="c-button__icon-left" aria-hidden={true}>
                   <i aria-hidden={true} class="fa-fw fas fa-star-of-life" />
                 </span>

@@ -1,4 +1,4 @@
-import { Component, Prop, State } from '@stencil/core';
+import { h, Component, Prop, State } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 import firebase from '@/firebase/firebase';
 import services from '@/firebase/services';
@@ -30,7 +30,7 @@ export class Complete {
     this.firebaseUnsubscribe();
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!this.history.location.query.oobCode) throw { code: 'auth/missing-action-code' };
 
@@ -64,7 +64,7 @@ export class Complete {
         <stencil-route-title pageTitle="Account setup..." />
         <blaze-card>
           <blaze-card-header>
-            <h2 class="c-heading u-gradient-text">Account setup...</h2>
+            <h2 class="c-heading">Account setup...</h2>
           </blaze-card-header>
           <blaze-card-body>
             <p class="u-paragraph">

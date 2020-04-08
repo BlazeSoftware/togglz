@@ -1,4 +1,4 @@
-import { Component, Prop, State } from '@stencil/core';
+import { h, Component, Prop, State } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 import firebase, { store } from '@/firebase/firebase';
 
@@ -25,7 +25,7 @@ export class ApiDocs {
     this.firebaseUnsubscribe();
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) return this.history.push('/login');
       this.user = user;
@@ -45,7 +45,7 @@ export class ApiDocs {
     return (
       <nav-page history={this.history}>
         <stencil-route-title pageTitle="Using the API" />
-        <h2 class="c-heading u-gradient-text">Using the API</h2>
+        <h2 class="c-heading">Using the API</h2>
         <how-to-use apiKey={this.settings.webAPIKey} />
       </nav-page>
     );

@@ -1,4 +1,4 @@
-import { Component, Prop, State } from '@stencil/core';
+import { h, Component, Prop, State } from '@stencil/core';
 
 @Component({
   tag: 'feature-toggle',
@@ -19,7 +19,7 @@ export class FeatureToggle {
   @State()
   status: string;
 
-  componentDidLoad() {
+  componentWillLoad() {
     const feature = this.featureSnapshot.data();
     this.initialActiveState = feature.active;
     if (this.selectedEnvironment) {
@@ -29,7 +29,7 @@ export class FeatureToggle {
     this.active = this.initialActiveState;
   }
 
-  async toggleFeature(active) {
+  async toggleFeature(active: boolean) {
     this.status = 'loading';
 
     try {
@@ -56,7 +56,7 @@ export class FeatureToggle {
   render() {
     return (
       <blaze-toggle
-        onChange={({ detail }) => this.toggleFeature(detail)}
+        onChanged={({ detail: active }) => this.toggleFeature(active)}
         type="success"
         toggled={this.initialActiveState}>
         {this.active ? (

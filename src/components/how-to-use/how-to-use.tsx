@@ -1,4 +1,4 @@
-import { Component, Prop } from '@stencil/core';
+import { h, Component, Prop } from '@stencil/core';
 
 @Component({
   tag: 'how-to-use',
@@ -13,44 +13,44 @@ export class HowToUse {
         <section>
           <p class="c-paragraph">Using the feature toggles you create couldn't be easier.</p>
           <p class="c-paragraph">
-            The API currently only has one <strong class="u-text--loud">POST</strong> end point:
+            The API currently only has one <span class="u-text--italic">POST</span> end point:
           </p>
           <p class="c-paragraph">
-            <a href={`https://www.togglz.com/features/${this.apiKey}`} class="c-link u-small" target="_blank">
+            <a href={`https://www.togglz.com/features/${this.apiKey}`} class="c-link" target="_blank">
               <span>
                 {'https://www.togglz.com/features/'}
-                <span class="u-text--loud">{this.apiKey}</span>
+                <span class="u-text--italic">{this.apiKey}</span>
               </span>
             </a>
           </p>
-          <p class="c-paragraph u-text--quiet">The code on the end is your web API key.</p>
+          <p class="c-paragraph u-text--quiet u-text--italic">The code on the end is your web API key.</p>
 
-          <h3 class="c-heading u-gradient-text u-gradient-text--info">Environments Filter</h3>
+          <h3 class="c-heading">Environments Filter</h3>
           <p class="c-paragraph">
             You can request active feature toggles per environment by adding the <code class="u-code">environment</code>{' '}
             query string parameter:
           </p>
-          <p class="c-paragraph u-text--quiet">Example:</p>
+          <p class="c-paragraph u-text--quiet u-text--italic">Example:</p>
           <p class="c-paragraph">
             <a
               href={`https://www.togglz.com/features/${this.apiKey}?environment=development`}
-              class="c-link u-small"
+              class="c-link"
               target="_blank">
               <span>
                 .../features/{this.apiKey}
-                <span class="u-text--loud">?environment=development</span>
+                <span class="u-text--italic">?environment=development</span>
               </span>
             </a>
           </p>
         </section>
         <section>
-          <h3 class="c-heading u-gradient-text u-gradient-text--warning">Conditional Toggles</h3>
+          <h3 class="c-heading">Conditional Toggles</h3>
           <p class="c-paragraph">
             You can add conditions to each toggle. All conditions must be met for a toggle to respond as active.
           </p>
           <p class="c-paragraph">To supply information POST a JSON body to the above endpoint.</p>
-          <p class="c-paragraph u-text--quiet">Example:</p>
-          <code class="u-small u-code u-code--multiline">{`{
+          <p class="c-paragraph u-text--quiet u-text--italic">Example:</p>
+          <code class="u-code u-code--multiline">{`{
   "country": "United Kingdom",
   "age": 37
 }`}</code>
@@ -66,8 +66,8 @@ export class HowToUse {
             If an example toggle had 2 conditions: <code class="u-code">age > 30</code> and{' '}
             <code class="u-code">country = Canada</code>, it would return inactive.
           </p>
-          <p class="c-paragraph u-text--quiet">Example behaviour based on the above request body:</p>
-          <table class="c-table c-table--condensed">
+          <p class="c-paragraph u-text--quiet u-text--italic">Example behaviour based on the above request body:</p>
+          <table class="c-table u-high">
             <thead class="c-table__head">
               <tr class="c-table__row c-table__row--heading">
                 <th class="c-table__cell">Example Feature</th>
@@ -107,37 +107,35 @@ export class HowToUse {
         </section>
 
         <section>
-          <h3 class="c-heading u-gradient-text u-gradient-text--success">Successful Responses</h3>
+          <h3 class="c-heading">Successful Responses</h3>
           <p class="c-paragraph">
             If web API key is correct you will receive an object of feature keys with their respective values.
           </p>
-          <p class="c-paragraph u-text--quiet">Example:</p>
-          <code class="u-small u-code u-code--multiline">{`{
+          <p class="c-paragraph u-text--quiet u-text--italic">Example:</p>
+          <code class="u-code u-code--multiline">{`{
   boolean_feature: true,
   multivariate_feature: 'something'
 }`}</code>
           <p class="c-paragraph">
-            <strong class="u-text--loud">Boolean</strong> features will{' '}
-            <strong class="u-text--loud">only appear</strong> in the response if they are{' '}
-            <strong class="u-text--loud">active</strong>.
+            <span class="u-text--italic">Boolean</span> features will <span class="u-text--italic">only appear</span> in
+            the response if they are <span class="u-text--italic">active</span>.
           </p>
           <p class="c-paragraph">
-            <strong class="u-text--loud">Multivariate</strong> features{' '}
-            <strong class="u-text--loud">will always</strong> appear in the response with their values changing
-            depending on their state.
+            <span class="u-text--italic">Multivariate</span> features <span class="u-text--italic">will always</span>{' '}
+            appear in the response with their values changing depending on their state.
           </p>
         </section>
         <section>
-          <h3 class="c-heading u-gradient-text u-gradient-text--error">Error Responses</h3>
+          <h3 class="c-heading">Error Responses</h3>
           <p class="c-paragraph">
-            <strong class="u-text--loud">400 Bad Request:</strong> No API key was specified in the request the URL.
+            <span class="u-text--italic">400 Bad Request:</span> No API key was specified in the request the URL.
           </p>
           <p class="c-paragraph">
-            <strong class="u-text--loud">403 Forbidden:</strong> Free API limit of 10,000 requests reached. You should
+            <span class="u-text--italic">403 Forbidden:</span> Free API limit of 10,000 requests reached. You should
             upgrade your plan.
           </p>
           <p class="c-paragraph">
-            <strong class="u-text--loud">404 Not Found:</strong> Provided API key doesn't exist.
+            <span class="u-text--italic">404 Not Found:</span> Provided API key doesn't exist.
           </p>
         </section>
       </div>

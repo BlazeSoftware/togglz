@@ -1,4 +1,4 @@
-import { Component, State, Prop, Method } from '@stencil/core';
+import { h, Component, State, Prop, Method } from '@stencil/core';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 
 @Component({
@@ -24,14 +24,14 @@ export class FeatureDelete {
   active: boolean;
 
   @Method()
-  show(featureSnapshot) {
+  async show(featureSnapshot) {
     this.featureSnapshot = featureSnapshot;
     this.isActive();
     this.panel.show();
   }
 
   @Method()
-  close() {
+  async close() {
     this.panel.close();
   }
 
@@ -64,19 +64,19 @@ export class FeatureDelete {
         </button>
         <blaze-card>
           <blaze-card-header>
-            <h2 class="c-heading u-gradient-text u-gradient-text--error">Delete feature</h2>
+            <h2 class="c-heading">Delete feature</h2>
           </blaze-card-header>
           <blaze-card-body>
             {this.featureSnapshot && (
               <div>
-                {this.active && <span class="u-gradient-text u-gradient-text--warning">This feature is active.</span>}
-                <p class="c-paragraph u-text--quiet u-small">
+                {this.active && <span class="u-text--highlight">This feature is active.</span>}
+                <p class="c-paragraph u-text--quiet">
                   By deleting this feature it will no longer be accessible via the API and condition statements within
                   your site or app may stop behaving correctly.
                 </p>
-                <p class="c-paragraph u-text--loud">Are you sure you want to delete this feature?</p>
+                <p class="c-paragraph u-text--loud">Are you sure you want to delete?</p>
                 <p class="c-paragraph">
-                  <div class="u-text--quiet">Name: </div>
+                  <div class="u-text--quiet">Feature: </div>
                   <span class="u-text--loud">{this.featureSnapshot.data().name}</span>
                 </p>
                 <p class="c-paragraph">

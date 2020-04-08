@@ -1,4 +1,4 @@
-import { Component, State, Prop, Method } from '@stencil/core';
+import { h, Component, State, Prop, Method } from '@stencil/core';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 import services from '@/firebase/services';
 
@@ -22,18 +22,18 @@ export class DeleteEnvironment {
   environment: string;
 
   @Method()
-  show(environment: string) {
+  async show(environment: string) {
     this.environment = environment;
     this.panel.show();
   }
 
   @Method()
-  close() {
+  async close() {
     this.panel.close();
   }
 
   @Method()
-  reset() {
+  async reset() {
     this.environment = null;
     this.panel.close();
     this.loading = false;
@@ -63,7 +63,7 @@ export class DeleteEnvironment {
         <blaze-card>
           <form onSubmit={(e) => this.deleteEnv(e)}>
             <blaze-card-header>
-              <h2 class="c-heading u-gradient-text u-gradient-text--error">Delete environment</h2>
+              <h2 class="c-heading">Delete environment</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -80,15 +80,13 @@ export class DeleteEnvironment {
                   )}
                 </div>
               </blaze-alert>
-              <span class="u-gradient-text u-gradient-text--warning">
-                The API will stop returning any feature toggles for this environment.
-              </span>
-              <p class="c-paragraph u-text--quiet u-small">
+              <span>The API will stop returning any feature toggles for this environment.</span>
+              <p class="c-paragraph u-text--quiet">
                 Once deleted any requests for this environment will receive an empty response.
               </p>
-              <p class="c-paragraph u-text--loud">Are you sure you want to delete this environment?</p>
+              <p class="c-paragraph u-text--loud">Are you sure you want to delete?</p>
               <p class="c-paragraph">
-                <div class="u-text--quiet">Name: </div>
+                <div class="u-text--quiet">Environment: </div>
                 <span class="u-text--loud">{this.environment}</span>
               </p>
             </blaze-card-body>

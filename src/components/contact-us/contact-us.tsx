@@ -1,4 +1,4 @@
-import { Component, Prop, State } from '@stencil/core';
+import { h, Component, Prop, State } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 import firebase from '@/firebase/firebase';
 
@@ -84,7 +84,7 @@ export class ContactUs {
     this.firebaseUnsubscribe();
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) return this.history.push('/login');
       this.user = user;
@@ -97,7 +97,7 @@ export class ContactUs {
     return (
       <nav-page history={this.history}>
         <stencil-route-title pageTitle="Contact Us" />
-        <h2 class="c-heading u-gradient-text">Contact Us</h2>
+        <h2 class="c-heading">Contact Us</h2>
         <div class="o-container o-container--small">
           <p class="c-paragraph">
             We're here to help. If you have any questions or just want to say hi then fill out the contact form below to

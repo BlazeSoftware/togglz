@@ -31,10 +31,7 @@ const applyConditions = (feature, payload) => {
 module.exports = async (store, req) => {
   const environment = req.query.environment;
 
-  const featuresSnapshot = await store
-    .collection('features')
-    .where('owner', '==', req.uid)
-    .get();
+  const featuresSnapshot = await store.collection('features').where('owner', '==', req.uid).get();
 
   return featuresSnapshot.docs.reduce((activeFeatures, f) => {
     const feature = f.data();

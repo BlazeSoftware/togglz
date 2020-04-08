@@ -1,4 +1,4 @@
-import { Component, State, Prop, Method } from '@stencil/core';
+import { h, Component, State, Prop, Method } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 import services from '@/firebase/services';
@@ -29,12 +29,12 @@ export class DeleteAccount {
   passwordVisible: boolean = false;
 
   @Method()
-  show() {
+  async show() {
     this.panel.show();
   }
 
   @Method()
-  close() {
+  async close() {
     this.panel.close();
   }
 
@@ -66,7 +66,7 @@ export class DeleteAccount {
         <blaze-card>
           <form onSubmit={(e) => this.deleteAccount(e)}>
             <blaze-card-header>
-              <h2 class="c-heading u-gradient-text u-gradient-text--error">Delete account</h2>
+              <h2 class="c-heading">Delete account</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -105,7 +105,7 @@ export class DeleteAccount {
                   </div>
                   <button
                     type="button"
-                    class="c-button c-button--ghost-brand"
+                    class="c-button c-button--ghost c-button--brand"
                     disabled={this.loading}
                     onClick={() => (this.passwordVisible = !this.passwordVisible)}>
                     {this.passwordVisible ? 'Hide' : 'Show'}

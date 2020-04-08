@@ -1,4 +1,4 @@
-import { Component, Prop, State, Listen } from '@stencil/core';
+import { h, Component, Prop, State, Listen } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 import firebase, { store } from '@/firebase/firebase';
 
@@ -49,7 +49,7 @@ export class Account {
     this.firebaseUnsubscribe();
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) return this.history.push('/login');
       this.user = user;
@@ -57,10 +57,7 @@ export class Account {
       this.email = user.email;
       this.loading = false;
 
-      const plansSnapshot = await store
-        .collection('plans')
-        .doc(this.user.uid)
-        .get();
+      const plansSnapshot = await store.collection('plans').doc(this.user.uid).get();
       this.plan = plansSnapshot.data();
 
       const settingsRef = store.collection('settings').doc(this.user.uid);
@@ -125,7 +122,7 @@ export class Account {
     );
 
     return (
-      <table class="c-table c-table--condensed">
+      <table class="c-table u-high">
         <thead class="c-table__head">
           <tr class="c-table__row c-table__row--heading">
             <th class="c-table__cell">Name</th>
@@ -147,7 +144,7 @@ export class Account {
     return (
       <nav-page history={this.history}>
         <stencil-route-title pageTitle="Account" />
-        <h2 class="c-heading u-gradient-text">Account</h2>
+        <h2 class="c-heading">Account</h2>
         <blaze-card>
           <blaze-card-header>
             <h3 class="c-heading">Details</h3>
@@ -175,7 +172,7 @@ export class Account {
                   <span class="c-button__icon-left" aria-hidden={true}>
                     <i aria-hidden={true} class="fa-fw fas fa-star-of-life" />
                   </span>
-                  Add <span class="u-display-medium-up">new environment</span>
+                  Add <span class="u-display-none u-display-initial@medium">new environment</span>
                 </button>
                 {environments.length >= 2 && this.plan.current === 'starter' && (
                   <div class="u-small u-text--quiet">Upgrade to Pro</div>
@@ -231,7 +228,10 @@ export class Account {
             <h3 class="c-heading">Danger Zone</h3>
           </blaze-card-header>
           <blaze-card-body>
-            <button type="button" class="c-button c-button--ghost-error" onClick={() => this.deleteAccountPopup.show()}>
+            <button
+              type="button"
+              class="c-button c-button--ghost c-button--error"
+              onClick={() => this.deleteAccountPopup.show()}>
               Delete account
             </button>
             <div class="u-letter-box-small">

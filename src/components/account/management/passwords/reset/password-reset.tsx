@@ -1,4 +1,4 @@
-import { Component, State, Prop } from '@stencil/core';
+import { h, Component, State, Prop } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 import firebase from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
@@ -25,7 +25,7 @@ export class ResetPassword {
     this.email = e.target.value;
   }
 
-  componentDidLoad() {
+  componentWillLoad() {
     this.email = this.history.location.query.email;
   }
 
@@ -47,15 +47,15 @@ export class ResetPassword {
     return (
       <div class="o-container o-container--xsmall u-window-box-medium">
         <stencil-route-title pageTitle="Reset password" />
+        <blaze-alert ref={(alert) => (this.alert = alert)} type="success">
+          Password reset email sent.
+        </blaze-alert>
         <blaze-card>
           <form onSubmit={(e) => this.send(e)}>
             <blaze-card-header>
-              <h2 class="c-heading u-gradient-text">Reset password</h2>
+              <h2 class="c-heading">Reset password</h2>
             </blaze-card-header>
             <blaze-card-body>
-              <blaze-alert ref={(alert) => (this.alert = alert)} type="success">
-                Password reset email sent.
-              </blaze-alert>
               <label class="c-label o-form-element">
                 Email address:
                 <div class="o-field o-field--icon-left">

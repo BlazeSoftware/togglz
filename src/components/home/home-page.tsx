@@ -1,5 +1,5 @@
 import '@blaze/atoms';
-import { Component } from '@stencil/core';
+import { h, Component } from '@stencil/core';
 
 @Component({
   tag: 'home-page',
@@ -35,7 +35,7 @@ export class HomePage {
               <div class="o-grid__cell u-large u-centered">
                 <h1 class="c-heading u-super c-title">Togglz</h1>
                 <blaze-toggle class="u-super" toggled type="brand" />
-                <h2 class="c-heading u-medium u-text--quiet c-tagline">Feature toggle service for websites and apps</h2>
+                <h2 class="c-heading u-medium c-tagline">Feature toggle service for websites and apps</h2>
                 <div class="u-letter-box-large o-container o-container--xsmall">
                   <stencil-route-link url="/login" anchorClass="c-button c-button--brand c-button--block">
                     Login
@@ -50,7 +50,7 @@ export class HomePage {
         </div>
 
         <div class="o-blurb">
-          <section class="o-container o-container--large">
+          <section class="o-container o-container--medium">
             <p class="c-paragraph">
               Togglz provides feature management and reliable API services to help you drive continuous development and
               deliver new functionality to your users safely without the need to update code.
@@ -114,7 +114,7 @@ export class HomePage {
               <i aria-hidden={true} class="fa-fw fas fa-user-plus u-xlarge" />
             </div>
             <div class="o-grid__cell o-grid__cell--width-80">
-              <span class="u-gradient-text u-gradient-text--error u-xlarge">Step 1</span>
+              <span class="u-xlarge">Step 1</span>
             </div>
             <div class="o-grid__cell o-grid__cell--offset-20">
               <stencil-route-link url="/join" anchorClass="c-link">
@@ -128,7 +128,7 @@ export class HomePage {
               <i aria-hidden={true} class="fa-fw fas fa-toggle-on u-xlarge" />
             </div>
             <div class="o-grid__cell o-grid__cell--width-80">
-              <span class="u-gradient-text u-gradient-text--warning u-xlarge">Step 2</span>
+              <span class="u-xlarge">Step 2</span>
             </div>
             <div class="o-grid__cell o-grid__cell--offset-20">Add feature toggles</div>
           </div>
@@ -138,7 +138,7 @@ export class HomePage {
               <i aria-hidden={true} class="fa-fw fas fa-code u-xlarge" />
             </div>
             <div class="o-grid__cell o-grid__cell--width-80">
-              <span class="u-gradient-text u-gradient-text--success u-xlarge">Step 3</span>
+              <span class="u-xlarge">Step 3</span>
             </div>
             <div class="o-grid__cell o-grid__cell--offset-20">
               <a class="c-link" onClick={() => this.modal.show()}>
@@ -161,14 +161,14 @@ if (features.myNewThing) {
           </div>
         </div>
 
-        <footer class="u-centered u-small u-text--quiet u-letter-box-super">
+        <footer class="u-centered u-small u-letter-box-super">
           {new Date().getFullYear()} &copy; Blaze Software Engineering Ltd.
         </footer>
 
         <blaze-modal ref={(modal) => (this.modal = modal)} dismissible full>
           <blaze-card>
             <blaze-card-header>
-              <h2 class="c-heading u-gradient-text">Using the API</h2>
+              <h2 class="c-heading">Using the API</h2>
             </blaze-card-header>
             <blaze-card-body>
               <how-to-use />

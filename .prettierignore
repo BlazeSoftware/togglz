@@ -11,6 +11,5 @@ LICENSE
 *.html
 .*
 
-_settings.scss
 assets
 robots.txt

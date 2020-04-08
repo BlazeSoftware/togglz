@@ -1,4 +1,4 @@
-import { Component, State, Prop, Method } from '@stencil/core';
+import { h, Component, State, Prop, Method } from '@stencil/core';
 import slug from 'slug';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
 import services from '@/firebase/services';
@@ -32,19 +32,19 @@ export class EditEnvironment {
   }
 
   @Method()
-  show(environment) {
+  async show(environment) {
     this.originalEnvironment = environment;
     this.environment = environment;
     this.panel.show();
   }
 
   @Method()
-  close() {
+  async close() {
     this.panel.close();
   }
 
   @Method()
-  reset() {
+  async reset() {
     this.environment = null;
     this.panel.close();
     this.loading = false;
@@ -74,7 +74,7 @@ export class EditEnvironment {
         <blaze-card>
           <form onSubmit={(e) => this.editEnvironment(e)}>
             <blaze-card-header>
-              <h2 class="c-heading u-gradient-text u-gradient-text--warning">Edit environment</h2>
+              <h2 class="c-heading">Edit environment</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -91,9 +91,7 @@ export class EditEnvironment {
                   )}
                 </div>
               </blaze-alert>
-              <span class="u-gradient-text u-gradient-text--warning">
-                The API will stop returning any feature toggles for this environment.
-              </span>
+              <span>The API will stop returning any feature toggles for this environment.</span>
               <label class="c-label o-form-element">
                 Environment name:
                 <div class="o-field o-field--icon-left">

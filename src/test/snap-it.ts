@@ -1,4 +1,4 @@
-import { newE2EPage } from '@stencil/core/dist/testing';
+import { newE2EPage } from '@stencil/core/testing';
 
 export default (name) => (testName, html) =>
   test(testName, async () => {

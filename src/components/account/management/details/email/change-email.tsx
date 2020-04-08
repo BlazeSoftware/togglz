@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, State, Prop, Method } from '@stencil/core';
+import { h, Component, Event, EventEmitter, State, Prop, Method } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 import firebase from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
@@ -35,18 +35,18 @@ export class ChangeEmail {
   email: string;
 
   @Method()
-  show() {
+  async show() {
     this.email = this.user.email;
     this.panel.show();
   }
 
   @Method()
-  close() {
+  async close() {
     this.panel.close();
   }
 
   @Method()
-  reset() {
+  async reset() {
     this.panel.close();
     this.alert.close();
     this.loading = false;
@@ -88,7 +88,7 @@ export class ChangeEmail {
         <blaze-card>
           <form onSubmit={(e) => this.changeEmail(e)}>
             <blaze-card-header>
-              <h2 class="c-heading u-gradient-text">Change email</h2>
+              <h2 class="c-heading">Change email</h2>
             </blaze-card-header>
             <blaze-card-body>
               <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
@@ -122,7 +122,7 @@ export class ChangeEmail {
                   </div>
                   <button
                     type="button"
-                    class="c-button c-button--ghost-brand"
+                    class="c-button c-button--ghost c-button--brand"
                     disabled={this.loading}
                     onClick={() => (this.passwordVisible = !this.passwordVisible)}>
                     {this.passwordVisible ? 'Hide' : 'Show'}

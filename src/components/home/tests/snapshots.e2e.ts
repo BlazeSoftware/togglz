@@ -1,4 +1,4 @@
-import { newE2EPage } from '@stencil/core/dist/testing';
+import { newE2EPage } from '@stencil/core/testing';
 
 describe('home-page', () => {
   test('renders correctly', async () => {

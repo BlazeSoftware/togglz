@@ -1,4 +1,4 @@
-import { Component, Prop, State } from '@stencil/core';
+import { h, Component, Prop, State } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 import firebase, { store } from '@/firebase/firebase';
 
@@ -31,10 +31,7 @@ export class NavPage {
 
       this.user = user;
 
-      const plansSnapshot = await store
-        .collection('plans')
-        .doc(this.user.uid)
-        .get();
+      const plansSnapshot = await store.collection('plans').doc(this.user.uid).get();
 
       const plan = plansSnapshot.data();
 

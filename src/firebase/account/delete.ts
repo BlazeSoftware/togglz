@@ -9,10 +9,7 @@ export default async (user, password) => {
     mode: 'cors',
   });
 
-  const featuresSnapshot = await store
-    .collection('features')
-    .where('owner', '==', user.uid)
-    .get();
+  const featuresSnapshot = await store.collection('features').where('owner', '==', user.uid).get();
 
   const batch = store.batch();
   featuresSnapshot.forEach((f) => {
@@ -20,15 +17,9 @@ export default async (user, password) => {
   });
   await batch.commit();
 
-  await store
-    .collection('settings')
-    .doc(user.uid)
-    .delete();
+  await store.collection('settings').doc(user.uid).delete();
 
-  await store
-    .collection('plans')
-    .doc(user.uid)
-    .delete();
+  await store.collection('plans').doc(user.uid).delete();
 
   await user.delete();
   await firebase.auth().signOut();

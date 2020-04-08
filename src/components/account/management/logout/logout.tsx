@@ -1,4 +1,4 @@
-import { Component, State } from '@stencil/core';
+import { h, Component, State } from '@stencil/core';
 import firebase from '@/firebase/firebase';
 
 @Component({
@@ -8,7 +8,7 @@ export class Logout {
   @State()
   loggedOut: boolean;
 
-  async componentDidLoad() {
+  async componentWillLoad() {
     await firebase.auth().signOut();
     this.loggedOut = true;
   }
@@ -20,10 +20,10 @@ export class Logout {
 
         <div style={{ 'font-size': '4em' }}>👋</div>
         {!this.loggedOut ? (
-          <h2 class="c-heading u-gradient-text">Logging out....</h2>
+          <h2 class="c-heading">Logging out....</h2>
         ) : (
           <div>
-            <h2 class="c-heading u-gradient-text">Logged out.</h2>
+            <h2 class="c-heading">Logged out.</h2>
             <p class="c-paragraph u-text--quiet">See you soon!</p>
             <p class="c-paragraph">
               <stencil-route-link url={'/'} anchorClass="c-link">

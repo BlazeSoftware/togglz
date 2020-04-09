@@ -2,7 +2,7 @@ import { Component, Prop } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
 
 @Component({
-  tag: 'account-oob-action',
+  tag: 'account-oob',
 })
 export class Action {
   @Prop()

@@ -1,5 +1,6 @@
 module.exports = {
   verbose: true,
+  automock: true,
   testURL: 'http://localhost/',
   transform: {
     '^.+\\.(ts|tsx)$': '<rootDir>/node_modules/@stencil/core/testing/jest.preprocessor.js',

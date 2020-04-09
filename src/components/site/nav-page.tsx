@@ -81,16 +81,20 @@ export class NavPage {
           </stencil-route-link>
         </nav>
         <div class="o-layout__main u-window-box-medium">
-          <blaze-alert ref={(alert) => (this.accountWarning = alert)} type={usageIndicator}>
-            <i aria-hidden={true} class="fa-fw fas fa-exclamation-circle" /> On the{' '}
-            <strong class="u-text--loud">Starter</strong> plan you have 10,000 free API requests per month. You have
-            used <strong class="u-text--loud">{apiCalls.toLocaleString('en-GB')}</strong>.{' '}
-            <stencil-route-link anchorClass="c-link" url="/plan">
-              Update to Pro.
-            </stencil-route-link>
-          </blaze-alert>
           <slot />
         </div>
+        <blaze-alerts position="bottomright">
+          <blaze-alert dismissible ref={(alert) => (this.accountWarning = alert)} type={usageIndicator}>
+            <i aria-hidden={true} class="fa-fw fas fa-exclamation-circle" /> On the{' '}
+            <strong class="u-text--loud">Starter</strong> plan you have 10,000 free API requests per month. You have
+            used <strong class="u-text--loud">{apiCalls.toLocaleString('en-GB')}</strong>.
+            <div>
+              <stencil-route-link anchorClass="c-link" url="/plan">
+                Update to Pro.
+              </stencil-route-link>
+            </div>
+          </blaze-alert>
+        </blaze-alerts>
       </div>
     );
   }

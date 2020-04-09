@@ -188,7 +188,6 @@ export class Dashboard {
           )}
           {!this.loading && this.features.length == 0 && (
             <div class="u-centered u-letter-box-super">
-              <div class="u-super">😢</div>
               <h3 class="c-heading">You don't have any feature toggles</h3>
               <button class="c-button c-button--ghost c-button--success" onClick={() => this.addFeaturePopup.show()}>
                 <span class="c-button__icon-left" aria-hidden={true}>

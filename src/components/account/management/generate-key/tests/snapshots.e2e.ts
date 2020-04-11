@@ -5,8 +5,5 @@ describe('delete environment', () => {
     email: 'another@dot.com',
   };
 
-  snapIt('account-generate-key')(
-    'renders correctly',
-    `<account-generate-key user=${user}></account-generate-key>`
-  );
+  snapIt('account-generate-key')('renders correctly', `<account-generate-key user=${user}></account-generate-key>`);
 });

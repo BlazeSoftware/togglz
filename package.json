@@ -8,37 +8,43 @@
     "start": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "prettier": "prettier --write **/*"
+    "stylelint": "stylelint \"src/**/*.scss\" --fix",
+    "prettier": "prettier --check **/*",
+    "release": "npm run build && standard-version"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test"
+      "pre-commit": "npm run stylelint && git add . && npm run test",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "devDependencies": {
-    "@blaze/atoms": "9.2.0",
-    "@blaze/css": "7.2.0",
-    "@stencil/core": "1.12.3",
-    "@stencil/postcss": "1.0.1",
-    "@stencil/router": "1.0.1",
-    "@stencil/sass": "1.3.1",
-    "@types/cssnano": "4.0.0",
+    "@blaze/atoms": "^11.0.1",
+    "@blaze/css": "^9.0.1",
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@stencil/core": "^1.12.3",
+    "@stencil/postcss": "^1.0.1",
+    "@stencil/router": "^1.0.1",
+    "@stencil/sass": "^1.3.1",
+    "@types/cssnano": "^4.0.0",
     "@types/jest": "24.9.1",
     "@types/puppeteer": "2.0.1",
-    "cssnano": "4.1.10",
-    "firebase": "7.13.2",
-    "husky": "4.2.3",
+    "cssnano": "^4.1.10",
+    "firebase": "^7.14.0",
+    "husky": "^4.2.5",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
-    "postcss": "7.0.27",
-    "prettier": "2.0.4",
+    "postcss": "^7.0.27",
+    "prettier": "^2.0.4",
     "puppeteer": "2.1.1",
-    "rollup-plugin-alias": "2.2.0",
-    "slug": "2.1.1",
-    "stylelint": "13.3.0",
-    "stylelint-config-rational-order": "0.1.2",
-    "stylelint-config-standard": "20.0.0",
-    "stylelint-scss": "3.16.0",
-    "uuid": "7.0.3"
+    "rollup-plugin-alias": "^2.2.0",
+    "slug": "^2.1.1",
+    "standard-version": "^7.1.0",
+    "stylelint": "^13.3.2",
+    "stylelint-config-rational-order": "^0.1.2",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-scss": "^3.16.1",
+    "uuid": "^7.0.3"
   }
 }

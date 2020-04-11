@@ -4,7 +4,7 @@
 @import 'node_modules/@blaze/css/src/scss/blaze';
 
 :root {
-  --text-font-family-sans-serif: Avenir, sans-serif;
+  --text-font-family-sans-serif: avenir, sans-serif;
   --color-grey: grey;
   --color-red: #ee0202;
   --color-orange: orange;
@@ -24,9 +24,9 @@ body {
 
 body {
   overflow-x: hidden;
-  background-color: var(--color-background);
   color: var(--color-brand);
-  font-size: 90%;
+  font-size: 95%;
+  background-color: var(--color-background);
 }
 
 .u-text {
@@ -62,9 +62,9 @@ body {
 }
 
 .c-table {
+  overflow: hidden;
   background-color: white;
   border-radius: var(--border-radius);
-  overflow: hidden;
 }
 
 .c-table__cell--center {
@@ -103,8 +103,8 @@ nav-page {
   .o-layout {
     &__sidebar {
       @include screen-and-up(medium) {
-        display: block;
         position: fixed;
+        display: block;
         width: 200px;
       }
     }
@@ -125,8 +125,8 @@ nav-page {
     }
 
     .c-nav__content {
-      background-image: linear-gradient(135deg, var(--color-purple), var(--color-blue));
       color: white;
+      background-image: linear-gradient(135deg, var(--color-purple), var(--color-blue));
     }
 
     .c-nav__item {
@@ -142,14 +142,14 @@ nav-page {
       }
 
       @include screen-and-up(medium) {
-        &--active:after {
-          content: '';
+        &--active::after {
           position: absolute;
           top: calc(50% - 12px);
           right: -20px;
           padding: 12px;
-          transform: rotate(45deg);
           background-color: white;
+          transform: rotate(45deg);
+          content: '';
         }
       }
     }
@@ -180,16 +180,16 @@ home-page {
     }
 
     .c-tagline {
-      font-weight: 400;
       padding: 2em 0 0.5em 0;
+      font-weight: 400;
     }
   }
 
   .o-blurb {
     padding: 1em;
+    color: white;
     text-align: center;
     background-image: linear-gradient(90deg, var(--color-purple), var(--color-blue));
-    color: white;
   }
 
   .o-benefits {
@@ -237,8 +237,8 @@ home-page {
   }
 
   .o-example {
-    background-color: var(--color-brand);
     color: white;
+    background-color: var(--color-brand);
 
     .o-example__content {
       max-width: 320px;
@@ -282,8 +282,8 @@ account-plan {
 
 pricing-overview {
   .c-heading__sub {
-    opacity: 1;
     font-weight: 400;
+    opacity: 1;
   }
 
   .c-list .o-feature {

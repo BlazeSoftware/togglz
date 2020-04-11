@@ -5,8 +5,5 @@ describe('delete environment', () => {
     email: 'another@dot.com',
   };
 
-  snapIt('account-change-email')(
-    'renders correctly',
-    `<account-change-email user=${user}></account-change-email>`
-  );
+  snapIt('account-change-email')('renders correctly', `<account-change-email user=${user}></account-change-email>`);
 });

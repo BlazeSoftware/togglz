@@ -4,7 +4,4 @@ const user = {
   email: 'another@dot.com',
 };
 
-drawerTests('account-generate-key')(
-  'generate key',
-  `<account-generate-key user=${user}></account-generate-key>`
-);
+drawerTests('account-generate-key')('generate key', `<account-generate-key user=${user}></account-generate-key>`);

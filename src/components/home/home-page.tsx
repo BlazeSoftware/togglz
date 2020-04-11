@@ -81,7 +81,7 @@ export class HomePage {
               'Create multiple conditions that must be satisfied before a feature toggle is activated.'
             )}
             {this.renderAboutSection(
-              'fas fa-clock',
+              'fas fa-',
               'Schedule Features',
               <div class="u-text--quiet">
                 <div class="u-text--italic">Coming soon</div>

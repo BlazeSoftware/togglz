@@ -79,7 +79,6 @@ export class Dashboard {
 
     return (
       <label class="u-small">
-        Environment:
         <select class="c-field" onChange={(e) => this.handleEnvironmentChange(e)}>
           <option value="" selected={this.selectedEnvironment === null}>
             defaults
@@ -105,12 +104,12 @@ export class Dashboard {
             {feature.multivariate ? (
               <span>
                 <i aria-hidden={true} class="fa-fw fas fa-sitemap" />{' '}
-                {conditional ? <span>Conditional</span> : <span>multivariate</span>}
+                {conditional ? <span>Conditional</span> : <span>Multivariate</span>}
               </span>
             ) : (
               <span>
                 <i aria-hidden={true} class="fa-fw fas fa-power-off" />{' '}
-                {conditional ? <span>Conditional</span> : <span>boolean</span>}
+                {conditional ? <span>Conditional</span> : <span>Boolean</span>}
               </span>
             )}
           </td>
@@ -146,7 +145,7 @@ export class Dashboard {
         <stencil-route-title pageTitle="Dashboard" />
         <h2 class="c-heading">Dashboard</h2>
         <div>
-          <div class="u-letter-box-small o-grid o-grid--no-gutter o-grid--bottom">
+          <div class="o-grid o-grid--no-gutter o-grid--bottom u-letter-box-small">
             <div class="o-grid__cell o-grid__cell--width-40">
               {!this.loading && this.features.length > 0 && this.renderEnvironmentChooser()}
             </div>

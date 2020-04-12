@@ -64,6 +64,9 @@ export class NavPage {
           <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/account">
             <i aria-hidden={true} class="o-icon fa-fw fas fa-user" /> Account
           </stencil-route-link>
+          <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/environments">
+            <i aria-hidden={true} class="o-icon fa-fw fas fa-cube" /> Environments
+          </stencil-route-link>
           <stencil-route-link anchorClass="c-nav__item" activeClass="c-nav__item--active" url="/plan">
             <i aria-hidden={true} class="o-icon fa-fw fas fa-dollar-sign" /> Plan
           </stencil-route-link>

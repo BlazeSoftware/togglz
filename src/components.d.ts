@@ -62,6 +62,9 @@ export namespace Components {
         "show": (environment: any) => Promise<void>;
         "user": any;
     }
+    interface AccountEnvironments {
+        "history": RouterHistory;
+    }
     interface AccountGenerateKey {
         "close": () => Promise<void>;
         "reset": () => Promise<void>;
@@ -96,6 +99,12 @@ export namespace Components {
     }
     interface AccountVerify {
         "history": RouterHistory;
+    }
+    interface AccountWebhook {
+        "close": () => Promise<void>;
+        "reset": () => Promise<void>;
+        "show": (settings: any) => Promise<void>;
+        "user": any;
     }
     interface ApiDocs {
         "history": RouterHistory;
@@ -207,6 +216,12 @@ declare global {
         prototype: HTMLAccountEditEnvironmentElement;
         new (): HTMLAccountEditEnvironmentElement;
     };
+    interface HTMLAccountEnvironmentsElement extends Components.AccountEnvironments, HTMLStencilElement {
+    }
+    var HTMLAccountEnvironmentsElement: {
+        prototype: HTMLAccountEnvironmentsElement;
+        new (): HTMLAccountEnvironmentsElement;
+    };
     interface HTMLAccountGenerateKeyElement extends Components.AccountGenerateKey, HTMLStencilElement {
     }
     var HTMLAccountGenerateKeyElement: {
@@ -272,6 +287,12 @@ declare global {
     var HTMLAccountVerifyElement: {
         prototype: HTMLAccountVerifyElement;
         new (): HTMLAccountVerifyElement;
+    };
+    interface HTMLAccountWebhookElement extends Components.AccountWebhook, HTMLStencilElement {
+    }
+    var HTMLAccountWebhookElement: {
+        prototype: HTMLAccountWebhookElement;
+        new (): HTMLAccountWebhookElement;
     };
     interface HTMLApiDocsElement extends Components.ApiDocs, HTMLStencilElement {
     }
@@ -368,6 +389,7 @@ declare global {
         "account-delete-environment": HTMLAccountDeleteEnvironmentElement;
         "account-downgrade-plan": HTMLAccountDowngradePlanElement;
         "account-edit-environment": HTMLAccountEditEnvironmentElement;
+        "account-environments": HTMLAccountEnvironmentsElement;
         "account-generate-key": HTMLAccountGenerateKeyElement;
         "account-join": HTMLAccountJoinElement;
         "account-login": HTMLAccountLoginElement;
@@ -379,6 +401,7 @@ declare global {
         "account-reset-password": HTMLAccountResetPasswordElement;
         "account-update-password": HTMLAccountUpdatePasswordElement;
         "account-verify": HTMLAccountVerifyElement;
+        "account-webhook": HTMLAccountWebhookElement;
         "api-docs": HTMLApiDocsElement;
         "app-broken": HTMLAppBrokenElement;
         "app-root": HTMLAppRootElement;
@@ -430,6 +453,9 @@ declare namespace LocalJSX {
     interface AccountEditEnvironment {
         "user"?: any;
     }
+    interface AccountEnvironments {
+        "history"?: RouterHistory;
+    }
     interface AccountGenerateKey {
         "user"?: any;
     }
@@ -461,6 +487,9 @@ declare namespace LocalJSX {
     }
     interface AccountVerify {
         "history"?: RouterHistory;
+    }
+    interface AccountWebhook {
+        "user"?: any;
     }
     interface ApiDocs {
         "history"?: RouterHistory;
@@ -516,6 +545,7 @@ declare namespace LocalJSX {
         "account-delete-environment": AccountDeleteEnvironment;
         "account-downgrade-plan": AccountDowngradePlan;
         "account-edit-environment": AccountEditEnvironment;
+        "account-environments": AccountEnvironments;
         "account-generate-key": AccountGenerateKey;
         "account-join": AccountJoin;
         "account-login": AccountLogin;
@@ -527,6 +557,7 @@ declare namespace LocalJSX {
         "account-reset-password": AccountResetPassword;
         "account-update-password": AccountUpdatePassword;
         "account-verify": AccountVerify;
+        "account-webhook": AccountWebhook;
         "api-docs": ApiDocs;
         "app-broken": AppBroken;
         "app-root": AppRoot;
@@ -557,6 +588,7 @@ declare module "@stencil/core" {
             "account-delete-environment": LocalJSX.AccountDeleteEnvironment & JSXBase.HTMLAttributes<HTMLAccountDeleteEnvironmentElement>;
             "account-downgrade-plan": LocalJSX.AccountDowngradePlan & JSXBase.HTMLAttributes<HTMLAccountDowngradePlanElement>;
             "account-edit-environment": LocalJSX.AccountEditEnvironment & JSXBase.HTMLAttributes<HTMLAccountEditEnvironmentElement>;
+            "account-environments": LocalJSX.AccountEnvironments & JSXBase.HTMLAttributes<HTMLAccountEnvironmentsElement>;
             "account-generate-key": LocalJSX.AccountGenerateKey & JSXBase.HTMLAttributes<HTMLAccountGenerateKeyElement>;
             "account-join": LocalJSX.AccountJoin & JSXBase.HTMLAttributes<HTMLAccountJoinElement>;
             "account-login": LocalJSX.AccountLogin & JSXBase.HTMLAttributes<HTMLAccountLoginElement>;
@@ -568,6 +600,7 @@ declare module "@stencil/core" {
             "account-reset-password": LocalJSX.AccountResetPassword & JSXBase.HTMLAttributes<HTMLAccountResetPasswordElement>;
             "account-update-password": LocalJSX.AccountUpdatePassword & JSXBase.HTMLAttributes<HTMLAccountUpdatePasswordElement>;
             "account-verify": LocalJSX.AccountVerify & JSXBase.HTMLAttributes<HTMLAccountVerifyElement>;
+            "account-webhook": LocalJSX.AccountWebhook & JSXBase.HTMLAttributes<HTMLAccountWebhookElement>;
             "api-docs": LocalJSX.ApiDocs & JSXBase.HTMLAttributes<HTMLApiDocsElement>;
             "app-broken": LocalJSX.AppBroken & JSXBase.HTMLAttributes<HTMLAppBrokenElement>;
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;

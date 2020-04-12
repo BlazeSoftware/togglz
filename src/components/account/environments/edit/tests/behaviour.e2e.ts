@@ -1,4 +1,4 @@
-import drawerTests from '../../../../../../test/drawer-tests';
+import drawerTests from '../../../../../test/drawer-tests';
 
 const user = {
   email: 'another@dot.com',

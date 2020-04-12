@@ -27,6 +27,7 @@
     "@stencil/postcss": "^1.0.1",
     "@stencil/router": "^1.0.1",
     "@stencil/sass": "^1.3.1",
+    "@types/crypto-js": "^3.1.39",
     "@types/cssnano": "^4.0.0",
     "@types/jest": "24.9.1",
     "@types/puppeteer": "2.0.1",

@@ -81,12 +81,9 @@ export class HomePage {
               'Create multiple conditions that must be satisfied before a feature toggle is activated.'
             )}
             {this.renderAboutSection(
-              'fas fa-',
-              'Schedule Features',
-              <div class="u-text--quiet">
-                <div class="u-text--italic">Coming soon</div>
-                Plan when features become active at a particular time and for how long they remain active.
-              </div>
+              'fas fa-project-diagram',
+              'Webhooks',
+              'Using Webhooks you can build your own integrations that subscribe to feature toggle changes.'
             )}
             {this.renderAboutSection(
               'fas fa-server',

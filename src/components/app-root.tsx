@@ -20,6 +20,7 @@ export class AppRoot {
             <stencil-route url="/join" component="account-join" />
             <stencil-route url="/dashboard" component="account-dashboard" />
             <stencil-route url="/account" component="account-management" />
+            <stencil-route url="/environments" component="account-environments" />
             <stencil-route url="/plan" component="account-plan" />
             <stencil-route url="/api" component="api-docs" />
             <stencil-route url="/docs" component="help-docs" />

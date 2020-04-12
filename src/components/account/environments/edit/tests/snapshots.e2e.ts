@@ -1,4 +1,4 @@
-import snapIt from '../../../../../../test/snap-it';
+import snapIt from '../../../../../test/snap-it';
 
 describe('edit environment', () => {
   const user = {

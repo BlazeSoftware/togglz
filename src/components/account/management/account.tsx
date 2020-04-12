@@ -10,9 +10,7 @@ export class Account {
   changeEmailPopup: any;
   changePasswordPopup: any;
   generateKeyPopup: any;
-  addEnvironmentPopup: any;
-  editEnvironmentPopup: any;
-  deleteEnvironmentPopup: any;
+  webhookPopup: any;
   deleteAccountPopup: any;
 
   @Prop()
@@ -34,6 +32,9 @@ export class Account {
   settings: any = {};
 
   @State()
+  showWebhooks: boolean;
+
+  @State()
   loading: boolean = true;
 
   @Listen('profileChange')
@@ -50,6 +51,14 @@ export class Account {
   }
 
   componentWillLoad() {
+    fetch('https://www.togglz.com/features/8bjlqwqpxlg8nmvfz6av')
+      .then((res) => res.json())
+      .then((features) => {
+        if (features.webhooks) {
+          this.showWebhooks = true;
+        }
+      });
+
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) return this.history.push('/login');
       this.user = user;
@@ -79,10 +88,7 @@ export class Account {
             <span>
               {value || <span class="u-text--normal u-text--highlight u-text--quiet">None set</span>}
               {popup && (
-                <a
-                  role="button"
-                  class="c-edit-info c-link u-small u-display-inline-block u-pillar-box-medium"
-                  onClick={() => popup.show()}>
+                <a role="button" class="c-link u-display-inline-block u-pillar-box-medium" onClick={() => popup.show()}>
                   edit
                 </a>
               )}
@@ -93,49 +99,7 @@ export class Account {
     );
   }
 
-  renderEnvironments() {
-    const environments = this.settings.environments || [];
-    const rows = environments.map((environment) => (
-      <tr class="c-table__row">
-        <td class="c-table__cell">{environment}</td>
-        <td class="c-table__cell c-table__cell--center o-actions">
-          <button
-            class="c-button c-button--nude c-button--edit"
-            aria-label="Edit environment"
-            onClick={() => this.editEnvironmentPopup.show(environment)}>
-            <i aria-hidden={true} class="fa-fw fas fa-edit" />
-          </button>
-          <button
-            class="c-button c-button--nude c-button--delete"
-            aria-label="Remove environment"
-            onClick={() => this.deleteEnvironmentPopup.show(environment)}>
-            <i aria-hidden={true} class="fa-fw far fa-trash-alt" />
-          </button>
-        </td>
-      </tr>
-    ));
-    rows.unshift(
-      <tr class="c-table__row">
-        <td class="c-table__cell">defaults</td>
-        <td class="c-table__cell c-table__cell--center">-</td>
-      </tr>
-    );
-
-    return (
-      <table class="c-table u-high">
-        <thead class="c-table__head">
-          <tr class="c-table__row c-table__row--heading">
-            <th class="c-table__cell">Name</th>
-            <th class="c-table__cell c-table__cell--center">Actions</th>
-          </tr>
-        </thead>
-        <tbody class="c-table__body">{rows}</tbody>
-      </table>
-    );
-  }
-
   render() {
-    const environments = this.settings.environments || [];
     const apiCalls = this.settings.apiCalls || 0;
     let usageIndicator = 'info';
     if (apiCalls > 7500) usageIndicator = 'warning';
@@ -161,35 +125,11 @@ export class Account {
 
         <blaze-card>
           <blaze-card-header>
-            <div class="o-grid o-grid--no-gutter">
-              <h3 class="o-grid__cell c-heading">Environments</h3>
-              <div class="o-grid__cell u-right">
-                <button
-                  class="c-button c-button--success u-small"
-                  aria-label="Add new environment"
-                  onClick={() => this.addEnvironmentPopup.show()}
-                  disabled={environments.length >= 2 && this.plan.current === 'starter'}>
-                  <span class="c-button__icon-left" aria-hidden={true}>
-                    <i aria-hidden={true} class="fa-fw fas fa-star-of-life" />
-                  </span>
-                  Add <span class="u-display-none u-display-initial@medium">new environment</span>
-                </button>
-                {environments.length >= 2 && this.plan.current === 'starter' && (
-                  <div class="u-small u-text--quiet">Upgrade to Pro</div>
-                )}
-              </div>
-            </div>
-          </blaze-card-header>
-          <blaze-card-body>{this.renderEnvironments()}</blaze-card-body>
-        </blaze-card>
-
-        <blaze-card>
-          <blaze-card-header>
-            <h3 class="c-heading">Development settings</h3>
+            <h3 class="c-heading">Web API settings:</h3>
           </blaze-card-header>
           <blaze-card-body>
             <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full o-info-item">
-              <label class="o-grid__cell o-grid__cell--width-25 u-text--quiet">Web API requests:</label>
+              <label class="o-grid__cell o-grid__cell--width-25 u-text--quiet">API requests:</label>
               <span class="o-grid__cell">
                 {this.plan.current === 'starter' && (
                   <span>
@@ -210,18 +150,60 @@ export class Account {
             </div>
             <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full o-info-item">
               <label class="o-grid__cell o-grid__cell--width-25 u-text--quiet">Web API key:</label>
-              <span class="o-grid__cell">
-                <code class="u-code">{this.settings.webAPIKey}</code>
-                <a
-                  role="button"
-                  class="c-edit-info c-link u-small u-display-inline-block u-pillar-box-medium"
-                  onClick={() => this.generateKeyPopup.show()}>
+              <span class="o-grid__cell o-grid--width-75">
+                <code class="u-code u-large">{this.settings.webAPIKey}</code>
+              </span>
+            </div>
+            <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full o-info-item">
+              <div class="o-grid__cell o-grid__cell--offset-25">
+                <a role="button" class="c-link" onClick={() => this.generateKeyPopup.show()}>
                   generate new key
                 </a>
-              </span>
+              </div>
             </div>
           </blaze-card-body>
         </blaze-card>
+
+        {this.showWebhooks && (
+          <blaze-card>
+            <blaze-card-header>
+              <h3 class="c-heading">Webhook:</h3>
+            </blaze-card-header>
+            <blaze-card-body>
+              <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full o-info-item">
+                <label class="o-grid__cell o-grid__cell--width-25 u-text--quiet">URL:</label>
+                <span class="o-grid__cell">{this.settings.webhookUrl}</span>
+              </div>
+              <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full o-info-item">
+                <label class="o-grid__cell o-grid__cell--width-25 u-text--quiet">Secret:</label>
+                <span class="o-grid__cell o-grid__cell--width-75">
+                  {this.settings.webhookSecret && <code class="u-code u-large">{this.settings.webhookSecret}</code>}
+                </span>
+              </div>
+              <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full">
+                <div class="o-grid__cell o-grid__cell--offset-25">
+                  <a role="button" class="c-link" onClick={() => this.webhookPopup.show(this.settings)}>
+                    edit webhook
+                  </a>
+                </div>
+              </div>
+              <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full">
+                <div class="o-grid__cell">
+                  <p class="c-paragraph u-text--italic">
+                    When something happens in Togglz we will send your webhook URL a POST request with a payload of
+                    information about what happened.
+                  </p>
+                  <p class="c-paragraph u-text--italic">
+                    Togglz will also use the secret to hash the payload and send it in the{' '}
+                    <code class="u-code">x-togglz</code> header. To ensure the message came from Togglz you should hash
+                    the payload with this secret also and compare the result with the header value to ensure it's
+                    validity.
+                  </p>
+                </div>
+              </div>
+            </blaze-card-body>
+          </blaze-card>
+        )}
 
         <blaze-card>
           <blaze-card-header>
@@ -248,9 +230,7 @@ export class Account {
         />
         <account-change-password user={this.user} ref={(popup) => (this.changePasswordPopup = popup)} />
         <account-generate-key user={this.user} ref={(popup) => (this.generateKeyPopup = popup)} />
-        <account-add-environment user={this.user} ref={(popup) => (this.addEnvironmentPopup = popup)} />
-        <account-edit-environment user={this.user} ref={(popup) => (this.editEnvironmentPopup = popup)} />
-        <account-delete-environment user={this.user} ref={(popup) => (this.deleteEnvironmentPopup = popup)} />
+        <account-webhook user={this.user} ref={(popup) => (this.webhookPopup = popup)} />
         <account-delete user={this.user} history={this.history} ref={(popup) => (this.deleteAccountPopup = popup)} />
       </nav-page>
     );

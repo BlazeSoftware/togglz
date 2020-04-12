@@ -10,7 +10,9 @@
     "test.watch": "stencil test --spec --e2e --watchAll",
     "stylelint": "stylelint \"src/**/*.scss\" --fix",
     "prettier": "prettier --check **/*",
-    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
+    "preversion": "npm test",
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
+    "postversion": "git push --follow-tags"
   },
   "husky": {
     "hooks": {

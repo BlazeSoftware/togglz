@@ -10,7 +10,7 @@
     "test.watch": "stencil test --spec --e2e --watchAll",
     "stylelint": "stylelint \"src/**/*.scss\" --fix",
     "prettier": "prettier --check **/*",
-    "release": "npm run build && standard-version"
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md"
   },
   "husky": {
     "hooks": {
@@ -31,6 +31,7 @@
     "@types/cssnano": "^4.0.0",
     "@types/jest": "24.9.1",
     "@types/puppeteer": "2.0.1",
+    "conventional-changelog-cli": "^2.0.31",
     "cssnano": "^4.1.10",
     "firebase": "^7.14.0",
     "husky": "^4.2.5",
@@ -41,7 +42,6 @@
     "puppeteer": "2.1.1",
     "rollup-plugin-alias": "^2.2.0",
     "slug": "^2.1.1",
-    "standard-version": "^7.1.0",
     "stylelint": "^13.3.2",
     "stylelint-config-rational-order": "^0.1.2",
     "stylelint-config-standard": "^20.0.0",

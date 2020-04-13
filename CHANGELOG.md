@@ -1,3 +1,13 @@
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/BlazeSoftware/togglz/compare/v0.1.1...v1.0.0) (2020-04-13)
+
+
+### Features
+
+* **webhook:** added webhook trigger ([e14cf4b](https://github.com/BlazeSoftware/togglz/commit/e14cf4b))
+
+
+
 <a name="0.1.1"></a>
 ## [0.1.1](https://github.com/BlazeSoftware/togglz/compare/v0.1.0...v0.1.1) (2020-04-12)
 

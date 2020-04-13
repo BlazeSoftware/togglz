@@ -55,7 +55,7 @@ export class ChangeName {
       this.onProfileChange.emit(this.user);
       this.reset();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       this.alertMsg = getAlertMessage(error.code, this.user.email);
       this.alert.show();
       this.loading = false;

@@ -67,7 +67,7 @@ export class ChangePassword {
       await this.user.updatePassword(this.newPassword);
       this.reset();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       this.alertMsg = getAlertMessage(error.code, this.user.email);
       this.alert.show();
       this.loading = false;

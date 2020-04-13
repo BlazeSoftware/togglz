@@ -1,9 +1,13 @@
 import { h, Component, Prop, State } from '@stencil/core';
+import services from '@/firebase/services';
 
 @Component({
   tag: 'feature-toggle',
 })
 export class FeatureToggle {
+  @Prop()
+  user: any;
+
   @Prop()
   featureSnapshot: any;
 
@@ -31,10 +35,10 @@ export class FeatureToggle {
 
   async toggleFeature(active: boolean) {
     this.status = 'loading';
+    const feature = this.featureSnapshot.data();
 
     try {
       if (this.selectedEnvironment) {
-        const feature = this.featureSnapshot.data();
         const environments = { ...feature.environments };
         environments[this.selectedEnvironment] = active;
         await this.featureSnapshot.ref.update({
@@ -45,6 +49,16 @@ export class FeatureToggle {
           active,
         });
       }
+
+      services.publishWebhook(this.user, {
+        action: 'feature:toggle',
+        environment: this.selectedEnvironment || 'default',
+        feature: {
+          name: feature.name,
+          key: feature.key,
+          active,
+        },
+      });
 
       this.active = active;
       this.status = 'loaded';

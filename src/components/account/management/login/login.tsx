@@ -51,7 +51,7 @@ export class Login {
       return this.history.push(`/verify?email=${user.email}`);
     } catch (error) {
       this.loading = false;
-      console.log(error);
+      console.error(error);
       this.alertMsg = getAlertMessage(error.code, this.email);
       this.alert.show();
     }

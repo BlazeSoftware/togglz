@@ -47,16 +47,11 @@ export class Join {
         this.history.push('/500');
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       this.loading = false;
       this.alertMsg = getAlertMessage(error.code, this.email);
       this.alert.show();
     }
-  }
-
-  firebaseUnsubscribe: any;
-  componentDidUnload() {
-    this.firebaseUnsubscribe();
   }
 
   componentWillLoad() {

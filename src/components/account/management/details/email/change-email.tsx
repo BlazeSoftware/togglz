@@ -72,7 +72,7 @@ export class ChangeEmail {
       await this.user.updateEmail(this.email);
       this.history.push(`/verify?send=true&email=${this.email}`);
     } catch (error) {
-      console.log(error);
+      console.error(error);
       this.alertMsg = getAlertMessage(error.code, this.user.email);
       this.alert.show();
       this.loading = false;

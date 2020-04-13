@@ -188,16 +188,18 @@ export class Account {
                 </div>
               </div>
               <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full">
-                <div class="o-grid__cell">
-                  <p class="c-paragraph u-text--italic">
+                <div class="o-grid__cell u-small">
+                  <p class="c-paragraph">
                     When something happens in Togglz we will send your webhook URL a POST request with a payload of
                     information about what happened.
                   </p>
-                  <p class="c-paragraph u-text--italic">
-                    Togglz will also use the secret to hash the payload and send it in the{' '}
-                    <code class="u-code">x-togglz</code> header. To ensure the message came from Togglz you should hash
-                    the payload with this secret also and compare the result with the header value to ensure it's
-                    validity.
+                  <p class="c-paragraph u-text--quiet u-text--italic">
+                    Currently only toggling a feature triggers a webhook. We're working on adding more triggers!
+                  </p>
+                  <p class="c-paragraph">
+                    Togglz will use the secret to hash the payload and send it in the{' '}
+                    <code class="u-code">X-Togglz</code> header. To ensure the message came from Togglz you should hash
+                    the payload with this secret and compare the result with the header value to ensure it's validity.
                   </p>
                 </div>
               </div>

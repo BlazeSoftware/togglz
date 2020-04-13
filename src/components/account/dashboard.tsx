@@ -115,7 +115,11 @@ export class Dashboard {
           </td>
           <td class="c-table__cell c-table__cell--center u-center-block">
             <div class="u-center-block__content u-center-block__content--vertical">
-              <feature-toggle featureSnapshot={featureSnapshot} selectedEnvironment={this.selectedEnvironment} />
+              <feature-toggle
+                user={this.user}
+                featureSnapshot={featureSnapshot}
+                selectedEnvironment={this.selectedEnvironment}
+              />
             </div>
           </td>
           <td class="c-table__cell c-table__cell--center o-actions">

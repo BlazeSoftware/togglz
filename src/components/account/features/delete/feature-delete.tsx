@@ -43,7 +43,7 @@ export class FeatureDelete {
       this.panel.close();
       this.loading = false;
     } catch (error) {
-      console.log(error);
+      console.error(error);
       this.alertMsg = getAlertMessage(error.code);
       this.alert.show();
       this.loading = false;

@@ -137,6 +137,7 @@ export namespace Components {
     interface FeatureToggle {
         "featureSnapshot": any;
         "selectedEnvironment": string;
+        "user": any;
     }
     interface HomePage {
     }
@@ -514,6 +515,7 @@ declare namespace LocalJSX {
     interface FeatureToggle {
         "featureSnapshot"?: any;
         "selectedEnvironment"?: string;
+        "user"?: any;
     }
     interface HomePage {
     }

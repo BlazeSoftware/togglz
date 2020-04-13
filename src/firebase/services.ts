@@ -6,6 +6,7 @@ import updateEnvironment from './environments/update';
 import deleteEnvironment from './environments/delete';
 import generateKey from './api-key/add';
 import updateWebhook from './webhook/update';
+import publishWebhook from './webhook/publish';
 
 export default {
   setupAccount,
@@ -16,4 +17,5 @@ export default {
   deleteEnvironment,
   generateKey,
   updateWebhook,
+  publishWebhook,
 };

@@ -130,7 +130,7 @@ export class FeatureEdit {
       });
       this.reset();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       this.alertMsg = getAlertMessage(error.code);
       this.alert.show();
       this.loading = false;

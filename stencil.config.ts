@@ -21,10 +21,14 @@ export const config: Config = {
         }),
       ],
     }),
-    aliases({
-      '@': 'src',
-    }),
   ],
+  rollupPlugins: {
+    before: [
+      aliases({
+        '@': 'src',
+      }),
+    ],
+  },
   outputTargets: [
     {
       type: 'www',

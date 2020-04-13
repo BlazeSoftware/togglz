@@ -58,7 +58,7 @@ export class EditEnvironment {
       await services.updateEnvironment(this.user, this.originalEnvironment, this.environment);
       this.reset();
     } catch (error) {
-      console.log(error);
+      console.error(error);
       this.alertMsg = getAlertMessage(error.code, this.user.email);
       this.alert.show();
       this.loading = false;

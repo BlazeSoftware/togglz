@@ -1,7 +1,7 @@
 {
   "name": "togglz",
   "private": true,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Feature toggle service for websites and apps.",
   "scripts": {
     "build": "stencil build",

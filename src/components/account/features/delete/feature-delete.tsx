@@ -1,5 +1,6 @@
 import { h, Component, State, Prop, Method } from '@stencil/core';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
+import services from '@/firebase/services';
 
 @Component({
   tag: 'feature-delete',
@@ -39,7 +40,7 @@ export class FeatureDelete {
     e.preventDefault();
     this.loading = true;
     try {
-      await this.featureSnapshot.ref.delete();
+      await services.deleteFeature(this);
       this.panel.close();
       this.loading = false;
     } catch (error) {

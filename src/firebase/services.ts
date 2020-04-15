@@ -1,6 +1,7 @@
 import setupAccount from './account/setup';
 import deleteAccount from './account/delete';
 import addFeature from './features/add';
+import updateFeature from './features/update';
 import addEnvironment from './environments/add';
 import updateEnvironment from './environments/update';
 import deleteEnvironment from './environments/delete';
@@ -12,6 +13,7 @@ export default {
   setupAccount,
   deleteAccount,
   addFeature,
+  updateFeature,
   addEnvironment,
   updateEnvironment,
   deleteEnvironment,

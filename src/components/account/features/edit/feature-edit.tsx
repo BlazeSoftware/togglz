@@ -1,7 +1,7 @@
 import { h, Component, State, Prop, Method } from '@stencil/core';
 import slug from 'slug';
-import { store } from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
+import services from '@/firebase/services';
 
 @Component({
   tag: 'feature-edit',
@@ -105,29 +105,7 @@ export class FeatureEdit {
     e.preventDefault();
     this.loading = true;
     try {
-      const existingFeatures = await store
-        .collection('features')
-        .where('owner', '==', this.user.uid)
-        .where('key', '==', this.key)
-        .get();
-
-      if (
-        !existingFeatures.empty &&
-        !(existingFeatures.docs.length === 1 && existingFeatures.docs[0].ref.id == this.featureSnapshot.ref.id)
-      )
-        throw { code: 'storage/document-exists' };
-
-      let multivariate = null;
-      if (this.type === 'multivariate' && this.activeValue && this.inactiveValue) {
-        multivariate = { activeValue: this.activeValue, inactiveValue: this.inactiveValue };
-      }
-
-      await this.featureSnapshot.ref.update({
-        name: this.name,
-        key: this.key,
-        multivariate,
-        conditions: this.conditions,
-      });
+      await services.updateFeature(this.user, this);
       this.reset();
     } catch (error) {
       console.error(error);

@@ -1,3 +1,8 @@
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/BlazeSoftware/togglz/compare/v1.0.0...v1.0.1) (2020-04-15)
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/BlazeSoftware/togglz/compare/v0.1.1...v1.0.0) (2020-04-13)
 

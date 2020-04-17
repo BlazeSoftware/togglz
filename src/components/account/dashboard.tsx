@@ -6,6 +6,7 @@ import firebase, { store } from '@/firebase/firebase';
   tag: 'account-dashboard',
 })
 export class Dashboard {
+  accountWarning: any;
   addFeaturePopup: any;
   editFeaturePopup: any;
   deleteFeaturePopup: any;
@@ -32,13 +33,15 @@ export class Dashboard {
   selectedEnvironment: string;
 
   firebaseUnsubscribe: any;
+  onPlansSnapshot: any;
   onFeaturesSnapshot: any;
   componentDidUnload() {
+    this.onPlansSnapshot();
     this.onFeaturesSnapshot();
     this.firebaseUnsubscribe();
   }
 
-  componentWillLoad() {
+  componentDidLoad() {
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) return this.history.push('/login');
       this.user = user;
@@ -46,8 +49,14 @@ export class Dashboard {
       const settingsSnapshot = await store.collection('settings').doc(this.user.uid).get();
       this.settings = settingsSnapshot.data();
 
-      const plansSnapshot = await store.collection('plans').doc(this.user.uid).get();
-      this.plan = plansSnapshot.data();
+      const plansRef = store.collection('plans').doc(this.user.uid);
+      this.onPlansSnapshot = plansRef.onSnapshot((plansSnapshot) => {
+        this.plan = plansSnapshot.data();
+        if (this.plan.current === 'starter' && this.plan.apiCalls > 7500) {
+          this.accountWarning.show();
+        }
+      });
+      await plansRef.get();
 
       const featuresQuery = store.collection('features').where('owner', '==', this.user.uid).orderBy('created', 'desc');
 
@@ -144,6 +153,11 @@ export class Dashboard {
   }
 
   render() {
+    const apiCalls = this.plan.apiCalls || 0;
+    let usageIndicator = 'info';
+    if (apiCalls > 7500) usageIndicator = 'warning';
+    if (apiCalls > 8500) usageIndicator = 'error';
+
     return (
       <nav-page history={this.history}>
         <stencil-route-title pageTitle="Dashboard" />
@@ -204,6 +218,18 @@ export class Dashboard {
           <feature-edit user={this.user} ref={(editFeature) => (this.editFeaturePopup = editFeature)} />
           <feature-delete ref={(deleteFeature) => (this.deleteFeaturePopup = deleteFeature)} />
         </div>
+        <blaze-alerts position="bottomright">
+          <blaze-alert dismissible ref={(alert) => (this.accountWarning = alert)} type={usageIndicator}>
+            <i aria-hidden={true} class="fa-fw fas fa-exclamation-circle" /> On the{' '}
+            <strong class="u-text--loud">Starter</strong> plan you have 10,000 free API requests per month. You have
+            used <strong class="u-text--loud">{apiCalls.toLocaleString('en-GB')}</strong>.
+            <div>
+              <stencil-route-link anchorClass="c-link" url="/plan">
+                Update to Pro.
+              </stencil-route-link>
+            </div>
+          </blaze-alert>
+        </blaze-alerts>
       </nav-page>
     );
   }

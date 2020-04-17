@@ -23,19 +23,20 @@ module.exports = (store) => {
           return res.send(404);
         }
 
-        const settings = settingsSnapshot.docs[0];
+        const settings = settingsSnapshot.docs[0].data();
         if (req.query.environment) {
-          if (!settings.data().environments || !settings.data().environments.includes(req.query.environment)) {
+          if (!settings.environments || !settings.environments.includes(req.query.environment)) {
             return res.send({});
           }
         }
 
-        req.uid = settings.ref.id;
+        req.uid = settingsSnapshot.docs[0].ref.id;
 
-        const planSnapshot = await store.collection('plans').doc(req.uid).get();
+        const plansSnapshot = await store.collection('plans').doc(req.uid).get();
+        const plan = plansSnapshot.data();
 
-        let apiCalls = settings.data().apiCalls;
-        let apiMonthStart = settings.data().apiMonthStart;
+        let apiCalls = plan.apiCalls;
+        let apiMonthStart = plan.apiMonthStart;
         const monthAgo = new Date();
         monthAgo.setMonth(monthAgo.getMonth() - 1);
 
@@ -44,11 +45,11 @@ module.exports = (store) => {
           apiMonthStart = admin.firestore.FieldValue.serverTimestamp();
         }
 
-        if (planSnapshot.data().current === 'starter' && apiCalls >= 10000) {
+        if (plan.current === 'starter' && apiCalls >= 10000) {
           return res.send(403);
         }
 
-        await settings.ref.update({
+        await plansSnapshot.ref.update({
           apiCalls: (apiCalls || 0) + 1,
           apiMonthStart,
         });

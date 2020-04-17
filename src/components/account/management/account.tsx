@@ -44,9 +44,11 @@ export class Account {
   }
 
   onSettingsSnapshot: any;
+  onPlansSnapshot: any;
   firebaseUnsubscribe: any;
   componentDidUnload() {
     this.onSettingsSnapshot();
+    this.onPlansSnapshot();
     this.firebaseUnsubscribe();
   }
 
@@ -66,15 +68,16 @@ export class Account {
       this.email = user.email;
       this.loading = false;
 
-      const plansSnapshot = await store.collection('plans').doc(this.user.uid).get();
-      this.plan = plansSnapshot.data();
+      const plansRef = store.collection('plans').doc(this.user.uid);
+      this.onPlansSnapshot = plansRef.onSnapshot((plansSnapshot) => {
+        this.plan = plansSnapshot.data();
+      });
+      await plansRef.get();
 
       const settingsRef = store.collection('settings').doc(this.user.uid);
-
       this.onSettingsSnapshot = settingsRef.onSnapshot((settingsSnapshot) => {
         this.settings = settingsSnapshot.data();
       });
-
       await settingsRef.get();
     });
   }
@@ -100,7 +103,7 @@ export class Account {
   }
 
   render() {
-    const apiCalls = this.settings.apiCalls || 0;
+    const apiCalls = this.plan.apiCalls || 0;
     let usageIndicator = 'info';
     if (apiCalls > 7500) usageIndicator = 'warning';
     if (apiCalls > 8500) usageIndicator = 'error';

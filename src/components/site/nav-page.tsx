@@ -15,12 +15,12 @@ export class NavPage {
   user: any = {};
 
   @State()
-  settings: any = {};
+  plan: any = {};
 
   firebaseUnsubscribe: any;
-  onSettingsSnapshot: any;
+  onPlansSnapshot: any;
   componentDidUnload() {
-    this.onSettingsSnapshot();
+    this.onPlansSnapshot();
     this.firebaseUnsubscribe();
   }
 
@@ -31,25 +31,19 @@ export class NavPage {
 
       this.user = user;
 
-      const plansSnapshot = await store.collection('plans').doc(this.user.uid).get();
-
-      const plan = plansSnapshot.data();
-
-      const settingsRef = store.collection('settings').doc(this.user.uid);
-
-      this.onSettingsSnapshot = settingsRef.onSnapshot((settingsSnapshot) => {
-        this.settings = settingsSnapshot.data();
-        if (plan.current === 'starter' && this.settings.apiCalls > 7500) {
+      const plansRef = store.collection('plans').doc(this.user.uid);
+      this.onPlansSnapshot = plansRef.onSnapshot((plansSnapshot) => {
+        this.plan = plansSnapshot.data();
+        if (this.plan.current === 'starter' && this.plan.apiCalls > 7500) {
           this.accountWarning.show();
         }
       });
-
-      await settingsRef.get();
+      await plansRef.get();
     });
   }
 
   render() {
-    const apiCalls = this.settings.apiCalls || 0;
+    const apiCalls = this.plan.apiCalls || 0;
     let usageIndicator = 'info';
     if (apiCalls > 7500) usageIndicator = 'warning';
     if (apiCalls > 8500) usageIndicator = 'error';

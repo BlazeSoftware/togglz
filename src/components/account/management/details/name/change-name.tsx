@@ -1,5 +1,7 @@
 import { h, Component, Event, EventEmitter, State, Prop, Method } from '@stencil/core';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
+import services from '@/firebase/services';
+import { ACTIONS } from '@/firebase/profile/update';
 
 @Component({
   tag: 'account-change-name',
@@ -51,7 +53,7 @@ export class ChangeName {
 
     this.loading = true;
     try {
-      await this.user.updateProfile({ displayName: this.displayName });
+      await services.updateProfile(ACTIONS.NAME, this);
       this.onProfileChange.emit(this.user);
       this.reset();
     } catch (error) {

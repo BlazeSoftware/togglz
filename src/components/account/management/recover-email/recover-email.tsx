@@ -27,7 +27,7 @@ export class RecoverEmail {
     setTimeout(() => this.history.push('/login?url=/account'), 5000);
   }
 
-  async componentWillLoad() {
+  async componentDidLoad() {
     if (!this.history.location.query.oobCode) throw { code: 'auth/missing-action-code' };
 
     try {

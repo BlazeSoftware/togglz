@@ -1,7 +1,8 @@
 import { h, Component, Event, EventEmitter, State, Prop, Method } from '@stencil/core';
 import { RouterHistory } from '@stencil/router';
-import firebase from '@/firebase/firebase';
 import { AlertMessage, getAlertMessage } from '@/firebase/alert-messages';
+import services from '@/firebase/services';
+import { ACTIONS } from '@/firebase/profile/update';
 
 @Component({
   tag: 'account-change-email',
@@ -67,9 +68,7 @@ export class ChangeEmail {
 
     this.loading = true;
     try {
-      const credentials = firebase.auth.EmailAuthProvider.credential(this.user.email, this.password);
-      await this.user.reauthenticateAndRetrieveDataWithCredential(credentials);
-      await this.user.updateEmail(this.email);
+      await services.updateProfile(ACTIONS.EMAIL, this);
       this.history.push(`/verify?send=true&email=${this.email}`);
     } catch (error) {
       console.error(error);

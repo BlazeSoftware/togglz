@@ -55,7 +55,7 @@ export class EditEnvironment {
 
     this.loading = true;
     try {
-      await services.updateEnvironment(this.user, this.originalEnvironment, this.environment);
+      await services.updateEnvironment(this);
       this.reset();
     } catch (error) {
       console.error(error);

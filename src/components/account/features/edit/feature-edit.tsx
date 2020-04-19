@@ -105,7 +105,7 @@ export class FeatureEdit {
     e.preventDefault();
     this.loading = true;
     try {
-      await services.updateFeature(this.user, this);
+      await services.updateFeature(this);
       this.reset();
     } catch (error) {
       console.error(error);

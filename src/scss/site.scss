@@ -48,6 +48,8 @@ body {
 }
 
 .c-alert {
+  margin: var(--spacing-medium) 0;
+
   .c-link {
     color: white !important;
     text-decoration: underline !important;

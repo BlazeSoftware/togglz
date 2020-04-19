@@ -68,6 +68,20 @@ export class FeatureDelete {
             <h2 class="c-heading">Delete feature</h2>
           </blaze-card-header>
           <blaze-card-body>
+            <blaze-alert ref={(alert) => (this.alert = alert)} type={this.alertMsg.type}>
+              <div>{this.alertMsg.message}</div>
+              <div>
+                {this.alertMsg.action && (
+                  <stencil-route-link
+                    url={this.alertMsg.action.url}
+                    anchorClass="c-link"
+                    anchorRole="link"
+                    anchorTitle={this.alertMsg.action.text}>
+                    {this.alertMsg.action.text}
+                  </stencil-route-link>
+                )}
+              </div>
+            </blaze-alert>
             {this.featureSnapshot && (
               <div>
                 {this.active && <span class="u-text--highlight">This feature is active.</span>}

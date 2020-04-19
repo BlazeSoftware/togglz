@@ -1,6 +1,8 @@
 import firebase, { store } from '@/firebase/firebase';
+import services from '../services';
+import { IFeatureMultivariate } from './interfaces';
 
-export default async (user, { name, key, type, activeValue, inactiveValue, conditions }) => {
+export default async ({ user, name, key, type, activeValue, inactiveValue, conditions }) => {
   const existingFeature = await store
     .collection('features')
     .where('owner', '==', user.uid)
@@ -18,7 +20,7 @@ export default async (user, { name, key, type, activeValue, inactiveValue, condi
     });
   }
 
-  let multivariate = null;
+  let multivariate: IFeatureMultivariate = null;
   if (type === 'multivariate' && activeValue && inactiveValue) {
     multivariate = { activeValue, inactiveValue };
   }
@@ -32,5 +34,16 @@ export default async (user, { name, key, type, activeValue, inactiveValue, condi
     conditions,
     owner: user.uid,
     created: firebase.firestore.FieldValue.serverTimestamp(),
+  });
+
+  services.publishWebhook(user, {
+    action: 'feature:add',
+    feature: {
+      name,
+      key,
+      multivariate,
+      conditions,
+      active: false,
+    },
   });
 };

@@ -1,5 +1,5 @@
 import { store } from '@/firebase/firebase';
-import IWebhookPayload from '@/firebase/webhook/payload.interface';
+import { IWebhookPayload } from '@/firebase/webhook/interfaces';
 import forge from 'node-forge';
 
 export default async (user, payload: IWebhookPayload) => {
@@ -24,8 +24,6 @@ export default async (user, payload: IWebhookPayload) => {
           'X-Togglz': hashedPayload,
         },
       });
-
-
 
       if (!res.ok) throw { status: res.status, text: res.statusText };
     } catch (e) {

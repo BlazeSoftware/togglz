@@ -44,7 +44,7 @@ export class DeleteEnvironment {
 
     this.loading = true;
     try {
-      await services.deleteEnvironment(this.user, this.environment);
+      await services.deleteEnvironment(this);
       this.reset();
     } catch (error) {
       console.error(error);

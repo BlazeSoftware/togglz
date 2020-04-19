@@ -87,7 +87,7 @@ export class FeatureAdd {
     e.preventDefault();
     this.loading = true;
     try {
-      await services.addFeature(this.user, this);
+      await services.addFeature(this);
       this.reset();
     } catch (error) {
       console.error(error);

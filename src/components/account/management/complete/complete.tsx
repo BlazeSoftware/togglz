@@ -44,7 +44,7 @@ export class Complete {
         await firebase.auth().applyActionCode(this.history.location.query.oobCode);
         await this.user.reload();
 
-        await services.setupAccount(this.user);
+        await services.setupAccount(this);
         this.emailVerified();
       } catch (error) {
         console.error(error);

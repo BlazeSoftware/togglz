@@ -191,13 +191,10 @@ export class Account {
                 </div>
               </div>
               <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full">
-                <div class="o-grid__cell u-small">
+                <div class="o-grid__cell o-grid__cell--offset-25 u-small">
                   <p class="c-paragraph">
-                    When something happens in Togglz we will send your webhook URL a POST request with a payload of
+                    When something happens to your features in Togglz we will send your webhook URL a POST request with a payload of
                     information about what happened.
-                  </p>
-                  <p class="c-paragraph u-text--quiet u-text--italic">
-                    Currently only toggling a feature triggers a webhook. We're working on adding more triggers!
                   </p>
                   <p class="c-paragraph">
                     Togglz will use the secret to hash the payload and send it in the{' '}

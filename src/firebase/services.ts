@@ -4,6 +4,7 @@ import updateProfile from './profile/update';
 import addFeature from './features/add';
 import updateFeature from './features/update';
 import deleteFeature from './features/delete';
+import toggleFeature from './features/toggle';
 import addEnvironment from './environments/add';
 import updateEnvironment from './environments/update';
 import deleteEnvironment from './environments/delete';
@@ -18,6 +19,7 @@ export default {
   addFeature,
   updateFeature,
   deleteFeature,
+  toggleFeature,
   addEnvironment,
   updateEnvironment,
   deleteEnvironment,

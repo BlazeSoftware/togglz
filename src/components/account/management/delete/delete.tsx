@@ -47,7 +47,7 @@ export class DeleteAccount {
 
     this.loading = true;
     try {
-      await services.deleteAccount(this.user, this.password);
+      await services.deleteAccount(this);
       this.history.push('/');
     } catch (error) {
       console.error(error);

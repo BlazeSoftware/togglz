@@ -216,7 +216,7 @@ export class Dashboard {
           )}
           <feature-add user={this.user} ref={(addFeature) => (this.addFeaturePopup = addFeature)} />
           <feature-edit user={this.user} ref={(editFeature) => (this.editFeaturePopup = editFeature)} />
-          <feature-delete ref={(deleteFeature) => (this.deleteFeaturePopup = deleteFeature)} />
+          <feature-delete  user={this.user} ref={(deleteFeature) => (this.deleteFeaturePopup = deleteFeature)} />
         </div>
         <blaze-alerts position="bottomright">
           <blaze-alert dismissible ref={(alert) => (this.accountWarning = alert)} type={usageIndicator}>

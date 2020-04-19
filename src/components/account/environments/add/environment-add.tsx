@@ -51,7 +51,7 @@ export class AddEnvironment {
 
     this.loading = true;
     try {
-      await services.addEnvironment(this.user, this.environment);
+      await services.addEnvironment(this);
       this.reset();
     } catch (error) {
       console.error(error);

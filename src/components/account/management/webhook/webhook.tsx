@@ -13,10 +13,10 @@ export class Webhook {
   user: any = {};
 
   @State()
-  url: string;
+  webhookUrl: string;
 
   @State()
-  secret: string;
+  webhookSecret: string;
 
   @State()
   loading: boolean;
@@ -26,8 +26,8 @@ export class Webhook {
 
   @Method()
   async show(settings) {
-    this.url = settings.webhookUrl;
-    this.secret = settings.webhookSecret;
+    this.webhookUrl = settings.webhookUrl;
+    this.webhookSecret = settings.webhookSecret;
     this.panel.show();
   }
 
@@ -38,18 +38,18 @@ export class Webhook {
 
   @Method()
   async reset() {
-    this.url = null;
-    this.secret = null;
+    this.webhookUrl = null;
+    this.webhookSecret = null;
     this.panel.close();
     this.loading = false;
   }
 
   handleUrlChange(e) {
-    this.url = e.target.value;
+    this.webhookUrl = e.target.value;
   }
 
   handleSecretChange(e) {
-    this.secret = e.target.value;
+    this.webhookSecret = e.target.value;
   }
 
   async save(e) {
@@ -57,7 +57,7 @@ export class Webhook {
 
     this.loading = true;
     try {
-      await services.updateWebhook(this.user, this.url, this.secret);
+      await services.updateWebhook(this);
       this.reset();
     } catch (error) {
       console.error(error);
@@ -101,7 +101,7 @@ export class Webhook {
                     <i aria-hidden={true} class="fa-fw fas fa-globe c-icon" />
                     <input
                       type="url"
-                      value={this.url}
+                      value={this.webhookUrl}
                       class="c-field"
                       disabled={this.loading}
                       onInput={(e) => this.handleUrlChange(e)}
@@ -116,7 +116,7 @@ export class Webhook {
                     <i aria-hidden={true} class="fa-fw fas fa-mask c-icon" />
                     <input
                       type="text"
-                      value={this.secret}
+                      value={this.webhookSecret}
                       class="c-field"
                       disabled={this.loading}
                       onInput={(e) => this.handleSecretChange(e)}

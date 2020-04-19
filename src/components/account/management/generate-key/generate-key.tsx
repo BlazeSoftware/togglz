@@ -39,7 +39,7 @@ export class GenerateKey {
 
     this.loading = true;
     try {
-      await services.generateKey(this.user);
+      await services.generateKey(this);
       this.reset();
     } catch (error) {
       console.error(error);

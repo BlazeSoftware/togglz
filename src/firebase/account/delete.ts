@@ -1,6 +1,6 @@
 import firebase, { store } from '@/firebase/firebase';
 
-export default async (user, password) => {
+export default async ({ user, password }) => {
   const credentials = firebase.auth.EmailAuthProvider.credential(user.email, password);
   await user.reauthenticateAndRetrieveDataWithCredential(credentials);
 

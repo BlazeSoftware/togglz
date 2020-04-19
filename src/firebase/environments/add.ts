@@ -1,6 +1,6 @@
 import firebase, { store } from '@/firebase/firebase';
 
-export default async (user, environment) => {
+export default async ({ user, environment }) => {
   const settingsRef = await store.collection('settings').doc(user.uid);
   const settingsSnapshot = await settingsRef.get();
   const settings = settingsSnapshot.data();

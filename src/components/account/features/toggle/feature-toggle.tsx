@@ -35,31 +35,9 @@ export class FeatureToggle {
 
   async toggleFeature(active: boolean) {
     this.status = 'loading';
-    const feature = this.featureSnapshot.data();
 
     try {
-      if (this.selectedEnvironment) {
-        const environments = { ...feature.environments };
-        environments[this.selectedEnvironment] = active;
-        await this.featureSnapshot.ref.update({
-          environments,
-        });
-      } else {
-        await this.featureSnapshot.ref.update({
-          active,
-        });
-      }
-
-      services.publishWebhook(this.user, {
-        action: 'feature:toggle',
-        environment: this.selectedEnvironment || 'default',
-        feature: {
-          name: feature.name,
-          key: feature.key,
-          active,
-        },
-      });
-
+      await services.toggleFeature(this, active);
       this.active = active;
       this.status = 'loaded';
     } catch (e) {

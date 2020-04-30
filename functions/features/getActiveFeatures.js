@@ -28,6 +28,20 @@ const applyConditions = (feature, payload) => {
   return true;
 };
 
+const applyPrerequisite = (features, feature, environment, req) => {
+  let prerequisite = features.filter((f) => f.data().key === feature.prerequisite)[0];
+
+  if (prerequisite) {
+    prerequisite = prerequisite.data();
+    let active = environment ? prerequisite.environments[environment] : prerequisite.active;
+
+    if (prerequisite.prerequisite && active) active = applyPrerequisite(features, prerequisite, environment, req);
+    if (active) return applyConditions(prerequisite, req.body);
+  }
+
+  return false;
+};
+
 module.exports = async (store, req) => {
   const environment = req.query.environment;
 
@@ -36,7 +50,11 @@ module.exports = async (store, req) => {
   return featuresSnapshot.docs.reduce((activeFeatures, f) => {
     const feature = f.data();
     let active = environment ? feature.environments[environment] : feature.active;
+
+    if (feature.prerequisite && active) active = applyPrerequisite(featuresSnapshot.docs, feature, environment, req);
+
     if (active) active = applyConditions(feature, req.body);
+
     if (feature.multivariate) {
       activeFeatures[feature.key] = active ? feature.multivariate.activeValue : feature.multivariate.inactiveValue;
     } else if (active) {

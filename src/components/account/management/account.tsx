@@ -32,9 +32,6 @@ export class Account {
   settings: any = {};
 
   @State()
-  showWebhooks: boolean;
-
-  @State()
   loading: boolean = true;
 
   @Listen('profileChange')
@@ -53,14 +50,6 @@ export class Account {
   }
 
   componentWillLoad() {
-    fetch('https://www.togglz.com/features/8bjlqwqpxlg8nmvfz6av')
-      .then((res) => res.json())
-      .then((features) => {
-        if (features.webhooks) {
-          this.showWebhooks = true;
-        }
-      });
-
     this.firebaseUnsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       if (!user) return this.history.push('/login');
       this.user = user;
@@ -167,45 +156,43 @@ export class Account {
           </blaze-card-body>
         </blaze-card>
 
-        {this.showWebhooks && (
-          <blaze-card>
-            <blaze-card-header>
-              <h3 class="c-heading">Webhook:</h3>
-            </blaze-card-header>
-            <blaze-card-body>
-              <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full o-info-item">
-                <label class="o-grid__cell o-grid__cell--width-25 u-text--quiet">URL:</label>
-                <span class="o-grid__cell">{this.settings.webhookUrl}</span>
+        <blaze-card>
+          <blaze-card-header>
+            <h3 class="c-heading">Webhook:</h3>
+          </blaze-card-header>
+          <blaze-card-body>
+            <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full o-info-item">
+              <label class="o-grid__cell o-grid__cell--width-25 u-text--quiet">URL:</label>
+              <span class="o-grid__cell">{this.settings.webhookUrl}</span>
+            </div>
+            <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full o-info-item">
+              <label class="o-grid__cell o-grid__cell--width-25 u-text--quiet">Secret:</label>
+              <span class="o-grid__cell o-grid__cell--width-75">
+                {this.settings.webhookSecret && <code class="u-code u-large">{this.settings.webhookSecret}</code>}
+              </span>
+            </div>
+            <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full">
+              <div class="o-grid__cell o-grid__cell--offset-25">
+                <a role="button" class="c-link" onClick={() => this.webhookPopup.show(this.settings)}>
+                  edit webhook
+                </a>
               </div>
-              <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full o-info-item">
-                <label class="o-grid__cell o-grid__cell--width-25 u-text--quiet">Secret:</label>
-                <span class="o-grid__cell o-grid__cell--width-75">
-                  {this.settings.webhookSecret && <code class="u-code u-large">{this.settings.webhookSecret}</code>}
-                </span>
+            </div>
+            <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full">
+              <div class="o-grid__cell o-grid__cell--offset-25 u-small">
+                <p class="c-paragraph">
+                  When something happens to your features in Togglz we will send your webhook URL a POST request with a
+                  payload of information about what happened.
+                </p>
+                <p class="c-paragraph">
+                  Togglz will use the secret to hash the payload and send it in the <code class="u-code">X-Togglz</code>{' '}
+                  header. To ensure the message came from Togglz you should hash the payload with this secret and
+                  compare the result with the header value to ensure it's validity.
+                </p>
               </div>
-              <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full">
-                <div class="o-grid__cell o-grid__cell--offset-25">
-                  <a role="button" class="c-link" onClick={() => this.webhookPopup.show(this.settings)}>
-                    edit webhook
-                  </a>
-                </div>
-              </div>
-              <div class="o-grid o-grid--top o-grid--xsmall-full o-grid--small-full">
-                <div class="o-grid__cell o-grid__cell--offset-25 u-small">
-                  <p class="c-paragraph">
-                    When something happens to your features in Togglz we will send your webhook URL a POST request with a payload of
-                    information about what happened.
-                  </p>
-                  <p class="c-paragraph">
-                    Togglz will use the secret to hash the payload and send it in the{' '}
-                    <code class="u-code">X-Togglz</code> header. To ensure the message came from Togglz you should hash
-                    the payload with this secret and compare the result with the header value to ensure it's validity.
-                  </p>
-                </div>
-              </div>
-            </blaze-card-body>
-          </blaze-card>
-        )}
+            </div>
+          </blaze-card-body>
+        </blaze-card>
 
         <blaze-card>
           <blaze-card-header>

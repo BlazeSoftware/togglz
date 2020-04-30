@@ -28,14 +28,21 @@ const applyConditions = (feature, payload) => {
   return true;
 };
 
+let prerequisites = [];
+
 const applyPrerequisite = (features, feature, environment, req) => {
   let prerequisite = features.filter((f) => f.data().key === feature.prerequisite)[0];
 
   if (prerequisite) {
     prerequisite = prerequisite.data();
+    prerequisites.push(prerequisite.key);
+
     let active = environment ? prerequisite.environments[environment] : prerequisite.active;
 
-    if (prerequisite.prerequisite && active) active = applyPrerequisite(features, prerequisite, environment, req);
+    if (active && prerequisite.prerequisite && !prerequisites.includes(prerequisite.prerequisite)) {
+      active = applyPrerequisite(features, prerequisite, environment, req);
+    }
+
     if (active) return applyConditions(prerequisite, req.body);
   }
 
@@ -48,6 +55,7 @@ module.exports = async (store, req) => {
   const featuresSnapshot = await store.collection('features').where('owner', '==', req.uid).get();
 
   return featuresSnapshot.docs.reduce((activeFeatures, f) => {
+    prerequisites = [];
     const feature = f.data();
     let active = environment ? feature.environments[environment] : feature.active;
 
@@ -60,6 +68,7 @@ module.exports = async (store, req) => {
     } else if (active) {
       activeFeatures[feature.key] = true;
     }
+
     return activeFeatures;
   }, {});
 };

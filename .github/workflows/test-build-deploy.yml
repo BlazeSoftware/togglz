@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@master
 
       - name: Install
-        run: npm ci
+        run: cd functions && npm ci && cd .. && npm ci
 
       - name: Test
         run: npm test
@@ -27,7 +27,7 @@ jobs:
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting
+          args: deploy
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           PROJECT_ID: "default"

@@ -39,7 +39,7 @@
     "husky": "^4.2.5",
     "jest": "24.9.0",
     "jest-cli": "24.9.0",
-    "node-forge": "^0.9.1",
+    "node-forge": "^0.10.0",
     "postcss": "^7.0.27",
     "prettier": "^2.0.4",
     "puppeteer": "2.1.1",
